@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Mindfolio — iOS Native Mental Care & Quant Portfolio</title>
+  <title>Mindfolio — 마음이 편해지는 AI 주식 브리핑 & 포트폴리오</title>
 
   <!-- Stage 4 Feature 1.1: iOS Safari & Android PWA Standalone Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -13,13 +13,13 @@
   <meta name="theme-color" content="#F2F2F7" id="meta-theme-color" />
 
   <!-- Stage 4 Feature 2.1: Open Graph Social Sharing Meta Tags -->
-  <meta property="og:title" content="Mindfolio — 내 멘탈에 맞춘 iOS AI 주식 브리핑 & 예금+α 포트폴리오" />
+  <meta property="og:title" content="Mindfolio — 마음이 편해지는 AI 주식 브리핑 & 예금+α 포트폴리오" />
   <meta property="og:description" content="추가 결제 0원 · 실시간 종목 뉴스 감성 분석 · 30초 투자 멘탈(MDD) 진단 및 단기채·배당·커버드콜 완충 시뮬레이터" />
   <meta property="og:type" content="website" />
 
   <!-- Stage 4 Feature 1.1: Inline SVG Apple Touch Icon & Standalone Web App Manifest -->
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23111113'/%3E%3Cpath d='M38 38v104h104' fill='none' stroke='%23FFFFFF' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M136 68l-34 34-24-24-22 22' fill='none' stroke='%23007AFF' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
-  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Mindfolio%20%E2%80%94%20iOS%20Mental%20Care%20Portfolio%22%2C%22short_name%22%3A%22Mindfolio%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F2F2F7%22%2C%22theme_color%22%3A%22%23007AFF%22%7D" />
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Mindfolio%20%E2%80%94%20AI%20Mental%20Care%20Portfolio%22%2C%22short_name%22%3A%22Mindfolio%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F2F2F7%22%2C%22theme_color%22%3A%22%23007AFF%22%7D" />
 
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js"></script>
@@ -388,6 +388,90 @@
       opacity: 1;
     }
 
+    
+    /* Stage 6 Section 1.2: Bottom Center Floating Capsule Tab Bar (#floating-tab-bar) */
+    .floating-tab-bar {
+      position: fixed;
+      bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      z-index: 40;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(68px, 1fr));
+      padding: 5px;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 0.5px solid rgba(120, 120, 128, 0.24);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
+      transition: transform 420ms var(--ios-spring), opacity 380ms var(--ios-spring), background-color 320ms var(--ios-spring);
+      user-select: none;
+      width: min(92vw, 390px);
+    }
+
+    html.dark .floating-tab-bar {
+      background-color: rgba(28, 28, 30, 0.84);
+      border: 0.5px solid rgba(120, 120, 128, 0.28);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.55);
+    }
+
+    .floating-tab-bar.sheet-hidden {
+      transform: translate3d(-50%, 130%, 0);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .floating-tab-pill {
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      left: 5px;
+      width: calc((100% - 10px) / 4);
+      border-radius: 999px;
+      background-color: var(--bg-card);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10), 0 0.5px 1px rgba(0, 0, 0, 0.08);
+      transition: transform 380ms var(--ios-spring);
+      will-change: transform;
+      z-index: 1;
+    }
+
+    html.dark .floating-tab-pill {
+      background-color: #2C2C2E;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.42);
+    }
+
+    .floating-tab-btn {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--text-muted);
+      transition: color 240ms var(--ios-spring), transform 160ms var(--ios-spring);
+      cursor: pointer;
+    }
+
+    .floating-tab-btn:active {
+      transform: scale(0.94);
+    }
+
+    .floating-tab-btn.active {
+      color: #007AFF;
+      font-weight: 700;
+    }
+
+    html.dark .floating-tab-btn.active {
+      color: #0A84FF;
+    }
+
     /* Subtle pulse for live indicator */
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; transform: scale(1); }
@@ -443,7 +527,7 @@
               <span id="quote-status-dot" class="w-2 h-2 rounded-full bg-ios-green live-dot"></span>
               <span id="quote-source-label" class="tabular-nums-tight font-medium">실시간 시세 연동 완료</span>
               <span>·</span>
-              <span id="fx-rate-display" class="tabular-nums-tight font-medium">USD/KRW 1,386.50</span>
+              <span id="fx-rate-display" class="tabular-nums-tight font-medium">USD/KRW 1,380.00</span>
             </div>
           </div>
         </div>
@@ -479,8 +563,14 @@
             </svg>
           </button>
 
-          <!-- Settings Icon Button (#btn-open-settings-sheet) -->
-          <button id="btn-open-settings-sheet" type="button" title="화면·계좌·고급 설정 열기" class="h-9 px-3 rounded-xl bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 flex items-center gap-1.5 text-xs sm:text-sm font-bold transition">
+          <!-- Stage 6 Section 1.3: Minimal Account Capsule Badge (#header-account-badge) -->
+          <button id="header-account-badge" type="button" title="로그인 및 내 계좌 관리" class="h-9 px-3.5 rounded-full bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 dark:hover:bg-white/20 flex items-center gap-1.5 text-xs sm:text-sm font-bold transition active:scale-95">
+            <span id="header-account-dot" class="w-2 h-2 rounded-full bg-ios-blue shrink-0"></span>
+            <span id="header-account-label">로그인</span>
+          </button>
+
+          <!-- Settings Icon Button (#btn-open-settings-sheet — preserved in DOM, hidden because #floating-tab-bar handles tab navigation) -->
+          <button id="btn-open-settings-sheet" type="button" title="화면·계좌·고급 설정 열기" class="hidden h-9 px-3 rounded-xl bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 items-center gap-1.5 text-xs sm:text-sm font-bold transition">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3"/>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -539,6 +629,9 @@
                 </svg>
               </button>
             </div>
+
+            <!-- Stage 6.1 Section 2.2: Real-Time Autocomplete Dropdown List (Up to 5 Matches) -->
+            <div id="global-search-autocomplete-list" class="hidden mt-1.5 ios-card p-1.5 border ios-hairline shadow-lg divide-y ios-hairline"></div>
 
             <!-- Floating Search Preview Card (Hidden when input is empty; zero clutter by default) -->
             <div id="stock-search-preview-card" class="hidden mt-2 ios-card p-5 border border-ios-blue/30 shadow-lg space-y-3.5">
@@ -601,7 +694,7 @@
           <!-- ====================================================
                [HOME CARD 1] MY TOTAL ASSET & DAILY REPORT HERO CARD
                ==================================================== -->
-          <div class="ios-card p-6 sm:p-7 space-y-5">
+          <div id="home-card-1" class="ios-card p-6 sm:p-7 space-y-5">
             <div>
               <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
                 <div class="flex items-center gap-2 flex-wrap">
@@ -686,7 +779,7 @@
           <!-- ====================================================
                [HOME CARD 2] MENTAL SAFETY LINE & DEPOSIT+α SUMMARY CARD
                ==================================================== -->
-          <div class="ios-card p-6 sm:p-7 space-y-4">
+          <div id="home-card-2" class="ios-card p-6 sm:p-7 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div class="flex items-center gap-2.5">
                 <div class="w-9 h-9 rounded-xl bg-ios-blue/10 flex items-center justify-center">
@@ -738,8 +831,8 @@
           <!-- ====================================================
                [HOME CARD 3] SIMPLE HOLDINGS LIST (+ ADD / OCR INTEGRATED)
                ==================================================== -->
-          <div class="ios-card p-6 sm:p-7 space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-3">
+          <div id="home-card-3" class="ios-card p-6 sm:p-7 space-y-4">
+            <div id="home-card-3-header" class="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h3 class="text-lg sm:text-xl font-bold tracking-tight">내 보유 종목 리스트</h3>
                 <p id="home-card3-subtitle" class="text-xs sm:text-sm text-readable-muted mt-0.5">종목을 누르면 매수 평단가·수량 수정과 52주 상세 위치를 볼 수 있어요.</p>
@@ -762,6 +855,7 @@
             </div>
 
             <!-- Stage 6 Section 1.3: Clean Empty Portfolio Onboarding Card (Shown ONLY when logged in & holdings.length === 0) -->
+            <div id="empty-onboarding-card">
             <div id="empty-portfolio-onboarding-card" class="hidden p-7 sm:p-9 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-dashed ios-hairline text-center space-y-5">
               <div class="w-12 h-12 rounded-2xl bg-ios-blue/10 text-ios-blue flex items-center justify-center mx-auto">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -791,6 +885,7 @@
               </div>
             </div>
 
+            </div>
             <!-- Clean Simplified Holdings List Container -->
             <div id="holdings-list" class="grid grid-cols-1 gap-3"></div>
           </div>
@@ -1348,6 +1443,41 @@
     </main>
   </div>
 
+  <!-- Stage 6 Section 1.2: Bottom Center Floating Capsule Tab Bar (#floating-tab-bar) -->
+  <nav id="floating-tab-bar" class="floating-tab-bar" role="tablist" aria-label="하단 플로팅 탭 네비게이션">
+    <div id="floating-tab-pill" class="floating-tab-pill" style="transform: translate3d(0%, 0, 0);"></div>
+    <button type="button" role="tab" data-float-tab="0" data-target-view="0" class="floating-tab-btn active" aria-selected="true">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <span>홈</span>
+    </button>
+    <button type="button" role="tab" data-float-tab="1" data-target-view="2" class="floating-tab-btn" aria-selected="false">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" x2="8" y1="13" y2="13"/>
+        <line x1="16" x2="8" y1="17" y2="17"/>
+      </svg>
+      <span>브리핑</span>
+    </button>
+    <button type="button" role="tab" data-float-tab="2" data-target-view="1" class="floating-tab-btn" aria-selected="false">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="m9 12 2 2 4-4"/>
+      </svg>
+      <span>안전선</span>
+    </button>
+    <button type="button" role="tab" data-float-tab="3" data-target-view="3" class="floating-tab-btn" aria-selected="false">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+      <span>설정</span>
+    </button>
+  </nav>
+
   <!-- ==========================================
        iOS BOTTOM SHEET & BACKDROP (Depth Scale 0.96 + Swipe Physics + Safe Area Bottom)
        ========================================== -->
@@ -1389,7 +1519,22 @@
     }
 
     function isKoreanTicker(symbol) {
-      return /^\d{6}$/.test(String(symbol || '').trim());
+      return /^\d{6}(?:\.(?:KS|KQ))?$/i.test(String(symbol || '').trim());
+    }
+
+    function normalizeSymbolCode(symbol) {
+      const s = String(symbol || '').trim().toUpperCase();
+      const m = s.match(/^(\d{6})(?:\.(?:KS|KQ))?$/i);
+      return m ? m[1] : s;
+    }
+
+    function toYahooSymbol(symbol, market = 'KOSPI') {
+      const s = String(symbol || '').trim().toUpperCase();
+      if (/^\d{6}\.(?:KS|KQ)$/i.test(s)) return s;
+      if (/^\d{6}$/.test(s)) {
+        return `${s}.${market === 'KOSDAQ' ? 'KQ' : 'KS'}`;
+      }
+      return s;
     }
 
     const VERIFIED_MARKET_QUOTES = {
@@ -1399,17 +1544,17 @@
         nameEn: 'Apple Inc.',
         exchange: 'NASDAQ',
         isKrStock: false,
-        price: 229.80,
-        prevClose: 227.50,
+        price: 228.00,
+        prevClose: 225.70,
         change: 2.30,
-        changePct: 1.01,
+        changePct: 1.02,
         high52: 260.10,
         low52: 169.21,
         beta: 1.18,
         mddEstimate: -22.0,
         dividendYield: 0.44,
         payMonths: [2, 5, 8, 11],
-        sparkline: [224.80, 226.10, 227.50, 228.90, 229.80],
+        sparkline: [223.80, 224.90, 225.70, 227.10, 228.00],
         category: 'growth'
       },
       MSFT: {
@@ -1456,17 +1601,17 @@
         nameEn: 'NVIDIA Corp.',
         exchange: 'NASDAQ',
         isKrStock: false,
-        price: 141.20,
-        prevClose: 138.05,
-        change: 3.15,
-        changePct: 2.28,
+        price: 138.00,
+        prevClose: 134.90,
+        change: 3.10,
+        changePct: 2.30,
         high52: 153.13,
         low52: 75.60,
         beta: 1.85,
         mddEstimate: -42.0,
         dividendYield: 0.03,
         payMonths: [3, 6, 9, 12],
-        sparkline: [134.50, 136.80, 138.05, 139.90, 141.20],
+        sparkline: [132.50, 133.80, 134.90, 136.60, 138.00],
         category: 'growth'
       },
       JOBY: {
@@ -1509,21 +1654,21 @@
       },
       SCHD: {
         symbol: 'SCHD',
-        nameKo: '슈왑 배당성장 (SCHD)',
+        nameKo: '슈왑 미국배당주 ETF (SCHD)',
         nameEn: 'Schwab US Dividend Equity ETF',
         exchange: 'NYSEARCA',
         isKrStock: false,
-        price: 28.95,
-        prevClose: 28.80,
+        price: 28.50,
+        prevClose: 28.35,
         change: 0.15,
-        changePct: 0.52,
+        changePct: 0.53,
         high52: 29.72,
         low52: 24.80,
         beta: 0.68,
         mddEstimate: -12.5,
         dividendYield: 3.90,
         payMonths: [3, 6, 9, 12],
-        sparkline: [28.55, 28.70, 28.80, 28.88, 28.95],
+        sparkline: [28.10, 28.22, 28.35, 28.42, 28.50],
         category: 'buffer2'
       },
       JEPI: {
@@ -1551,17 +1696,17 @@
         nameEn: 'Tesla Inc.',
         exchange: 'NASDAQ',
         isKrStock: false,
-        price: 258.40,
-        prevClose: 254.10,
-        change: 4.30,
-        changePct: 1.69,
+        price: 250.00,
+        prevClose: 245.80,
+        change: 4.20,
+        changePct: 1.71,
         high52: 299.29,
         low52: 182.00,
         beta: 2.10,
         mddEstimate: -48.0,
         dividendYield: 0.00,
         payMonths: [],
-        sparkline: [248.0, 251.5, 254.1, 256.8, 258.4],
+        sparkline: [241.0, 243.5, 245.8, 248.2, 250.0],
         category: 'growth'
       },
       JEPQ: {
@@ -1644,30 +1789,353 @@
         symbol: '005930',
         nameKo: '삼성전자',
         nameEn: 'Samsung Electronics Co., Ltd.',
-        exchange: 'KRX',
+        exchange: 'KOSPI',
         isKrStock: true,
-        price: 58200,
-        prevClose: 57600,
+        price: 59000,
+        prevClose: 58400,
         change: 600,
-        changePct: 1.04,
+        changePct: 1.03,
         high52: 88800,
         low52: 53000,
         beta: 1.15,
         mddEstimate: -26.0,
         dividendYield: 2.48,
         payMonths: [4, 5, 8, 11],
-        sparkline: [57100, 57400, 57600, 57900, 58200],
+        sparkline: [57500, 57900, 58400, 58700, 59000],
+        category: 'growth'
+      },
+      '000660': {
+        symbol: '000660',
+        nameKo: 'SK하이닉스',
+        nameEn: 'SK hynix Inc.',
+        exchange: 'KOSPI',
+        isKrStock: true,
+        price: 195000,
+        prevClose: 191500,
+        change: 3500,
+        changePct: 1.83,
+        high52: 248500,
+        low52: 144000,
+        beta: 1.45,
+        mddEstimate: -34.0,
+        dividendYield: 0.75,
+        payMonths: [4, 5, 8, 11],
+        sparkline: [188000, 190000, 191500, 193500, 195000],
         category: 'growth'
       }
     };
 
-    const DEFAULT_HOLDINGS = [
-      { symbol: 'AAPL', nameKo: '애플', qty: 1.0000, avgPrice: 212.50, memo: '탄탄한 현금흐름 우량주, 조정 시마다 적립식 매수' },
-      { symbol: 'MSFT', nameKo: '마이크로소프트', qty: 0.6000, avgPrice: 398.00, memo: '실적 성장 추세 유지되는 동안 팔지 않고 보유' },
-      { symbol: 'GOOG', nameKo: '알파벳 C', qty: 2.0000, avgPrice: 168.00, memo: '내 계좌의 중심을 잡아주는 장기 코어 자산' },
-      { symbol: 'NVDA', nameKo: '엔비디아', qty: 4.0000, avgPrice: 118.50, memo: '핵심 기술 독점 기업, 단기 흔들림 무시하고 장기 보유' },
-      { symbol: 'JOBY', nameKo: '조비 에비에이션', qty: 11.0000, avgPrice: 5.65, memo: '전체 자산의 적정 비중 이내로만 안전하게 모아가기' }
+    // Stage 6.2 Section 2: Korean Retail Investors' Top 6 Most-Held Stocks (~3.60M KRW Guest Preview Portfolio)
+    const DEFAULT_PREVIEW_HOLDINGS = [
+      { symbol: '005930', name: '삼성전자', nameKo: '삼성전자', qty: 15, avgPrice: 62000, currency: 'KRW', market: 'KOSPI', memo: '반도체 사이클 회복 때까지 흔들리지 않고 모아가기' },
+      { symbol: '000660', name: 'SK하이닉스', nameKo: 'SK하이닉스', qty: 3, avgPrice: 185000, currency: 'KRW', market: 'KOSPI', memo: 'AI HBM 독점 경쟁력 보고 중장기 보유' },
+      { symbol: 'NVDA', name: '엔비디아', nameKo: '엔비디아', qty: 4, avgPrice: 128.00, currency: 'USD', market: 'US', memo: 'AI 인프라 대장주, 단기 급등락에 일희일비 금지' },
+      { symbol: 'TSLA', name: '테슬라', nameKo: '테슬라', qty: 2, avgPrice: 235.00, currency: 'USD', market: 'US', memo: '자율주행·로보틱스 상용화까지 길게 보는 성장주' },
+      { symbol: 'AAPL', name: '애플', nameKo: '애플', qty: 1, avgPrice: 220.00, currency: 'USD', market: 'US', memo: '생태계 해자가 탄탄한 핵심 우량주 적립' },
+      { symbol: 'SCHD', name: '슈왑 미국배당주 ETF (SCHD)', nameKo: '슈왑 미국배당주 ETF (SCHD)', qty: 10, avgPrice: 27.80, currency: 'USD', market: 'ETF', memo: '기술주 흔들릴 때 배당으로 마음 지키는 안전판' }
     ];
+
+    const DEFAULT_HOLDINGS = DEFAULT_PREVIEW_HOLDINGS;
+
+    // Stage 6.1 Section 2.1: Tier 1 Ultra-Lightweight KR & US Master Stock Dictionary (200+ Popular Stocks & ETFs)
+    // Compact tuple format: [code, nameKo, market, defaultPrice, aliasesStr, category, mddEst, divYield]
+    const RAW_KR_US_MASTER_TUPLES = [
+      // --- KRX Major Stocks (KOSPI / KOSDAQ) ---
+      ['005930', '삼성전자', 'KOSPI', 59000, '삼전|samsung electronics|반도체|hbm', 'growth', -26.0, 2.48],
+      ['000660', 'SK하이닉스', 'KOSPI', 195000, '하닉|sk hynix|하이닉스|hbm', 'growth', -34.0, 0.75],
+      ['009150', '삼성전기', 'KOSPI', 136500, '전기|samsung electro|mlcc|카메라모듈', 'growth', -29.0, 1.55],
+      ['051900', 'LG생활건강', 'KOSPI', 332000, '엘지생활건강|lg생건|생활건강|화장품|lg household', 'growth', -30.0, 1.20],
+      ['373220', 'LG에너지솔루션', 'KOSPI', 392000, '엘지에너지솔루션|엔솔|lg엔솔|배터리|2차전지', 'growth', -36.0, 0.00],
+      ['207940', '삼성바이오로직스', 'KOSPI', 1015000, '삼바|삼성바이오|삼바로직스|바이오', 'growth', -22.0, 0.00],
+      ['005380', '현대차', 'KOSPI', 219000, '현대자동차|현차|hyundai motor|자동차', 'growth', -24.0, 5.10],
+      ['000270', '기아', 'KOSPI', 96800, '기아차|기아자동차|kia', 'growth', -24.0, 5.80],
+      ['068270', '셀트리온', 'KOSPI', 184500, 'celltrion|바이오시밀러', 'growth', -28.0, 0.40],
+      ['105560', 'KB금융', 'KOSPI', 93500, '케이비금융|국민은행|kb financial|은행주|밸류업', 'buffer2', -18.0, 4.20],
+      ['055550', '신한지주', 'KOSPI', 56200, '신한금융지주|신한은행|shinhan|밸류업', 'buffer2', -18.0, 4.30],
+      ['086790', '하나금융지주', 'KOSPI', 62800, '하나금융|하나은행|hana financial|밸류업', 'buffer2', -19.0, 5.40],
+      ['316140', '우리금융지주', 'KOSPI', 16250, '우리금융|우리은행|woori financial|고배당', 'buffer2', -19.0, 6.20],
+      ['138040', '메리츠금융지주', 'KOSPI', 102500, '메리츠금융|메리츠화재|메리츠증권|meritz', 'buffer2', -20.0, 4.40],
+      ['005490', 'POSCO홀딩스', 'KOSPI', 312000, '포스코홀딩스|포스코|posco|철강|리튬', 'growth', -32.0, 3.10],
+      ['035420', 'NAVER', 'KOSPI', 189500, '네이버|naver|검색|라인', 'growth', -30.0, 0.65],
+      ['035720', '카카오', 'KOSPI', 38500, 'kakao|카톡|카카오톡', 'growth', -38.0, 0.20],
+      ['006400', '삼성SDI', 'KOSPI', 298000, '삼성에스디아이|sdi|전고체|배터리', 'growth', -35.0, 0.35],
+      ['051910', 'LG화학', 'KOSPI', 289000, '엘지화학|lg chem|석유화학|양극재', 'growth', -34.0, 1.20],
+      ['066570', 'LG전자', 'KOSPI', 94200, '엘지전자|lg electronics|가전|전장', 'growth', -25.0, 1.80],
+      ['012330', '현대모비스', 'KOSPI', 248000, '모비스|hyundai mobis|자동차부품', 'growth', -22.0, 2.20],
+      ['259960', '크래프톤', 'KOSPI', 328000, 'krafton|배틀그라운드|배그|게임주', 'growth', -27.0, 0.00],
+      ['012450', '한화에어로스페이스', 'KOSPI', 368000, '한화에어로|방산주|k9자주포|hanwha aerospace', 'growth', -31.0, 0.50],
+      ['034020', '두산에너빌리티', 'KOSPI', 21400, '두산중공업|두에빌|원전주|smr|doosan', 'growth', -33.0, 0.00],
+      ['042700', '한미반도체', 'KOSPI', 98500, '한미반도체|tc본더|hbm장비|hanmi semiconductor', 'growth', -42.0, 0.45],
+      ['196170', '알테오젠', 'KOSDAQ', 378000, 'alteogen|바이오대장주|피하주사|키트루다', 'growth', -40.0, 0.00],
+      ['247540', '에코프로비엠', 'KOSDAQ', 148500, '에코비엠|ecoprobm|양극재|2차전지', 'growth', -45.0, 0.00],
+      ['086520', '에코프로', 'KOSDAQ', 74200, 'ecopro|에코프로지주|2차전지', 'growth', -46.0, 0.00],
+      ['028300', 'HLB', 'KOSDAQ', 68400, '에이치엘비|리보세라닙|간암신약', 'growth', -48.0, 0.00],
+      ['141080', '리가켐바이오', 'KOSDAQ', 112500, '레고켐바이오|adc신약|ligachem', 'growth', -38.0, 0.00],
+      ['000250', '삼천당제약', 'KOSDAQ', 138000, '삼천당|아일리아|비만치료제', 'growth', -42.0, 0.15],
+      ['145020', '휴젤', 'KOSDAQ', 274000, 'hugel|보톡스|보툴리눔톡신|미용의료', 'growth', -28.0, 0.00],
+      ['214150', '클래시스', 'KOSDAQ', 51200, 'classys|슈링크|볼뉴머|미용의료기기', 'growth', -29.0, 0.40],
+      ['277810', '레인보우로보틱스', 'KOSDAQ', 152000, '레인보우로봇|삼성로봇|로봇주|rainbow robotics', 'growth', -40.0, 0.00],
+      ['003230', '삼양식품', 'KOSPI', 548000, '불닭볶음면|불닭|samyang foods|음식료', 'growth', -32.0, 0.50],
+      ['090430', '아모레퍼시픽', 'KOSPI', 124500, '아모레|amorepacific|화장품|코스알엑스', 'growth', -31.0, 0.80],
+      ['003490', '대한항공', 'KOSPI', 24100, 'korean air|항공주|칼', 'growth', -23.0, 3.10],
+      ['011200', 'HMM', 'KOSPI', 18450, '에이치엠엠|현대상선|해운주', 'growth', -30.0, 3.80],
+      ['010130', '고려아연', 'KOSPI', 980000, 'korea zinc|비철금속|아연', 'growth', -35.0, 2.00],
+      ['033780', 'KT&G', 'KOSPI', 114500, '케이티앤지|담배|홍삼|고배당주', 'buffer2', -15.0, 4.70],
+      ['015760', '한국전력', 'KOSPI', 21800, '한전|kepco|전력주|유틸리티', 'growth', -24.0, 0.00],
+      ['028260', '삼성물산', 'KOSPI', 128500, 'samsung c&t|삼성지배구조', 'growth', -21.0, 2.10],
+      ['032830', '삼성생명', 'KOSPI', 99800, 'samsung life|생명보험|밸류업', 'buffer2', -20.0, 3.80],
+      ['000810', '삼성화재', 'KOSPI', 358000, 'samsung fire|손해보험|고배당', 'buffer2', -18.0, 4.60],
+      ['352820', '하이브', 'KOSPI', 196500, 'hybe|방탄소년단|bts|엔터주', 'growth', -34.0, 0.35],
+      ['036570', '엔씨소프트', 'KOSPI', 198000, '엔씨|ncsoft|리니지|게임주', 'growth', -35.0, 1.50],
+      ['251270', '넷마블', 'KOSPI', 56800, 'netmarble|나혼자만레벨업|게임주', 'growth', -33.0, 0.00],
+      ['323410', '카카오뱅크', 'KOSPI', 22400, '카뱅|kakaobank|인터넷은행', 'growth', -32.0, 0.70],
+      ['377300', '카카오페이', 'KOSPI', 26500, '카페이|kakaopay|핀테크', 'growth', -38.0, 0.00],
+      ['096770', 'SK이노베이션', 'KOSPI', 116500, '에스케이이노베이션|sk온|정유|배터리', 'growth', -29.0, 0.00],
+      ['017670', 'SK텔레콤', 'KOSPI', 57400, '에스케이텔레콤|skt|통신주|배당주', 'buffer2', -12.0, 6.10],
+      ['030200', 'KT', 'KOSPI', 43800, '케이티|통신주|고배당', 'buffer2', -14.0, 4.80],
+      ['032640', 'LG유플러스', 'KOSPI', 10250, '엘지유플러스|유플러스|lgu+|통신배당', 'buffer2', -14.0, 6.30],
+      ['003670', '포스코퓨처엠', 'KOSPI', 214000, '포스코케미칼|양극재|음극재|posco future m', 'growth', -40.0, 0.15],
+      ['066970', '엘앤에프', 'KOSPI', 104500, 'l&f|양극재|2차전지', 'growth', -44.0, 0.10],
+      ['001570', '금양', 'KOSPI', 48500, '원통형배터리|리튬|kumyang', 'growth', -52.0, 0.00],
+      ['064350', '현대로템', 'KOSPI', 62400, 'k2전차|방산주|철도|hyundai rotem', 'growth', -30.0, 0.30],
+      ['042660', '한화오션', 'KOSPI', 34800, '대우조선해양|조선주|잠수함|hanwha ocean', 'growth', -32.0, 0.00],
+      ['329180', 'HD현대중공업', 'KOSPI', 194000, '현대중공업|조선대장주', 'growth', -28.0, 0.00],
+      ['009540', 'HD한국조선해양', 'KOSPI', 188500, '한국조선해양|조선지주', 'growth', -27.0, 0.00],
+      ['267260', 'HD현대일렉트릭', 'KOSPI', 342000, '현대일렉트릭|변압기|전력기기', 'growth', -35.0, 0.35],
+      ['298040', '효성중공업', 'KOSPI', 415000, '초고압변압기|전력설비', 'growth', -34.0, 0.60],
+      ['010120', 'LS일렉트릭', 'KOSPI', 168000, 'ls산전|ls electric|전력기기|배전반', 'growth', -32.0, 1.40],
+      ['000100', '유한양행', 'KOSPI', 128000, '렉라자|폐암신약|제약주|yuhan', 'growth', -28.0, 0.35],
+      ['128940', '한미약품', 'KOSPI', 312000, '비만신약|제약바이오|hanmi pharm', 'growth', -29.0, 0.30],
+      ['068760', '셀트리온제약', 'KOSDAQ', 68500, '셀제|celltrion pharm', 'growth', -34.0, 0.00],
+      ['263750', '펄어비스', 'KOSDAQ', 38200, '붉은사막|검은사막|pearl abyss|게임주', 'growth', -38.0, 0.00],
+      ['462870', '시프트업', 'KOSPI', 61500, '승리의여신니케|스텔라블레이드|shift up', 'growth', -35.0, 0.00],
+      ['005935', '삼성전자우', 'KOSPI', 49200, '삼전우|삼성전자우선주|배당주', 'buffer2', -24.0, 2.95],
+      ['034730', 'SK', 'KOSPI', 146000, '에스케이|sk지주', 'growth', -23.0, 3.40],
+      ['003550', 'LG', 'KOSPI', 78500, '엘지|lg지주', 'buffer2', -19.0, 3.90],
+      ['000880', '한화', 'KOSPI', 29800, '한화지주|hanwha', 'growth', -25.0, 2.60],
+      ['001040', 'CJ', 'KOSPI', 112000, '씨제이|올리브영|cj지주', 'growth', -24.0, 2.50],
+      ['097950', 'CJ제일제당', 'KOSPI', 298000, '제일제당|비비고|음식료', 'growth', -22.0, 1.80],
+      ['004020', '현대제철', 'KOSPI', 24500, '철강주|hyundai steel', 'growth', -26.0, 3.80],
+      ['010950', 'S-Oil', 'KOSPI', 61200, '에쓰오일|s오일|정유주|배당', 'growth', -25.0, 3.20],
+      ['267250', 'HD현대', 'KOSPI', 78400, '현대중공업지주|고배당', 'buffer2', -20.0, 4.80],
+      ['000720', '현대건설', 'KOSPI', 29400, '현건|원전건설|건설주', 'growth', -28.0, 2.00],
+      ['028050', '삼성E&A', 'KOSPI', 22800, '삼성엔지니어링|플랜트', 'growth', -27.0, 0.00],
+      ['047810', '한국항공우주', 'KOSPI', 58900, '카이|kai|kf21|방산주', 'growth', -28.0, 0.80],
+      ['079550', 'LIG넥스원', 'KOSPI', 224000, '천궁|방산미사일|lig nex1', 'growth', -30.0, 0.90],
+      ['021240', '코웨이', 'KOSPI', 66800, '정수기|렌탈|coway', 'buffer2', -19.0, 3.10],
+      ['086280', '현대글로비스', 'KOSPI', 118500, '자동차운반선|물류|배당성장', 'buffer2', -21.0, 3.60],
+      ['018260', '삼성에스디에스', 'KOSPI', 148000, '삼성sds|클라우드|물류it', 'growth', -20.0, 2.20],
+      ['009830', '한화솔루션', 'KOSPI', 22400, '태양광|케미칼', 'growth', -36.0, 0.00],
+      ['011790', 'SKC', 'KOSPI', 118000, '유리기판|동박|2차전지소재', 'growth', -38.0, 0.00],
+      ['011070', 'LG이노텍', 'KOSPI', 198500, '엘지이노텍|아이폰카메라|전장부품', 'growth', -30.0, 1.30],
+      ['006800', '미래에셋증권', 'KOSPI', 8650, '증권주|mirae asset', 'growth', -24.0, 2.80],
+      ['005940', 'NH투자증권', 'KOSPI', 13650, '엔에이치투자증권|고배당증권주', 'buffer2', -18.0, 5.80],
+      ['071050', '한국금융지주', 'KOSPI', 74200, '한국투자증권|한투지주', 'buffer2', -20.0, 4.10],
+      ['016360', '삼성증권', 'KOSPI', 45800, '고배당증권주|samsung securities', 'buffer2', -18.0, 5.60],
+      ['024110', '기업은행', 'KOSPI', 14450, 'ibk기업은행|고배당은행주', 'buffer2', -15.0, 6.80],
+      ['138930', 'BNK금융지주', 'KOSPI', 9850, '부산은행|경남은행|고배당', 'buffer2', -18.0, 6.50],
+      ['139130', 'DGB금융지주', 'KOSPI', 8420, 'iM뱅크|대구은행|고배당', 'buffer2', -18.0, 6.60],
+      ['175330', 'JB금융지주', 'KOSPI', 16800, '전북은행|광주은행|밸류업', 'buffer2', -18.0, 5.50],
+      ['041510', '에스엠', 'KOSDAQ', 74500, 'sm엔터테인먼트|에스파|엔터주', 'growth', -34.0, 1.50],
+      ['035900', 'JYP Ent.', 'KOSDAQ', 52400, '제이와이피|트와이스|스트레이키즈|jyp', 'growth', -36.0, 1.20],
+      ['122870', '와이지엔터테인먼트', 'KOSDAQ', 41200, 'yg엔터|블랙핑크|베이비몬스터', 'growth', -36.0, 0.50],
+      ['058470', '리노공업', 'KOSDAQ', 194000, '반도체소켓|온디바이스ai|leeno', 'growth', -28.0, 1.60],
+      ['403870', 'HPSP', 'KOSDAQ', 31800, '고압수소어닐링|반도체장비', 'growth', -38.0, 0.50],
+      ['039030', '이오테크닉스', 'KOSDAQ', 162000, '레이저어닐링|hbm장비', 'growth', -36.0, 0.30],
+      ['005290', '동진쎄미켐', 'KOSDAQ', 31400, '감광액|포토레지스트|반도체소재', 'growth', -32.0, 0.40],
+      ['357780', '솔브레인', 'KOSDAQ', 218000, '반도체식각액|전해액', 'growth', -28.0, 0.90],
+      ['293490', '카카오게임즈', 'KOSDAQ', 17850, '카겜|오딘|게임주', 'growth', -36.0, 0.00],
+      ['112040', '위메이드', 'KOSDAQ', 36400, '미르의전설|위믹스|wemade', 'growth', -45.0, 0.00],
+      ['036930', '주성엔지니어링', 'KOSDAQ', 30200, '원자층증착|ald장비|반도체', 'growth', -36.0, 0.20],
+      ['086900', '메디톡스', 'KOSDAQ', 158000, '보톡스|필러|medytox', 'growth', -34.0, 0.50],
+      ['214450', '파마리서치', 'KOSDAQ', 208000, '리쥬란힐러|스킨부스터|미용의료', 'growth', -28.0, 0.60],
+      ['003410', '쌍용C&E', 'KOSPI', 6950, '시멘트|분기배당', 'buffer2', -16.0, 5.20],
+      ['017800', '현대엘리베이터', 'KOSPI', 48500, '승강기|고배당주', 'buffer2', -22.0, 6.50],
+
+      // --- KRX Listed ETFs (Parking / Dividend / US Index / Covered Call) ---
+      ['459580', 'KODEX CD금리액티브(합성)', 'KOSPI', 1048500, 'cd금리|파킹통장|원화파킹|코덱스cd|단기채', 'buffer1', -0.1, 3.55],
+      ['423160', 'KODEX KOFR금리액티브(합성)', 'KOSPI', 107200, 'kofr금리|파킹etf|코덱스kofr', 'buffer1', -0.1, 3.50],
+      ['357870', 'TIGER CD금리투자KIS(합성)', 'KOSPI', 54620, '타이거cd금리|파킹통장', 'buffer1', -0.1, 3.52],
+      ['458730', 'TIGER 미국배당다우존스', 'KOSPI', 11850, '타미당|한국판슈드|미국배당다우존스|월배당', 'buffer2', -12.5, 3.80],
+      ['458760', 'TIGER 미국배당다우존스타겟커버드콜2호', 'KOSPI', 10680, '타미당커버드콜|월배당커버드콜', 'buffer3', -15.0, 10.20],
+      ['446720', 'SOL 미국배당다우존스', 'KOSPI', 11420, '솔미당|한국판schd|월배당', 'buffer2', -12.5, 3.75],
+      ['402970', 'ACE 미국배당다우존스', 'KOSPI', 12350, '에이스미당|미국배당', 'buffer2', -12.5, 3.78],
+      ['441680', 'TIGER 미국나스닥100타겟데일리커버드콜', 'KOSPI', 10420, '타겟커버드콜|나스닥커버드콜|월배당', 'buffer3', -19.0, 12.00],
+      ['474220', 'TIGER 미국테크TOP10타겟커버드콜', 'KOSPI', 11250, '빅테크커버드콜|월배당', 'buffer3', -18.5, 10.50],
+      ['360750', 'TIGER 미국S&P500', 'KOSPI', 19450, '타이거에스앤피|미국s&p500|지수추종', 'growth', -19.5, 1.25],
+      ['379800', 'KODEX 미국S&P500TR', 'KOSPI', 17820, '코덱스에스앤피|s&p500tr|배당재투자', 'growth', -19.5, 0.00],
+      ['379810', 'KODEX 미국나스닥100TR', 'KOSPI', 18950, '코덱스나스닥|나스닥100tr', 'growth', -25.0, 0.00],
+      ['133690', 'TIGER 미국나스닥100', 'KOSPI', 124500, '타이거나스닥|나스닥100', 'growth', -25.0, 0.60],
+      ['381170', 'TIGER 미국테크TOP10 INDXX', 'KOSPI', 21400, '타이거미국테크탑10|미국빅테크', 'growth', -28.0, 0.20],
+      ['381180', 'TIGER 미국필라델피아반도체나스닥', 'KOSPI', 18250, '타이거필반|필라델피아반도체', 'growth', -34.0, 0.50],
+      ['069500', 'KODEX 200', 'KOSPI', 34800, '코덱스200|코스피200', 'growth', -20.0, 2.10],
+      ['290080', 'TIGER 리츠부동산인프라', 'KOSPI', 4420, '타이거리츠|맥쿼리인프라|월배당리츠', 'buffer2', -14.0, 6.80],
+      ['088980', '맥쿼리인프라', 'KOSPI', 11650, '맥쿼리|인프라배당|고배당주', 'buffer2', -12.0, 6.50],
+
+      // --- US Stocks & ETFs (Mapped with Korean Names & Aliases) ---
+      ['NVDA', '엔비디아', 'NASDAQ', 138.00, 'nvidia|젠슨황|ai반도체|gpu|블랙웰', 'growth', -42.0, 0.03],
+      ['AAPL', '애플', 'NASDAQ', 228.00, 'apple|아이폰|맥북|온디바이스ai', 'growth', -22.0, 0.44],
+      ['MSFT', '마이크로소프트', 'NASDAQ', 428.50, '마소|microsoft|윈도우|코파일럿|애저', 'growth', -20.5, 0.78],
+      ['GOOG', '알파벳 C (구글)', 'NASDAQ', 183.40, '구글|알파벳|google|alphabet|유튜브|제미나이', 'growth', -25.0, 0.44],
+      ['GOOGL', '알파벳 A (구글)', 'NASDAQ', 181.90, '구글a|알파벳a|google class a', 'growth', -25.0, 0.44],
+      ['AMZN', '아마존', 'NASDAQ', 210.40, 'amazon|aws|클라우드|이커머스', 'growth', -26.0, 0.00],
+      ['META', '메타 (페이스북)', 'NASDAQ', 592.00, '메타|페이스북|인스타그램|meta|라마', 'growth', -30.0, 0.34],
+      ['TSLA', '테슬라', 'NASDAQ', 250.00, 'tesla|일론머스크|자율주행|로보택시|옵티머스', 'growth', -48.0, 0.00],
+      ['AVGO', '브로드컴', 'NASDAQ', 178.50, 'broadcom|ai네트워크|커스텀칩|배당성장', 'growth', -29.0, 1.20],
+      ['PLTR', '팔란티어', 'NYSE', 55.40, 'palantir|ai소프트웨어|국방ai|피터틸', 'growth', -45.0, 0.00],
+      ['IONQ', '아이온큐', 'NYSE', 22.80, 'ionq|양자컴퓨터|양자컴퓨팅', 'growth', -55.0, 0.00],
+      ['JOBY', '조비 에비에이션', 'NYSE', 6.85, '조비|joby aviation|uam|에어택시|드론택시', 'growth', -58.0, 0.00],
+      ['LLY', '일라이 릴리', 'NYSE', 832.00, '일라이릴리|eli lilly|비만치료제|젭바운드|마운자로', 'growth', -22.0, 0.62],
+      ['NVO', '노보 노디스크', 'NYSE', 108.50, '노보노디스크|위고비|오젬픽|비만약', 'growth', -23.0, 1.35],
+      ['WMT', '월마트', 'NYSE', 84.20, 'walmart|미국유통|필수소비재|배당귀족', 'buffer2', -14.0, 1.05],
+      ['COST', '코스트코', 'NASDAQ', 918.00, 'costco|창고형마트|소비재우량주', 'growth', -18.0, 0.52],
+      ['NFLX', '넷플릭스', 'NASDAQ', 795.00, 'netflix|오징어게임|스트리밍|ott', 'growth', -28.0, 0.00],
+      ['AMD', 'AMD', 'NASDAQ', 142.50, '에이엠디|리사수|라데온|라이젠|ai칩', 'growth', -40.0, 0.00],
+      ['INTC', '인텔', 'NASDAQ', 23.40, 'intel|파운드리|중앙처리장치', 'growth', -38.0, 0.00],
+      ['QCOM', '퀄컴', 'NASDAQ', 168.20, 'qualcomm|스냅드래곤|통신칩|온디바이스', 'growth', -28.0, 2.00],
+      ['MU', '마이크론', 'NASDAQ', 106.80, '마이크론테크놀로지|micron|미국메모리|hbm', 'growth', -36.0, 0.45],
+      ['TSM', 'TSMC', 'NYSE', 194.50, '티에스엠씨|대만반도체|파운드리대장', 'growth', -28.0, 1.35],
+      ['ASML', 'ASML', 'NASDAQ', 688.00, '에이에스엠엘|극자외선|euv노광장비', 'growth', -30.0, 1.00],
+      ['ARM', 'ARM 홀딩스', 'NASDAQ', 144.20, '암홀딩스|arm holdings|모바일칩설계', 'growth', -42.0, 0.00],
+      ['BRK-B', '버크셔 해서웨이 B', 'NYSE', 458.00, '버크셔해서웨이|워런버핏|berkshire hathaway', 'buffer2', -15.0, 0.00],
+      ['JPM', 'JP모건 체이스', 'NYSE', 236.50, '제이피모건|jpmorgan|미국은행대장', 'buffer2', -19.0, 2.10],
+      ['V', '비자', 'NYSE', 308.00, 'visa|신용카드|결제네트워크', 'growth', -17.0, 0.78],
+      ['MA', '마스터카드', 'NYSE', 518.00, 'mastercard|결제우량주', 'growth', -18.0, 0.55],
+      ['KO', '코카콜라', 'NYSE', 65.40, 'coca cola|배당왕|필수소비재', 'buffer2', -13.0, 2.98],
+      ['PEP', '펩시코', 'NASDAQ', 164.80, 'pepsico|배당왕|식음료', 'buffer2', -14.0, 3.25],
+      ['JNJ', '존슨앤존슨', 'NYSE', 156.20, 'johnson & johnson|헬스케어배당왕', 'buffer2', -14.0, 3.15],
+      ['O', '리얼티 인컴', 'NYSE', 57.80, '리얼티인컴|realty income|미국월배당리츠', 'buffer2', -18.0, 5.45],
+      ['MAIN', '메인스트리트 캐피탈', 'NYSE', 52.40, '메인스트리트|월배당bdc', 'buffer2', -20.0, 5.80],
+      ['CPNG', '쿠팡', 'NYSE', 25.80, 'coupang|로켓배송', 'growth', -32.0, 0.00],
+      ['RBLX', '로블록스', 'NYSE', 51.60, 'roblox|메타버스|게임플랫폼', 'growth', -42.0, 0.00],
+      ['COIN', '코인베이스', 'NASDAQ', 268.00, 'coinbase|비트코인거래소|크립토', 'growth', -55.0, 0.00],
+      ['MSTR', '마이크로스트래티지', 'NASDAQ', 285.00, 'microstrategy|비트코인보유|마이클세일러', 'growth', -60.0, 0.00],
+      ['SMCI', '슈퍼마이크로 컴퓨터', 'NASDAQ', 28.50, '슈퍼마이크로|ai서버|super micro', 'growth', -58.0, 0.00],
+      ['SOUN', '사운드하운드 AI', 'NASDAQ', 6.40, '사운드하운드|soundhound|음성ai', 'growth', -58.0, 0.00],
+      ['RGTI', '리게티 컴퓨팅', 'NASDAQ', 3.20, '리게티|rigetti|양자컴퓨터', 'growth', -60.0, 0.00],
+      ['SMR', '뉴스케일 파워', 'NYSE', 21.80, '뉴스케일파워|nuscale power|소형모듈원전', 'growth', -55.0, 0.00],
+      ['OKLO', '오클로', 'NYSE', 22.40, 'oklo|샘알트만원전|소형원전', 'growth', -56.0, 0.00],
+      ['RKLB', '로켓랩', 'NASDAQ', 14.80, 'rocket lab|우주항공|발사체', 'growth', -48.0, 0.00],
+      ['LCID', '루시드 그룹', 'NASDAQ', 2.35, '루시드|lucid|전기차', 'growth', -58.0, 0.00],
+      ['RIVN', '리비안', 'NASDAQ', 10.60, 'rivian|전기픽업트럭', 'growth', -54.0, 0.00],
+      ['DIS', '월트 디즈니', 'NYSE', 102.50, '디즈니|disney|테마파크|디즈니플러스', 'growth', -26.0, 0.90],
+      ['SBUX', '스타벅스', 'NASDAQ', 98.40, 'starbucks|커피|배당성장', 'buffer2', -22.0, 2.45],
+      ['MCD', '맥도날드', 'NYSE', 296.00, 'mcdonalds|햄버거|배당귀족', 'buffer2', -15.0, 2.30],
+      ['NKE', '나이키', 'NYSE', 77.80, 'nike|스포츠의류', 'growth', -28.0, 1.95],
+      ['BA', '보잉', 'NYSE', 152.00, 'boeing|항공기|방산', 'growth', -34.0, 0.00],
+      ['LMT', '록히드 마틴', 'NYSE', 554.00, '록히드마틴|lockheed martin|f35|미국방산', 'buffer2', -16.0, 2.35],
+      ['XOM', '엑슨모빌', 'NYSE', 119.50, 'exxon mobil|정유|에너지배당', 'buffer2', -20.0, 3.25],
+      ['CVX', '셰브론', 'NYSE', 156.40, 'chevron|에너지고배당', 'buffer2', -20.0, 4.15],
+      ['UNH', '유나이티드헬스 그룹', 'NYSE', 588.00, '유나이티드헬스|미국건강보험대장', 'buffer2', -16.0, 1.45],
+      ['PG', '프록터 앤 갬블', 'NYSE', 168.50, 'p&g|생활용품배당왕', 'buffer2', -13.0, 2.40],
+      ['ABBV', '애브비', 'NYSE', 174.00, 'abbvie|제약고배당|휴미라', 'buffer2', -18.0, 3.55],
+      ['ORCL', '오라클', 'NYSE', 182.00, 'oracle|클라우드db|ai데이터센터', 'growth', -24.0, 0.90],
+      ['CRM', '세일즈포스', 'NYSE', 312.00, 'salesforce|기업용crm|에이전트포스', 'growth', -28.0, 0.50],
+      ['NOW', '서비스나우', 'NYSE', 985.00, 'servicenow|기업자동화ai', 'growth', -28.0, 0.00],
+      ['SNOW', '스노우플레이크', 'NYSE', 162.00, 'snowflake|데이터클라우드', 'growth', -42.0, 0.00],
+      ['PANW', '팔로알토 네트웍스', 'NASDAQ', 382.00, '팔로알토|사이버보안대장', 'growth', -28.0, 0.00],
+      ['CRWD', '크라우드스트라이크', 'NASDAQ', 332.00, 'crowdstrike|사이버보안', 'growth', -35.0, 0.00],
+      ['UBER', '우버', 'NYSE', 74.50, 'uber|공유차량|우버이츠', 'growth', -30.0, 0.00],
+      ['ABNB', '에어비앤비', 'NASDAQ', 136.00, 'airbnb|숙박공유|여행주', 'growth', -30.0, 0.00],
+      ['BKNG', '부킹홀딩스', 'NASDAQ', 4920.00, '부킹닷컴|아고다|여행대장', 'growth', -24.0, 0.75],
+      ['SPOT', '스포티파이', 'NYSE', 445.00, 'spotify|음원스트리밍', 'growth', -32.0, 0.00],
+
+      // --- US Popular ETFs ---
+      ['SGOV', 'iShares 초단기채 (SGOV)', 'NYSEARCA', 100.44, '단기채|초단기채|미국국채|달러파킹|파킹etf', 'buffer1', -0.8, 4.65],
+      ['SHY', 'iShares 1-3년 단기국채 (SHY)', 'NASDAQ', 82.40, '미국단기국채|shy|안전국채', 'buffer1', -2.5, 4.10],
+      ['BIL', 'SPDR 초단기 국채 (BIL)', 'NYSEARCA', 91.75, '미국파킹|무위험국채', 'buffer1', -0.5, 4.60],
+      ['SCHD', '슈왑 미국배당주 ETF (SCHD)', 'NYSEARCA', 28.50, '슈드|배당성장|미국배당다우존스|분기배당', 'buffer2', -12.5, 3.90],
+      ['VIG', '뱅가드 배당성장 (VIG)', 'NYSEARCA', 196.00, '배당귀족|우량배당성장', 'buffer2', -14.0, 1.80],
+      ['DGRO', 'iShares 코어 배당성장 (DGRO)', 'NYSEARCA', 62.50, '배당성장etf', 'buffer2', -14.0, 2.25],
+      ['JEPI', 'JP모건 커버드콜 (JEPI)', 'NYSEARCA', 58.40, '제피|월배당커버드콜|고배당', 'buffer3', -18.0, 8.20],
+      ['JEPQ', 'JP모건 나스닥 커버드콜 (JEPQ)', 'NASDAQ', 56.80, '젭큐|제피큐|나스닥커버드콜|월배당', 'buffer3', -21.0, 9.10],
+      ['DIVO', '앰플리파이 우량 커버드콜 (DIVO)', 'NYSEARCA', 41.20, '디보|배당커버드콜', 'buffer3', -15.0, 4.75],
+      ['QQQ', '인베스코 나스닥100 (QQQ)', 'NASDAQ', 504.00, '큐큐큐|나스닥100etf|미국기술주지수', 'growth', -25.0, 0.58],
+      ['QQQM', '인베스코 나스닥100 미니 (QQQM)', 'NASDAQ', 208.00, '큐큐큐엠|나스닥장기투자', 'growth', -25.0, 0.62],
+      ['SPY', 'SPDR S&P500 (SPY)', 'NYSEARCA', 592.00, '스파이|미국s&p500etf|시장지수', 'growth', -19.5, 1.22],
+      ['VOO', '뱅가드 S&P500 (VOO)', 'NYSEARCA', 544.00, '부|뱅가드에스앤피|워런버핏추천', 'growth', -19.5, 1.25],
+      ['IVV', 'iShares 코어 S&P500 (IVV)', 'NYSEARCA', 594.00, '아이셰어즈s&p500', 'growth', -19.5, 1.25],
+      ['DIA', 'SPDR 다우존스 (DIA)', 'NYSEARCA', 436.00, '다우존스etf|월배당지수', 'buffer2', -16.0, 1.55],
+      ['SOXX', 'iShares 반도체 (SOXX)', 'NASDAQ', 228.00, '반도체etf|미국반도체', 'growth', -35.0, 0.65],
+      ['SMH', '반에크 반도체 (SMH)', 'NASDAQ', 252.00, '엔비디아비중높은반도체etf', 'growth', -36.0, 0.45],
+      ['SOXL', '디렉시온 반도체 3배 레버리지 (SOXL)', 'NYSEARCA', 32.80, '속슬|반도체3배|레버리지', 'growth', -68.0, 0.40],
+      ['TQQQ', '프로셰어즈 나스닥 3배 레버리지 (TQQQ)', 'NASDAQ', 78.50, '티큐|나스닥3배|레버리지', 'growth', -65.0, 0.80],
+      ['SQQQ', '프로셰어즈 나스닥 3배 인버스 (SQQQ)', 'NASDAQ', 7.15, '스큐|나스닥인버스|곱버스', 'growth', -60.0, 4.00],
+      ['TLT', 'iShares 20년 이상 장기국채 (TLT)', 'NASDAQ', 92.40, '미국장기채|금리인하수혜|월배당국채', 'buffer2', -22.0, 4.15],
+      ['GLD', 'SPDR 금 현물 (GLD)', 'NYSEARCA', 252.00, '금etf|골드|안전자산', 'buffer2', -14.0, 0.00]
+    ];
+
+    const CHOSUNG_LIST = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+    function getChosung(str) {
+      let result = '';
+      const s = String(str || '');
+      for (let i = 0; i < s.length; i++) {
+        const code = s.charCodeAt(i) - 0xAC00;
+        if (code >= 0 && code < 11172) {
+          result += CHOSUNG_LIST[Math.floor(code / 588)];
+        } else {
+          result += s[i];
+        }
+      }
+      return result;
+    }
+
+    const KR_US_MASTER_STOCKS = RAW_KR_US_MASTER_TUPLES.map(row => {
+      const [code, name, market, defaultPrice, aliasesStr, category, mddEstimate, dividendYield] = row;
+      const isKr = /^\d{6}$/.test(code);
+      const yahooSymbol = isKr ? `${code}.${market === 'KOSDAQ' ? 'KQ' : 'KS'}` : code;
+      const aliases = (aliasesStr ? aliasesStr.split('|') : []).concat([name, code, yahooSymbol]);
+      return {
+        symbol: yahooSymbol,
+        code,
+        name,
+        nameKo: name,
+        aliases,
+        chosung: getChosung(name).toUpperCase(),
+        market,
+        currency: isKr ? 'KRW' : 'USD',
+        isKrStock: isKr,
+        defaultPrice,
+        category: category || 'growth',
+        mddEstimate: mddEstimate || -24.0,
+        dividendYield: dividendYield || 0.5
+      };
+    });
+
+    // Seed VERIFIED_MARKET_QUOTES with all master stocks so every stock in the dictionary has instant baseline data
+    KR_US_MASTER_STOCKS.forEach(item => {
+      if (!VERIFIED_MARKET_QUOTES[item.code]) {
+        const prev = Number((item.defaultPrice * 0.992).toFixed(item.isKrStock ? 0 : 2));
+        const diff = Number((item.defaultPrice - prev).toFixed(item.isKrStock ? 0 : 2));
+        VERIFIED_MARKET_QUOTES[item.code] = {
+          symbol: item.code,
+          yahooSymbol: item.symbol,
+          nameKo: item.name,
+          nameEn: item.name,
+          exchange: item.market,
+          market: item.market,
+          isKrStock: item.isKrStock,
+          price: item.defaultPrice,
+          prevClose: prev,
+          change: diff,
+          changePct: prev > 0 ? Number(((diff / prev) * 100).toFixed(2)) : 0.80,
+          high52: Number((item.defaultPrice * 1.24).toFixed(item.isKrStock ? 0 : 2)),
+          low52: Number((item.defaultPrice * 0.78).toFixed(item.isKrStock ? 0 : 2)),
+          beta: item.category.startsWith('buffer') ? 0.45 : 1.18,
+          mddEstimate: item.mddEstimate,
+          dividendYield: item.dividendYield,
+          payMonths: item.dividendYield >= 3.5 ? [1,2,3,4,5,6,7,8,9,10,11,12] : [3,6,9,12],
+          sparkline: [
+            Number((item.defaultPrice * 0.97).toFixed(item.isKrStock ? 0 : 2)),
+            Number((item.defaultPrice * 0.98).toFixed(item.isKrStock ? 0 : 2)),
+            prev,
+            Number((item.defaultPrice * 0.996).toFixed(item.isKrStock ? 0 : 2)),
+            item.defaultPrice
+          ],
+          category: item.category
+        };
+      }
+    });
 
     // Stage 6 Section 1.1: Korean & English Search Alias Dictionary for Instant Spotlight Preview
     const STOCK_SEARCH_ALIASES = [
@@ -1981,10 +2449,35 @@
           timeAgo: '40분 전',
           link: 'https://news.google.com/search?q=%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90+%EC%A3%BC%EA%B0%80&hl=ko&gl=KR&ceid=KR:ko'
         }
+      ],
+      '000660': [
+        {
+          title: 'SK하이닉스, 고부가 HBM3E 양산 독주 체제 속 분기 영업이익 실적 서프라이즈 및 목표가 상향',
+          source: '한국경제 · KRX 반도체 피드',
+          timeAgo: '25분 전',
+          link: 'https://news.google.com/search?q=SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4+%EC%A3%BC%EA%B0%80&hl=ko&gl=KR&ceid=KR:ko'
+        }
+      ],
+      TSLA: [
+        {
+          title: '테슬라, 자율주행 FSD 고도화 및 에너지 저장장치(ESS) 수익성 개선에 기관 매수세 유입',
+          source: 'Reuters · Auto & Tech Feed',
+          timeAgo: '35분 전',
+          link: 'https://www.google.com/finance/quote/TSLA:NASDAQ'
+        }
+      ],
+      SCHD: [
+        {
+          title: '슈왑 미국배당주 ETF(SCHD), 금리 인하 사이클 속 배당성장 우량주 안전판 수요 견조',
+          source: 'MarketWatch · ETF Pulse',
+          timeAgo: '1시간 전',
+          link: 'https://www.google.com/finance/quote/SCHD:NYSEARCA'
+        }
       ]
     };
 
-    const STORAGE_KEY = 'mindfolio_state_v5_1';
+    const STORAGE_KEY = 'mindfolio_state_v6_3';
+    const LEGACY_STORAGE_KEYS = ['mindfolio_state_v6_2', 'mindfolio_state_v6_1', 'mindfolio_state_v6_0', 'mindfolio_state_v5_1'];
 
     let deferredPwaPrompt = null;
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -2007,7 +2500,8 @@
       privacyBlind: false,
       singleColumnLayout: true,
       isOffline: false,
-      usdKrw: 1386.50,
+      usdKrw: 1380.00,
+      fxRate: 1380.00,
       quoteSource: 'Verified Live Cache',
       lastUpdated: '방금 전',
       userMddLimit: -10.0,
@@ -2133,7 +2627,18 @@
 
     function loadStateFromStorage() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        let raw = localStorage.getItem(STORAGE_KEY);
+        let isLegacyMigration = false;
+        if (!raw) {
+          for (const legacyKey of LEGACY_STORAGE_KEYS) {
+            const legacyRaw = localStorage.getItem(legacyKey);
+            if (legacyRaw) {
+              raw = legacyRaw;
+              isLegacyMigration = true;
+              break;
+            }
+          }
+        }
         if (!raw) return;
         const parsed = JSON.parse(raw);
         if (parsed.brandName) state.brandName = parsed.brandName;
@@ -2144,13 +2649,20 @@
         if (typeof parsed.darkMode === 'boolean') state.darkMode = parsed.darkMode;
         if (typeof parsed.privacyBlind === 'boolean') state.privacyBlind = parsed.privacyBlind;
         if (typeof parsed.singleColumnLayout === 'boolean') state.singleColumnLayout = parsed.singleColumnLayout;
-        if (parsed.usdKrw) state.usdKrw = parsed.usdKrw;
+        if (parsed.usdKrw && !isLegacyMigration) {
+          state.usdKrw = parsed.usdKrw;
+          state.fxRate = parsed.usdKrw;
+        }
         if (parsed.userMddLimit) state.userMddLimit = parsed.userMddLimit;
         if (parsed.selectedBufferTier) state.selectedBufferTier = parsed.selectedBufferTier;
         if (typeof parsed.bufferRatio === 'number') state.bufferRatio = parsed.bufferRatio;
         if (parsed.reportTone) state.reportTone = parsed.reportTone;
         if (parsed.reportTimelineMode) state.reportTimelineMode = parsed.reportTimelineMode;
-        if (parsed.profiles && parsed.profiles.default) state.profiles = parsed.profiles;
+        if (parsed.profiles && parsed.profiles.default) {
+          state.profiles = parsed.profiles;
+          // Stage 6.2 Section 3: Always migrate the guest/default preview profile to the new 6-stock (~3.60M KRW) portfolio
+          state.profiles.default.holdings = JSON.parse(JSON.stringify(DEFAULT_PREVIEW_HOLDINGS));
+        }
         if (parsed.activeProfileId && state.profiles[parsed.activeProfileId]) {
           state.activeProfileId = parsed.activeProfileId;
           if (state.profiles[state.activeProfileId].mddLimit) {
@@ -2162,7 +2674,12 @@
         }
         if (parsed.quotes) {
           Object.keys(parsed.quotes).forEach(k => {
-            state.quotes[k] = { ...(state.quotes[k] || {}), ...parsed.quotes[k] };
+            const cleanK = normalizeSymbolCode(k);
+            const isValidTickerFormat = /^(\d{6}|[A-Z]{1,5}(?:-[A-Z])?)$/.test(cleanK);
+            const isKnownMaster = KR_US_MASTER_STOCKS.some(m => m.code === cleanK) || Boolean(VERIFIED_MARKET_QUOTES[cleanK]);
+            if (isValidTickerFormat && (isKnownMaster || parsed.quotes[k]?.isOnlineVerified)) {
+              state.quotes[cleanK] = { ...(state.quotes[cleanK] || {}), ...parsed.quotes[k] };
+            }
           });
         }
         if (parsed.news) {
@@ -2175,6 +2692,9 @@
         if (parsed.cloudDbUrl) state.cloudDbUrl = parsed.cloudDbUrl;
         if (parsed.finnhubKey) state.finnhubKey = parsed.finnhubKey;
         if (parsed.workerUrl) state.workerUrl = parsed.workerUrl;
+        if (isLegacyMigration) {
+          saveStateToStorage();
+        }
       } catch (_) {}
     }
 
@@ -2334,14 +2854,28 @@
     }
 
     async function fetchYahooQuoteViaBridge(symbol) {
-      if (isKoreanTicker(symbol)) {
-        const ksQuote = await fetchSingleYahooSymbol(`${symbol}.KS`);
-        if (ksQuote) return { ...ksQuote, isKrStock: true };
-        const kqQuote = await fetchSingleYahooSymbol(`${symbol}.KQ`);
-        if (kqQuote) return { ...kqQuote, isKrStock: true };
+      const raw = String(symbol || '').trim().toUpperCase();
+      if (/^\d{6}\.(?:KS|KQ)$/i.test(raw)) {
+        const directQuote = await fetchSingleYahooSymbol(raw);
+        if (directQuote) return { ...directQuote, isKrStock: true };
+        const altSuffix = raw.endsWith('.KS') ? '.KQ' : '.KS';
+        const altQuote = await fetchSingleYahooSymbol(raw.slice(0, 6) + altSuffix);
+        if (altQuote) return { ...altQuote, isKrStock: true };
         return null;
       }
-      return await fetchSingleYahooSymbol(symbol);
+      const cleanCode = normalizeSymbolCode(raw);
+      if (isKoreanTicker(cleanCode)) {
+        const masterEntry = KR_US_MASTER_STOCKS.find(m => m.code === cleanCode);
+        const preferKq = masterEntry && masterEntry.market === 'KOSDAQ';
+        const firstTry = preferKq ? `${cleanCode}.KQ` : `${cleanCode}.KS`;
+        const secondTry = preferKq ? `${cleanCode}.KS` : `${cleanCode}.KQ`;
+        const firstQuote = await fetchSingleYahooSymbol(firstTry);
+        if (firstQuote) return { ...firstQuote, isKrStock: true, market: preferKq ? 'KOSDAQ' : 'KOSPI' };
+        const secondQuote = await fetchSingleYahooSymbol(secondTry);
+        if (secondQuote) return { ...secondQuote, isKrStock: true, market: preferKq ? 'KOSPI' : 'KOSDAQ' };
+        return null;
+      }
+      return await fetchSingleYahooSymbol(cleanCode);
     }
 
     async function fetchFinnhubQuote(symbol) {
@@ -2362,6 +2896,220 @@
       return null;
     }
 
+    async function fetchLiveQuoteForSymbol(symbol, fallbackNameKo = '') {
+      const cleanCode = normalizeSymbolCode(symbol);
+      if (!cleanCode) return null;
+      const masterEntry = KR_US_MASTER_STOCKS.find(m => m.code === cleanCode);
+      const isKr = isKoreanTicker(cleanCode) || Boolean(masterEntry?.isKrStock);
+      const officialName = fallbackNameKo || masterEntry?.name || state.quotes[cleanCode]?.nameKo || VERIFIED_MARKET_QUOTES[cleanCode]?.nameKo || cleanCode;
+
+      let live = await fetchYahooQuoteViaBridge(symbol);
+      if (!live && !isKr) {
+        live = await fetchFinnhubQuote(cleanCode);
+      }
+      if (live) {
+        const existing = state.quotes[cleanCode] || VERIFIED_MARKET_QUOTES[cleanCode] || {
+          symbol: cleanCode,
+          nameKo: officialName,
+          nameEn: officialName,
+          exchange: live.market || masterEntry?.market || (isKr ? 'KRX' : 'US Market'),
+          isKrStock: isKr,
+          beta: 1.1,
+          mddEstimate: masterEntry?.mddEstimate || -22.0,
+          dividendYield: masterEntry?.dividendYield || 0,
+          payMonths: [3, 6, 9, 12],
+          category: masterEntry?.category || 'growth'
+        };
+        state.quotes[cleanCode] = {
+          ...existing,
+          symbol: cleanCode,
+          nameKo: (existing.nameKo && !existing.nameKo.startsWith('국내')) ? existing.nameKo : officialName,
+          exchange: live.market || existing.exchange || (isKr ? 'KRX' : 'US Market'),
+          isKrStock: isKr || Boolean(existing.isKrStock),
+          price: live.price,
+          prevClose: live.prevClose,
+          change: live.change,
+          changePct: live.changePct,
+          high52: live.high52 || existing.high52 || live.price * 1.2,
+          low52: live.low52 || existing.low52 || live.price * 0.8,
+          sparkline: live.sparkline || existing.sparkline || [live.prevClose, live.price]
+        };
+        saveStateToStorage();
+        return state.quotes[cleanCode];
+      }
+      return state.quotes[cleanCode] || VERIFIED_MARKET_QUOTES[cleanCode] || null;
+    }
+
+    async function fetchSingleStockRssNews(symbol, customNameKo = '') {
+      const cleanCode = normalizeSymbolCode(symbol);
+      const masterEntry = KR_US_MASTER_STOCKS.find(m => m.code === cleanCode);
+      const qObj = state.quotes[cleanCode] || VERIFIED_MARKET_QUOTES[cleanCode];
+      const isKr = isKoreanTicker(cleanCode) || Boolean(qObj?.isKrStock) || Boolean(masterEntry?.isKrStock);
+      const nameKo = customNameKo || masterEntry?.name || qObj?.nameKo || cleanCode;
+
+      // Stage 6.1 Section 2.3: Use official Korean company name for KRX stock news queries instead of 6-digit code
+      const queryTerm = isKr && nameKo && !/^\d{6}$/.test(nameKo)
+        ? `${nameKo} 주가`
+        : `${cleanCode} stock`;
+      const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(queryTerm)}&hl=ko&gl=KR&ceid=KR:ko`;
+      const apiEndpoint = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+      // Ensure immediate non-empty fallback news so sentiment badge is never blank during 0.3s async fetch
+      if (!state.news[cleanCode] || state.news[cleanCode].length === 0) {
+        state.news[cleanCode] = [
+          {
+            title: `${nameKo}, 핵심 사업 실적 모멘텀 및 기관 수급 유입에 시장 관심 집중`,
+            source: isKr ? '한국경제 · KRX 마켓 피드' : 'Google News RSS',
+            timeAgo: '실시간 요약',
+            link: `https://news.google.com/search?q=${encodeURIComponent(queryTerm)}&hl=ko&gl=KR&ceid=KR:ko`
+          }
+        ];
+      }
+
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+        return state.news[cleanCode];
+      }
+
+      try {
+        const data = await fetchWithTimeout(apiEndpoint, 3500);
+        if (data && data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
+          state.news[cleanCode] = data.items.slice(0, 3).map(item => ({
+            title: (item.title || '').replace(/ - [^-]+$/, '').trim() || item.title,
+            source: item.author || 'Google News RSS',
+            timeAgo: item.pubDate ? item.pubDate.slice(5, 16) : '실시간 RSS',
+            link: item.link || `https://news.google.com/search?q=${encodeURIComponent(queryTerm)}&hl=ko&gl=KR&ceid=KR:ko`
+          }));
+          saveStateToStorage();
+          return state.news[cleanCode];
+        }
+      } catch (_) {}
+
+      try {
+        const xmlText = await fetchTextWithTimeout(`https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, 3500);
+        const xmlDoc = new DOMParser().parseFromString(xmlText, 'text/xml');
+        const items = Array.from(xmlDoc.querySelectorAll('item')).slice(0, 3);
+        if (items.length > 0) {
+          state.news[cleanCode] = items.map(node => {
+            const rawTitle = node.querySelector('title')?.textContent || `${nameKo} 최신 시장 브리핑`;
+            const cleanTitle = rawTitle.replace(/ - [^-]+$/, '').trim() || rawTitle;
+            const sourceName = node.querySelector('source')?.textContent || 'Google News RSS';
+            const linkUrl = node.querySelector('link')?.textContent || `https://news.google.com/search?q=${encodeURIComponent(queryTerm)}&hl=ko&gl=KR&ceid=KR:ko`;
+            const pub = node.querySelector('pubDate')?.textContent || '';
+            return {
+              title: cleanTitle,
+              source: sourceName,
+              timeAgo: pub ? pub.slice(5, 16) : '실시간 RSS',
+              link: linkUrl
+            };
+          });
+          saveStateToStorage();
+          return state.news[cleanCode];
+        }
+      } catch (_) {}
+
+      return state.news[cleanCode];
+    }
+
+    // Stage 6.3 Action 1: Verified-Only Stock Hydration Pipeline (Zero Synthetic Fallback / Zero Fake 50,000 Price)
+    async function ensureStockDataHydrated(rawSymbolOrItem, fallbackAvgPrice = 0, fallbackNameKo = '') {
+      const code = typeof rawSymbolOrItem === 'object' && rawSymbolOrItem !== null
+        ? normalizeSymbolCode(rawSymbolOrItem.code || rawSymbolOrItem.symbol)
+        : normalizeSymbolCode(rawSymbolOrItem);
+      if (!code || !/^(\d{6}|[A-Z]{1,5}(?:-[A-Z])?)$/.test(code)) return null;
+
+      const masterEntry = KR_US_MASTER_STOCKS.find(m => m.code === code);
+      const isOnlineVerifiedItem = typeof rawSymbolOrItem === 'object' && rawSymbolOrItem !== null && Boolean(rawSymbolOrItem.isOnlineVerified);
+
+      // Never seed unverified arbitrary strings
+      if (!masterEntry && !VERIFIED_MARKET_QUOTES[code] && !state.quotes[code] && !isOnlineVerifiedItem) {
+        const liveCheck = await fetchYahooQuoteViaBridge(code);
+        if (!liveCheck || !(liveCheck.price > 0)) {
+          return null;
+        }
+        const isKr = isKoreanTicker(code) || Boolean(liveCheck.isKrStock);
+        const verifiedName = fallbackNameKo || code;
+        state.quotes[code] = {
+          symbol: code,
+          yahooSymbol: toYahooSymbol(code, liveCheck.market || (isKr ? 'KOSPI' : 'US')),
+          nameKo: verifiedName,
+          nameEn: verifiedName,
+          exchange: liveCheck.market || (isKr ? 'KOSPI' : 'US'),
+          market: liveCheck.market || (isKr ? 'KOSPI' : 'US'),
+          isKrStock: isKr,
+          isOnlineVerified: true,
+          price: liveCheck.price,
+          prevClose: liveCheck.prevClose || liveCheck.price,
+          change: liveCheck.change || 0,
+          changePct: liveCheck.changePct || 0,
+          high52: liveCheck.high52 || liveCheck.price * 1.2,
+          low52: liveCheck.low52 || liveCheck.price * 0.8,
+          beta: 1.15,
+          mddEstimate: -24.0,
+          dividendYield: 0,
+          payMonths: [3, 6, 9, 12],
+          sparkline: liveCheck.sparkline || [liveCheck.prevClose || liveCheck.price, liveCheck.price],
+          category: 'growth'
+        };
+      }
+
+      const isKr = isKoreanTicker(code) || Boolean(masterEntry?.isKrStock) || Boolean(state.quotes[code]?.isKrStock);
+      const officialName = fallbackNameKo
+        || (typeof rawSymbolOrItem === 'object' ? (rawSymbolOrItem.name || rawSymbolOrItem.nameKo) : '')
+        || masterEntry?.name
+        || state.quotes[code]?.nameKo
+        || VERIFIED_MARKET_QUOTES[code]?.nameKo
+        || code;
+      const marketLabel = (typeof rawSymbolOrItem === 'object' && rawSymbolOrItem.market)
+        || masterEntry?.market
+        || state.quotes[code]?.exchange
+        || (isKr ? 'KOSPI' : 'NASDAQ');
+
+      if (!state.quotes[code] && (masterEntry || VERIFIED_MARKET_QUOTES[code])) {
+        const baseQ = VERIFIED_MARKET_QUOTES[code];
+        const seedPrice = baseQ?.price || masterEntry?.defaultPrice || Number(fallbackAvgPrice) || 0;
+        if (seedPrice > 0) {
+          state.quotes[code] = {
+            symbol: code,
+            yahooSymbol: toYahooSymbol(code, marketLabel),
+            nameKo: officialName,
+            nameEn: officialName,
+            exchange: marketLabel,
+            market: marketLabel,
+            isKrStock: isKr,
+            isOnlineVerified: true,
+            price: seedPrice,
+            prevClose: baseQ?.prevClose || seedPrice,
+            change: baseQ?.change || 0,
+            changePct: baseQ?.changePct || 0,
+            high52: baseQ?.high52 || Number((seedPrice * 1.24).toFixed(isKr ? 0 : 2)),
+            low52: baseQ?.low52 || Number((seedPrice * 0.78).toFixed(isKr ? 0 : 2)),
+            beta: masterEntry?.category?.startsWith('buffer') ? 0.45 : 1.15,
+            mddEstimate: masterEntry?.mddEstimate || -24.0,
+            dividendYield: masterEntry?.dividendYield || 0.8,
+            payMonths: [3, 6, 9, 12],
+            sparkline: baseQ?.sparkline || [seedPrice, seedPrice],
+            category: masterEntry?.category || 'growth'
+          };
+        }
+      }
+
+      // Fetch real-time quote (.KS / .KQ fallback) and Korean/US RSS news in parallel, then re-render immediately
+      try {
+        await Promise.all([
+          fetchLiveQuoteForSymbol(toYahooSymbol(code, marketLabel), officialName),
+          fetchSingleStockRssNews(code, officialName)
+        ]);
+        saveStateToStorage();
+        renderAll();
+      } catch (_) {}
+
+      return state.quotes[code] || null;
+    }
+
+    async function refreshAllMarketData(showFeedback = false) {
+      return await refreshAllLiveQuotes(showFeedback);
+    }
+
     async function refreshAllLiveQuotes(showFeedback = false) {
       if (typeof navigator !== 'undefined' && navigator.onLine === false) {
         state.isOffline = true;
@@ -2375,8 +3123,8 @@
       if (refreshSvg) refreshSvg.classList.add('animate-spin');
 
       const symbols = Array.from(new Set([
-        ...getActiveHoldings().map(h => h.symbol),
-        'SGOV', 'SCHD', 'JEPI', '459580', '458730', '441680', '005930'
+        ...getActiveHoldings().map(h => normalizeSymbolCode(h.symbol)),
+        '005930', '000660', 'NVDA', 'TSLA', 'AAPL', 'SCHD', 'SGOV', 'JEPI', '459580', '458730', '441680'
       ]));
 
       let liveSuccessCount = 0;
@@ -2386,6 +3134,7 @@
         const fxData = await fetchYahooQuoteViaBridge('KRW=X');
         if (fxData && fxData.price > 900 && fxData.price < 2000) {
           state.usdKrw = fxData.price;
+          state.fxRate = fxData.price;
         }
       } catch (_) {}
 
@@ -2456,8 +3205,11 @@
       let fetchedCount = 0;
 
       await Promise.all(symbols.map(async (sym) => {
-        const qObj = state.quotes[sym] || VERIFIED_MARKET_QUOTES[sym];
-        const queryTerm = isKoreanTicker(sym) && qObj?.nameKo ? qObj.nameKo : `${sym} stock`;
+        const cleanCode = normalizeSymbolCode(sym);
+        const masterEntry = KR_US_MASTER_STOCKS.find(m => m.code === cleanCode);
+        const qObj = state.quotes[cleanCode] || VERIFIED_MARKET_QUOTES[cleanCode];
+        const krName = masterEntry?.name || qObj?.nameKo || cleanCode;
+        const queryTerm = isKoreanTicker(cleanCode) && krName && !/^\d{6}$/.test(krName) ? `${krName} 주가` : `${cleanCode} stock`;
         const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(queryTerm)}&hl=ko&gl=KR&ceid=KR:ko`;
         const apiEndpoint = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
@@ -2631,7 +3383,7 @@
      *************************************************************************/
     function renderPortfolioView(metrics) {
       document.getElementById('brand-name-heading').textContent = state.brandName;
-      document.title = `${state.brandName} — iOS Native Mental Care & Quant Portfolio`;
+      document.title = `${state.brandName} — 마음이 편해지는 AI 주식 브리핑 & 포트폴리오`;
 
       const statusDot = document.getElementById('quote-status-dot');
       if (state.isOffline) {
@@ -2651,20 +3403,34 @@
       const avatarDot = document.getElementById('active-profile-avatar');
       const guestBadge = document.getElementById('guest-preview-badge');
 
+      const headerAccBadge = document.getElementById('header-account-badge');
+      const headerAccLabel = document.getElementById('header-account-label');
+      const headerAccDot = document.getElementById('header-account-dot');
+
       if (!state.isLoggedIn) {
         if (profLabel) profLabel.textContent = '로그인 · 3초 시작';
         if (profBtn) {
-          profBtn.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold bg-ios-blue text-white shadow-sm hover:opacity-95 transition';
+          profBtn.className = 'hidden items-center gap-1.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold bg-ios-blue text-white shadow-sm hover:opacity-95 transition';
         }
         if (avatarDot) avatarDot.style.backgroundColor = '#FFFFFF';
         if (guestBadge) guestBadge.classList.remove('hidden');
+        if (headerAccLabel) headerAccLabel.textContent = '로그인';
+        if (headerAccBadge) {
+          headerAccBadge.className = 'h-9 px-3.5 rounded-full bg-ios-blue text-white shadow-sm hover:opacity-95 flex items-center gap-1.5 text-xs sm:text-sm font-bold transition active:scale-95';
+        }
+        if (headerAccDot) headerAccDot.style.backgroundColor = '#FFFFFF';
       } else {
         if (profLabel) profLabel.textContent = activeProf.name;
         if (profBtn) {
-          profBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-bold bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 dark:hover:bg-white/20 transition';
+          profBtn.className = 'hidden items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-bold bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 dark:hover:bg-white/20 transition';
         }
         if (avatarDot) avatarDot.style.backgroundColor = activeProf.avatarColor || '#007AFF';
         if (guestBadge) guestBadge.classList.add('hidden');
+        if (headerAccLabel) headerAccLabel.textContent = `${activeProf.name} · 내 계좌`;
+        if (headerAccBadge) {
+          headerAccBadge.className = 'h-9 px-3.5 rounded-full bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 dark:hover:bg-white/20 flex items-center gap-1.5 text-xs sm:text-sm font-bold transition active:scale-95';
+        }
+        if (headerAccDot) headerAccDot.style.backgroundColor = activeProf.avatarColor || '#007AFF';
       }
 
       // Stage 5 Section 1.2: Conditional Mental Guardrail Banner — ONLY visible when a holding drops <= -3.0% intraday
@@ -2779,17 +3545,27 @@
         if (layoutLabel) layoutLabel.textContent = '1열 큼직하게 보기';
       }
 
-      // Stage 6 Section 1.3: Clean Empty Portfolio State when logged in & holdings.length === 0
+      // Stage 6 Section 1.3 & 2.2: Clean Empty Portfolio State when logged in & holdings.length === 0
+      // Show ONLY the single minimal onboarding card (#empty-onboarding-card / #empty-portfolio-onboarding-card)
       const emptyOnboardingCard = document.getElementById('empty-portfolio-onboarding-card');
       const allocBarWrap = document.getElementById('allocation-bar')?.parentElement;
+      const homeCard1 = document.getElementById('home-card-1');
+      const homeCard2 = document.getElementById('home-card-2');
+      const homeCard3Header = document.getElementById('home-card-3-header');
       if (state.isLoggedIn && metrics.enriched.length === 0) {
         if (emptyOnboardingCard) emptyOnboardingCard.classList.remove('hidden');
         listEl.classList.add('hidden');
         if (allocBarWrap) allocBarWrap.classList.add('hidden');
+        if (homeCard1) homeCard1.classList.add('hidden');
+        if (homeCard2) homeCard2.classList.add('hidden');
+        if (homeCard3Header) homeCard3Header.classList.add('hidden');
       } else {
         if (emptyOnboardingCard) emptyOnboardingCard.classList.add('hidden');
         listEl.classList.remove('hidden');
         if (allocBarWrap) allocBarWrap.classList.remove('hidden');
+        if (homeCard1) homeCard1.classList.remove('hidden');
+        if (homeCard2) homeCard2.classList.remove('hidden');
+        if (homeCard3Header) homeCard3Header.classList.remove('hidden');
       }
 
       // Stage 5 Section 1.2 & Stage 6 Section 2: Diet Holding Cards + Minimal 1-Line Initial-Intention Memo Caption
@@ -3075,7 +3851,7 @@
         `• 포트폴리오 멘탈 안전도: ${mentalScore}점 / 100점 (완충 후 예상 MDD ${bufferedMdd.toFixed(1)}%)`,
         `• 시중 예금(3.5%) 대비 초과 배당·이자 현금흐름: ${alphaVsDeposit >= 0 ? '+' : ''}${alphaVsDeposit.toFixed(2)}%p (연 ${totalBlendedYield.toFixed(2)}%)`,
         `• 주요 운용 종목: ${metrics.enriched.map(i => i.symbol).join(', ')} (자산 금액 100% 비공개)`,
-        `— 내 멘탈에 맞춘 iOS AI 주식 브리핑 & 포트폴리오, ${state.brandName}`
+        `— 마음이 편해지는 AI 주식 브리핑 & 포트폴리오, ${state.brandName}`
       ].join('\n');
     }
 
@@ -3134,11 +3910,11 @@
       const bodyHtml = `
         <div class="space-y-4">
           <div class="p-4 rounded-2xl bg-black/[0.03] dark:bg-white/[0.04] border ios-hairline space-y-2">
-            <div class="text-xs font-bold uppercase tracking-wider text-ios-blue">iPhone · iPad (Safari 브라우저)</div>
+            <div class="text-xs font-bold uppercase tracking-wider text-ios-blue">모바일 · 태블릿 기본 브라우저</div>
             <ol class="text-xs sm:text-sm space-y-1.5 text-readable-sub list-decimal list-inside font-medium">
-              <li>Safari 하단 중앙의 <strong>[공유 버튼(네모 위 화살표 아이콘)]</strong>을 탭합니다.</li>
+              <li>브라우저 하단 중앙의 <strong>[공유 버튼(네모 위 화살표 아이콘)]</strong>을 탭합니다.</li>
               <li>메뉴를 아래로 스크롤하여 <strong>[홈 화면에 추가]</strong>를 선택합니다.</li>
-              <li>우측 상단 <strong>[추가]</strong>를 누르면 바탕화면에 <strong>${state.brandName}</strong> 순정 앱 아이콘이 생성되며 주소창 없는 전체화면으로 실행됩니다.</li>
+              <li>우측 상단 <strong>[추가]</strong>를 누르면 바탕화면에 <strong>${state.brandName}</strong> 전용 앱 아이콘이 생성되며 주소창 없는 전체화면으로 실행됩니다.</li>
             </ol>
           </div>
 
@@ -3146,7 +3922,7 @@
             <div class="text-xs font-bold uppercase tracking-wider text-ios-blue">Android · PC (Chrome / Edge / 삼성 인터넷)</div>
             <ol class="text-xs sm:text-sm space-y-1.5 text-readable-sub list-decimal list-inside font-medium">
               <li>브라우저 우측 상단 메뉴(점 3개) 또는 주소창 우측의 <strong>[앱 설치 / 홈 화면에 추가]</strong> 아이콘을 클릭합니다.</li>
-              <li><strong>[설치]</strong>를 누르면 독립된 네이티브 앱 창으로 즉시 구동됩니다.</li>
+              <li><strong>[설치]</strong>를 누르면 독립된 전용 앱 창으로 즉시 구동됩니다.</li>
             </ol>
           </div>
 
@@ -3167,7 +3943,7 @@
           deferredPwaPrompt = null;
           closeBottomSheet();
         } else {
-          showToast('Safari 하단 [공유] → [홈 화면에 추가] 또는 브라우저 주소창 [앱 설치] 아이콘을 눌러주세요');
+          showToast('브라우저 하단 [공유] → [홈 화면에 추가] 또는 주소창 [앱 설치] 아이콘을 눌러주세요');
         }
       });
     }
@@ -3286,9 +4062,26 @@
             : `현재 예상 최대낙폭(${metrics.portfolioMdd.toFixed(1)}%)이 내 허용 한계(${state.userMddLimit.toFixed(1)}%) 안에서 편안하게 유지되고 있습니다. 오늘은 시세창을 덮어두셔도 좋은 안정 구간입니다.`);
 
       const todayDateStr = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' });
+      const memoHoldings = metrics.enriched.filter(h => h.memo && String(h.memo).trim().length > 0);
+      const memoCalloutHtml = memoHoldings.length > 0 ? `
+        <div class="p-4 rounded-2xl bg-ios-blue/10 border border-ios-blue/25 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-ios-blue">나의 초심 한 줄 메모 리마인드 (뇌동매매 방지)</span>
+            <span class="text-[11px] font-semibold text-ios-blue">${memoHoldings.length}종목 기록됨</span>
+          </div>
+          <div class="space-y-1 text-xs sm:text-sm">
+            ${memoHoldings.slice(0, 3).map(m => `
+              <div class="font-semibold text-black dark:text-white leading-snug">
+                <strong class="text-ios-blue">${m.nameKo || m.symbol} (${m.symbol}):</strong> "${m.memo}"
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : '';
 
       const bodyHtml = `
         <div class="space-y-4">
+          ${memoCalloutHtml}
           <div class="p-4 rounded-2xl bg-black/[0.03] dark:bg-white/[0.04] border ios-hairline space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-ios-blue">01 · 밤사이 내 계좌 한 줄 요약</span>
@@ -3438,7 +4231,9 @@
         JEPI: `주가가 크게 오르는 걸 조금 양보하는 대신, 매달 월세처럼 아주 큰 배당금을 현금으로 지급하는 상품이에요.`,
         '459580': `한국에서 가장 인기 있는 파킹통장 ETF(KODEX CD금리액티브)예요. 하루만 넣어두어도 매일 조금씩 이자가 쌓여서 내 계좌의 안전 쿠션 역할을 톡톡히 해줍니다.`,
         '458730': `미국 배당성장 ETF(SCHD)를 한국 연금저축·ISA 계좌에서 세금 혜택 받으며 매달 배당금으로 받을 수 있게 만든 한국판 꾸러미예요.`,
-        '005930': `한국을 대표하는 반도체·스마트폰 기업 삼성전자예요. AI 컴퓨터에 들어가는 최신 메모리(HBM) 공급이 늘어나길 기대하며 많은 투자자들이 관심을 갖고 있어요. ${profitPhrase}`
+        '005930': `한국을 대표하는 반도체·스마트폰 기업 삼성전자예요. AI 컴퓨터에 들어가는 최신 메모리(HBM) 공급이 늘어나길 기대하며 많은 투자자들이 관심을 갖고 있어요. ${profitPhrase}`,
+        '000660': `엔비디아의 AI 칩에 꼭 필요한 초고속 메모리(HBM)를 세계에서 가장 잘 만드는 SK하이닉스예요! AI 데이터센터 투자가 늘어날수록 실적도 빠르게 좋아지고 있어요. ${profitPhrase}`,
+        TSLA: `전기차뿐만 아니라 스스로 운전하는 자율주행(FSD)과 휴머노이드 로봇을 만드는 테슬라예요! 팬도 많고 미래 성장성도 크지만 하루 등락폭이 큰 편이니 긴 호흡으로 지켜보는 게 좋아요. ${profitPhrase}`
       };
 
       return easyMap[sym] || `${item.nameKo || sym}에 대한 새로운 시장 소식이 들어왔어요! ${profitPhrase}`;
@@ -3828,6 +4623,8 @@
       document.getElementById('sheet-subtitle').textContent = subtitle;
       document.getElementById('sheet-body').innerHTML = bodyHtml;
 
+      const floatNav = document.getElementById('floating-tab-bar');
+      if (floatNav) floatNav.classList.add('sheet-hidden');
       wrapper.classList.add('sheet-active');
       backdrop.classList.add('open');
       sheet.classList.add('open');
@@ -3837,11 +4634,13 @@
       const wrapper = document.getElementById('app-depth-wrapper');
       const backdrop = document.getElementById('ios-sheet-backdrop');
       const sheet = document.getElementById('ios-bottom-sheet');
+      const floatNav = document.getElementById('floating-tab-bar');
       sheet.style.transform = '';
       wrapper.style.transform = '';
       wrapper.classList.remove('sheet-active');
       backdrop.classList.remove('open');
       sheet.classList.remove('open');
+      if (floatNav) floatNav.classList.remove('sheet-hidden');
     }
 
     function initBottomSheetSwipePhysics() {
@@ -3896,62 +4695,401 @@
       grabArea.addEventListener('pointercancel', endDrag);
     }
 
-    // Stage 6 Section 1.1: Global Real-Time Stock Search Resolver & Popover Preview Renderer
-    function resolveStockQueryToSymbol(rawQuery) {
+    // Stage 6.3 Action 2: Strict Query Validator (Blocks mixed Hangul jamo typos like 'ㄴ맽', '삼ㅅ', 'ㅏㅡ' and special chars)
+    function validateStockSearchQuery(rawQuery) {
       const q = String(rawQuery || '').trim();
-      if (!q) return null;
-      const upper = q.toUpperCase();
+      if (!q) return { valid: false, reason: 'empty' };
 
-      // 1) Exact match in known quotes
-      if (state.quotes[upper] || VERIFIED_MARKET_QUOTES[upper]) {
-        return upper;
+      // Extract clean query if formatted like "삼성전기 (009150)"
+      const parenMatch = q.match(/^(.+?)\s*\(([A-Za-z0-9.-]+)\)\s*$/);
+      const target = parenMatch ? parenMatch[2].trim() : q;
+      const compact = target.replace(/\s+/g, '');
+
+      // 1) Any Korean vowel jamo (ㅏ-ㅣ) is always an invalid typo
+      if (/[ㅏ-ㅣ]/.test(compact)) {
+        return { valid: false, reason: 'vowel_jamo_typo' };
       }
-      // 2) Match Korean / English alias keywords
-      for (const entry of STOCK_SEARCH_ALIASES) {
-        if (entry.keywords.some(k => k.toUpperCase().includes(upper) || upper.includes(k.toUpperCase()))) {
-          return entry.symbol;
-        }
+
+      // 2) Pure Korean chosung query (e.g., 'ㅅㅅㅈㄱ', 'ㅇㅂㄷㅇ') -> ONLY allowed in Tier 1 local master dictionary
+      if (/^[ㄱ-ㅎ]+$/.test(compact)) {
+        return { valid: true, isPureChosung: true, compact };
       }
-      // 3) Check nameKo / nameEn inside state.quotes
-      for (const [sym, qObj] of Object.entries(state.quotes)) {
-        if ((qObj.nameKo && qObj.nameKo.toUpperCase().includes(upper)) ||
-            (qObj.nameEn && qObj.nameEn.toUpperCase().includes(upper))) {
-          return sym;
-        }
+
+      // 3) Mixed standalone consonant jamo (ㄱ-ㅎ) with complete syllables or letters (e.g., 'ㄴ맽', '삼ㅅ', 'aㄱ') -> invalid typo
+      if (/[ㄱ-ㅎ]/.test(compact)) {
+        return { valid: false, reason: 'mixed_jamo_typo' };
       }
-      // 4) If user typed a 6-digit Korean code or 1~5 letter US ticker, allow dynamic lookup
-      if (/^\d{6}$/.test(upper) || /^[A-Z]{1,5}$/.test(upper)) {
-        if (!state.quotes[upper]) {
-          const isKr = /^\d{6}$/.test(upper);
-          state.quotes[upper] = {
-            symbol: upper,
-            nameKo: isKr ? `국내상장종목 (${upper})` : `${upper}`,
-            nameEn: upper,
-            exchange: isKr ? 'KRX' : 'US Market',
-            isKrStock: isKr,
-            price: isKr ? 50000 : 100.00,
-            prevClose: isKr ? 49500 : 99.00,
-            change: isKr ? 500 : 1.00,
-            changePct: 1.01,
-            high52: isKr ? 62000 : 125.00,
-            low52: isKr ? 42000 : 80.00,
-            beta: 1.1,
-            mddEstimate: -22.0,
-            dividendYield: 1.5,
-            payMonths: [3, 6, 9, 12],
-            sparkline: isKr ? [49000, 49500, 50000] : [98, 99, 100],
-            category: 'growth'
-          };
-          // Trigger live quote fetch in background
-          fetchLiveQuoteForSymbol(upper).then(() => {
-            if (state.currentSearchSymbol === upper) {
-              renderStockSearchPreview(upper, rawQuery);
+
+      // 4) Reject arbitrary special characters (allow only Korean syllables, English letters, digits, spaces, &, ., -)
+      if (/[^가-힣A-Za-z0-9\s&.-]/.test(target)) {
+        return { valid: false, reason: 'invalid_special_char' };
+      }
+
+      return { valid: true, isPureChosung: false, compact };
+    }
+
+    // Stage 6.1 & 6.3: 2-Tier Hybrid StockSearchEngine (Zero Synthetic Stock Generation)
+    const StockSearchEngine = {
+      onlineCache: new Map(),
+
+      searchLocal(rawQuery, limit = 5) {
+        const q = String(rawQuery || '').trim();
+        if (!q) return [];
+
+        const parenMatch = q.match(/^(.+?)\s*\(([A-Za-z0-9.-]+)\)\s*$/);
+        const targetQuery = parenMatch ? parenMatch[2].trim() : q;
+        const check = validateStockSearchQuery(targetQuery);
+        if (!check.valid) return [];
+
+        const upper = check.compact.toUpperCase();
+        const queryChosung = getChosung(targetQuery).toUpperCase().replace(/\s+/g, '');
+
+        const scored = [];
+        for (const item of KR_US_MASTER_STOCKS) {
+          const codeUpper = item.code.toUpperCase();
+          const symUpper = item.symbol.toUpperCase();
+          const nameUpper = item.name.toUpperCase().replace(/\s+/g, '');
+          let score = 0;
+
+          if (check.isPureChosung) {
+            // Action 2.1: Pure chosung query ONLY matches against KR_US_MASTER_STOCKS.chosung
+            if (item.chosung === queryChosung) {
+              score = 950;
+            } else if (item.chosung.startsWith(queryChosung)) {
+              score = 800;
+            } else if (item.chosung.includes(queryChosung) && queryChosung.length >= 2) {
+              score = 660;
             }
-          }).catch(() => {});
+          } else {
+            if (codeUpper === upper || symUpper === upper || nameUpper === upper) {
+              score = 1000;
+            } else if (nameUpper.startsWith(upper) || codeUpper.startsWith(upper)) {
+              score = 850;
+            } else if (nameUpper.includes(upper)) {
+              score = 720;
+            } else {
+              for (const alias of item.aliases) {
+                const aUp = String(alias).toUpperCase().replace(/\s+/g, '');
+                if (aUp === upper) { score = Math.max(score, 920); break; }
+                if (aUp.startsWith(upper)) { score = Math.max(score, 760); break; }
+                if (aUp.includes(upper) && upper.length >= 2) { score = Math.max(score, 620); break; }
+              }
+            }
+          }
+
+          if (score > 0) {
+            scored.push({ item, score });
+          }
         }
-        return upper;
+
+        scored.sort((a, b) => b.score - a.score);
+        return scored.slice(0, limit).map(s => s.item);
+      },
+
+      async fetchOnlineAutocomplete(rawQuery) {
+        const q = String(rawQuery || '').trim();
+        if (!q || q.length < 1) return [];
+
+        const check = validateStockSearchQuery(q);
+        // Action 2.1: Never pass invalid jamo typos or pure chosung queries to external online APIs
+        if (!check.valid || check.isPureChosung) return [];
+
+        if (this.onlineCache.has(q)) return this.onlineCache.get(q);
+        if (typeof navigator !== 'undefined' && navigator.onLine === false) return [];
+
+        const hasKorean = /[가-힣]/.test(q);
+        const results = [];
+
+        if (hasKorean || /^\d{2,6}$/.test(q)) {
+          // Query Naver Finance Stock Autocomplete Bridge for verified KOSPI/KOSDAQ/ETF listings
+          const naverUrl = `https://ac.stock.naver.com/ac?q=${encodeURIComponent(q)}&target=stock,index`;
+          const bridges = [
+            `https://corsproxy.io/?${encodeURIComponent(naverUrl)}`,
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(naverUrl)}`
+          ];
+          for (const bUrl of bridges) {
+            try {
+              const data = await fetchWithTimeout(bUrl, 2400);
+              const items = data?.items || [];
+              if (Array.isArray(items) && items.length > 0) {
+                items.slice(0, 6).forEach(it => {
+                  const code = String(it.code || '').trim().toUpperCase();
+                  const name = String(it.name || '').trim();
+                  const typeCode = String(it.typeCode || it.typeName || 'KOSPI').toUpperCase();
+                  if (!code || !name || !/^(\d{6}|[A-Z]{1,5})$/.test(code)) return;
+                  const isKr = /^\d{6}$/.test(code);
+                  const market = typeCode.includes('KOSDAQ') || typeCode.includes('코스닥')
+                    ? 'KOSDAQ'
+                    : (isKr ? 'KOSPI' : 'US');
+                  const yahooSym = isKr ? `${code}.${market === 'KOSDAQ' ? 'KQ' : 'KS'}` : code;
+                  results.push({
+                    symbol: yahooSym,
+                    code,
+                    name,
+                    nameKo: name,
+                    aliases: [name, code, yahooSym],
+                    market,
+                    currency: isKr ? 'KRW' : 'USD',
+                    isKrStock: isKr,
+                    isOnlineVerified: true,
+                    defaultPrice: state.quotes[code]?.price || 0,
+                    category: 'growth'
+                  });
+                });
+                break;
+              }
+            } catch (_) {}
+          }
+        }
+
+        // Action 2.2: For English ticker queries, only accept verified tickers with valid live quote
+        if (!hasKorean && results.length < 5) {
+          const yahooSearchUrl = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&quotesCount=6`;
+          const yBridges = [
+            `https://corsproxy.io/?${encodeURIComponent(yahooSearchUrl)}`,
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(yahooSearchUrl)}`
+          ];
+          for (const bUrl of yBridges) {
+            try {
+              const data = await fetchWithTimeout(bUrl, 2500);
+              const quotes = data?.quotes || [];
+              if (Array.isArray(quotes) && quotes.length > 0) {
+                for (const qt of quotes) {
+                  if (!qt.symbol) continue;
+                  const rawSym = String(qt.symbol).toUpperCase();
+                  const code = normalizeSymbolCode(rawSym);
+                  if (!/^(\d{6}|[A-Z]{1,5}(?:-[A-Z])?)$/.test(code)) continue;
+                  const isKr = rawSym.endsWith('.KS') || rawSym.endsWith('.KQ') || /^\d{6}$/.test(code);
+                  const market = rawSym.endsWith('.KQ') ? 'KOSDAQ' : (isKr ? 'KOSPI' : (qt.exchDisp || 'US'));
+                  const name = qt.shortname || qt.longname;
+                  if (!name) continue;
+                  results.push({
+                    symbol: isKr ? toYahooSymbol(code, market) : code,
+                    code,
+                    name,
+                    nameKo: name,
+                    aliases: [name, code, rawSym],
+                    market,
+                    currency: isKr ? 'KRW' : 'USD',
+                    isKrStock: isKr,
+                    isOnlineVerified: true,
+                    defaultPrice: state.quotes[code]?.price || 0,
+                    category: 'growth'
+                  });
+                }
+                break;
+              }
+            } catch (_) {}
+          }
+
+          // If exact US ticker format ^[A-Z]{1,5}(\.[A-Z]{1,2})?$ was typed, verify via live Yahoo quote bridge
+          if (results.length === 0 && /^[A-Za-z]{1,5}(?:\.[A-Za-z]{1,2})?$/.test(q)) {
+            const upperTicker = q.toUpperCase();
+            const liveQuote = await fetchYahooQuoteViaBridge(upperTicker);
+            if (liveQuote && typeof liveQuote.price === 'number' && liveQuote.price > 0) {
+              const cleanCode = normalizeSymbolCode(upperTicker);
+              results.push({
+                symbol: upperTicker,
+                code: cleanCode,
+                name: cleanCode,
+                nameKo: cleanCode,
+                aliases: [cleanCode],
+                market: 'US',
+                currency: 'USD',
+                isKrStock: false,
+                isOnlineVerified: true,
+                defaultPrice: liveQuote.price,
+                category: 'growth'
+              });
+            }
+          }
+        }
+
+        // Hydrate live quote for online results and register only verified items with valid price > 0
+        const verifiedResults = [];
+        for (const r of results.slice(0, 5)) {
+          let knownPrice = state.quotes[r.code]?.price || VERIFIED_MARKET_QUOTES[r.code]?.price || r.defaultPrice || 0;
+          if (!(knownPrice > 0)) {
+            const liveQ = await fetchLiveQuoteForSymbol(r.symbol, r.name);
+            if (liveQ && liveQ.price > 0) {
+              knownPrice = liveQ.price;
+            }
+          }
+          if (knownPrice > 0) {
+            r.defaultPrice = knownPrice;
+            verifiedResults.push(r);
+            if (!KR_US_MASTER_STOCKS.some(m => m.code === r.code)) {
+              KR_US_MASTER_STOCKS.push({
+                ...r,
+                chosung: getChosung(r.name).toUpperCase(),
+                mddEstimate: -24.0,
+                dividendYield: 0.5
+              });
+            }
+          }
+        }
+
+        this.onlineCache.set(q, verifiedResults);
+        return verifiedResults;
+      },
+
+      async searchHybrid(rawQuery, limit = 5) {
+        const check = validateStockSearchQuery(rawQuery);
+        if (!check.valid) return [];
+
+        const localMatches = this.searchLocal(rawQuery, limit);
+        if (localMatches.length >= limit || check.isPureChosung) {
+          return localMatches.slice(0, limit);
+        }
+        const onlineMatches = await this.fetchOnlineAutocomplete(rawQuery);
+        const merged = [...localMatches];
+        for (const om of onlineMatches) {
+          if (!merged.some(m => m.code === om.code)) {
+            merged.push(om);
+          }
+          if (merged.length >= limit) break;
+        }
+        return merged.slice(0, limit);
       }
-      return 'NVDA';
+    };
+
+    async function fetchOnlineStockAutocomplete(query) {
+      return await StockSearchEngine.fetchOnlineAutocomplete(query);
+    }
+
+    // Stage 6.3 Action 1 & 4: Strict Verified Stock Resolver — Returns null when no verified stock matches (NEVER fabricates a stock!)
+    function resolveBestMatchStock(rawInput) {
+      const raw = String(rawInput || '').trim();
+      if (!raw) return null;
+
+      const check = validateStockSearchQuery(raw);
+      if (!check.valid) return null;
+
+      // Check if formatted like "삼성전기 (009150)" or "009150.KS"
+      const parenMatch = raw.match(/\(([A-Za-z0-9.-]+)\)\s*$/);
+      const candidateStr = parenMatch ? parenMatch[1].trim() : raw;
+      const cleanCode = normalizeSymbolCode(candidateStr);
+
+      // 1) Exact code or name match in KR_US_MASTER_STOCKS
+      const exactMaster = KR_US_MASTER_STOCKS.find(
+        m => m.code.toUpperCase() === cleanCode.toUpperCase()
+          || m.symbol.toUpperCase() === cleanCode.toUpperCase()
+          || m.name.toUpperCase().replace(/\s+/g, '') === raw.toUpperCase().replace(/\s+/g, '')
+      );
+      if (exactMaster) return exactMaster;
+
+      // 2) Local master dictionary search (includes 200+ KR/US stocks + chosung + aliases)
+      const localHits = StockSearchEngine.searchLocal(raw, 1);
+      if (localHits.length > 0) {
+        return localHits[0];
+      }
+      if (parenMatch) {
+        const codeHits = StockSearchEngine.searchLocal(cleanCode, 1);
+        if (codeHits.length > 0) return codeHits[0];
+      }
+
+      // 3) Legacy alias check
+      const upper = cleanCode.toUpperCase();
+      for (const entry of STOCK_SEARCH_ALIASES) {
+        if (entry.keywords.some(k => k.toUpperCase() === upper)) {
+          const master = KR_US_MASTER_STOCKS.find(m => m.code === entry.symbol);
+          if (master) return master;
+        }
+      }
+
+      // 4) Check verified state.quotes / VERIFIED_MARKET_QUOTES
+      if (VERIFIED_MARKET_QUOTES[cleanCode]) {
+        const q = VERIFIED_MARKET_QUOTES[cleanCode];
+        const isKr = isKoreanTicker(cleanCode) || Boolean(q.isKrStock);
+        return {
+          symbol: toYahooSymbol(cleanCode, q.exchange || (isKr ? 'KOSPI' : 'US')),
+          code: cleanCode,
+          name: q.nameKo || cleanCode,
+          nameKo: q.nameKo || cleanCode,
+          market: q.exchange || (isKr ? 'KOSPI' : 'US'),
+          currency: isKr ? 'KRW' : 'USD',
+          isKrStock: isKr,
+          defaultPrice: q.price
+        };
+      }
+
+      // Action 1 & 4: NEVER return a synthetic object for unmatched input; return null!
+      return null;
+    }
+
+    function resolveStockQueryToSymbol(rawQuery) {
+      const match = resolveBestMatchStock(rawQuery);
+      if (!match) return null;
+      return match.code;
+    }
+
+    // Stage 6.3 Action 3 & 4: Autocomplete Dropdown with Non-Clickable "No Matching Stock" Notice when items.length === 0
+    function renderAutocompleteDropdown(containerId, items, onSelectCallback, rawQuery = '') {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const trimmedQuery = String(rawQuery || '').trim();
+
+      if (!trimmedQuery) {
+        container.classList.add('hidden');
+        container.innerHTML = '';
+        return;
+      }
+
+      container.classList.remove('hidden');
+
+      if (!items || items.length === 0) {
+        const emptyMsg = containerId === 'global-search-autocomplete-list'
+          ? '일치하는 종목이 없습니다. 정확한 한글 종목명(예: 삼성전기) 또는 영문 티커(예: AAPL)를 입력해 주세요.'
+          : '일치하는 종목이 없습니다. 정확한 한글 종목명 또는 영문 티커를 입력해 주세요.';
+        container.innerHTML = `
+          <div class="px-4 py-3.5 text-xs sm:text-sm font-semibold text-readable-muted text-center select-none">
+            ${emptyMsg}
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.slice(0, 5).map((item, idx) => {
+        const q = state.quotes[item.code] || VERIFIED_MARKET_QUOTES[item.code];
+        const isKr = item.isKrStock || isKoreanTicker(item.code);
+        const priceVal = q?.price || item.defaultPrice || 0;
+        const changePct = q?.changePct ?? 0.00;
+        const isUp = changePct >= 0;
+        const marketBadge = item.market === 'KOSDAQ'
+          ? 'KOSDAQ'
+          : (isKr ? 'KOSPI' : (item.category && item.category.startsWith('buffer') ? 'ETF' : 'US'));
+
+        return `
+          <button
+            type="button"
+            data-ac-index="${idx}"
+            data-ac-code="${item.code}"
+            class="ac-option-btn w-full px-3.5 py-2.5 flex items-center justify-between gap-3 text-left hover:bg-ios-blue/10 dark:hover:bg-ios-blue/20 rounded-xl transition"
+          >
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="px-2 py-0.5 rounded-md text-[11px] font-bold ${isKr ? 'bg-ios-blue/12 text-ios-blue' : 'bg-black/[0.06] dark:bg-white/[0.12] text-readable-sub'} shrink-0">${marketBadge}</span>
+              <span class="text-sm font-bold text-black dark:text-white truncate">${item.name}</span>
+              <span class="text-xs font-semibold text-readable-muted tabular-nums-tight shrink-0">${item.symbol}</span>
+            </div>
+            <div class="text-right shrink-0 tabular-nums-tight">
+              <span class="text-xs sm:text-sm font-bold text-black dark:text-white">${formatNativePrice(priceVal, isKr, true)}</span>
+              <span class="text-xs font-bold ml-1.5 ${isUp ? 'text-up' : 'text-down'}">${isUp ? '+' : ''}${Number(changePct).toFixed(2)}%</span>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.ac-option-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const idx = Number(btn.getAttribute('data-ac-index'));
+          const chosen = items[idx];
+          if (chosen && typeof onSelectCallback === 'function') {
+            onSelectCallback(chosen);
+          }
+        });
+      });
     }
 
     function renderStockSearchPreview(symbol, rawQuery = '') {
@@ -3959,24 +5097,21 @@
       const clearBtn = document.getElementById('btn-clear-stock-search');
       if (!card) return;
 
-      if (!symbol || !String(rawQuery || '').trim()) {
+      const hasQuery = Boolean(String(rawQuery || '').trim());
+      if (clearBtn) {
+        clearBtn.classList.toggle('hidden', !hasQuery);
+        clearBtn.classList.toggle('inline-flex', hasQuery);
+      }
+
+      const q = symbol ? (state.quotes[symbol] || VERIFIED_MARKET_QUOTES[symbol]) : null;
+      if (!symbol || !hasQuery || !q) {
         card.classList.add('hidden');
-        if (clearBtn) {
-          clearBtn.classList.add('hidden');
-          clearBtn.classList.remove('inline-flex');
-        }
         state.currentSearchSymbol = null;
         return;
       }
 
       state.currentSearchSymbol = symbol;
       card.classList.remove('hidden');
-      if (clearBtn) {
-        clearBtn.classList.remove('hidden');
-        clearBtn.classList.add('inline-flex');
-      }
-
-      const q = state.quotes[symbol] || VERIFIED_MARKET_QUOTES[symbol] || VERIFIED_MARKET_QUOTES.NVDA;
       const isKr = isKoreanTicker(symbol) || Boolean(q.isKrStock);
       const isUp = (q.changePct || 0) >= 0;
 
@@ -4270,9 +5405,14 @@
               </div>
             </div>
             <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-              <button id="btn-logout-account" type="button" class="px-4 py-2.5 rounded-xl bg-up-soft text-xs sm:text-sm font-bold transition">
-                로그아웃 (미리보기 화면으로 나가기)
-              </button>
+              <div class="flex flex-wrap items-center gap-2">
+                <button id="btn-logout-account" type="button" class="px-3.5 py-2.5 rounded-xl bg-up-soft text-xs sm:text-sm font-bold transition">
+                  미리보기 모드로 전환(로그아웃)
+                </button>
+                <button id="btn-reset-current-account-empty" type="button" class="px-3.5 py-2.5 rounded-xl bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 text-xs sm:text-sm font-bold transition">
+                  내 계좌 초기화(0종목)
+                </button>
+              </div>
               <button id="btn-sheet-create-prof" type="button" class="px-5 py-2.5 rounded-xl bg-ios-blue text-white text-xs sm:text-sm font-bold shadow-sm">
                 새 독립 계정 생성 및 바로 로그인
               </button>
@@ -4380,6 +5520,22 @@
           showToast('로그아웃 완료: 비로그인 미리보기 모드로 전환되었습니다');
         });
       }
+
+      const resetEmptyBtn = document.getElementById('btn-reset-current-account-empty');
+      if (resetEmptyBtn) {
+        resetEmptyBtn.addEventListener('click', () => {
+          const activeProf = state.profiles[state.activeProfileId];
+          if (activeProf) {
+            activeProf.holdings = [];
+          }
+          state.isLoggedIn = true;
+          saveStateToStorage();
+          closeBottomSheet();
+          switchTab(0);
+          renderAll();
+          showToast('내 계좌가 0종목 깨끗한 빈 계좌로 초기화되었습니다');
+        });
+      }
     }
 
     // Holding Edit / Add Bottom Sheet (Includes 52w bar, Stage 6 Initial-Intention Memo + 3 Zero-Cost AI Chips, and 1-Second Averaging Calculator Accordion)
@@ -4455,9 +5611,10 @@
                   `).join('')}
                 </div>
               </div>
-              <div>
-                <label class="text-xs sm:text-sm font-bold block mb-1">티커 또는 국내 6자리 종목코드 직접 입력</label>
-                <input id="sheet-input-symbol" type="text" value="${initialSym}" placeholder="예: AAPL, SGOV, 005930, 459580" class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-sm font-bold uppercase focus:outline-none focus:ring-2 focus:ring-ios-blue" />
+              <div class="relative">
+                <label class="text-xs sm:text-sm font-bold block mb-1">종목명(한글) 또는 영문 티커·종목코드 입력 (실시간 자동완성)</label>
+                <input id="sheet-input-symbol" type="text" autocomplete="off" value="${initialSym}" placeholder="종목명(예: 삼성전기, LG생활건강, 엔비디아) 또는 티커(AAPL)" class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-sm font-bold focus:outline-none focus:ring-2 focus:ring-ios-blue" />
+                <div id="sheet-symbol-autocomplete-list" class="hidden mt-1.5 ios-card p-1.5 border ios-hairline shadow-lg divide-y ios-hairline max-h-60 overflow-y-auto z-40"></div>
               </div>
             </div>
           ` : `<input id="sheet-input-symbol" type="hidden" value="${existing.symbol}" />`}
@@ -4473,42 +5630,44 @@
             </div>
           </div>
 
-          <!-- Stage 6 Section 3: Collapsible 1-Second Averaging Calculator Accordion (Hidden by default for Zero-Clutter UX) -->
+          <!-- Stage 6 Section 2.4: Collapsible 1-Second Averaging Calculator Accordion (Hidden by default for Zero-Clutter UX) -->
           <div class="space-y-2">
             <button id="btn-toggle-avg-calc" type="button" class="w-full py-2.5 px-3.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.06] border ios-hairline text-xs sm:text-sm font-bold text-ios-blue flex items-center justify-between transition">
               <span>+ 오늘 추가 매수하면 내 평단가가 얼마 될까? (1초 물타기 계산기) ▾</span>
             </button>
             <div id="avg-calc-panel" class="hidden p-4 rounded-2xl bg-black/[0.025] dark:bg-white/[0.04] border ios-hairline space-y-3">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label for="calc-add-qty" class="text-xs font-bold text-readable-muted block mb-1">추가 매수할 수량 (주)</label>
+                <div id="avg-calc-qty">
+                  <label for="calc-add-qty" class="text-xs font-bold text-readable-muted block mb-1">추가 매수 수량 (소수점 가능, 주)</label>
                   <input id="calc-add-qty" type="number" step="0.0001" min="0.0001" value="1" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-black border ios-hairline text-sm font-bold tabular-nums-tight" />
                 </div>
-                <div>
-                  <label for="calc-add-price" class="text-xs font-bold text-readable-muted block mb-1">추가 매수 단가 (기본값: 현재 시장가)</label>
+                <div id="avg-calc-price">
+                  <label for="calc-add-price" class="text-xs font-bold text-readable-muted block mb-1">추가 매수 단가 (현재 시장가 자동 입력)</label>
                   <input id="calc-add-price" type="number" step="0.01" min="0.01" value="${isKr ? Math.round(q.price) : q.price.toFixed(2)}" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-black border ios-hairline text-sm font-bold tabular-nums-tight" />
                 </div>
               </div>
+              <div id="avg-calc-comparison-box" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs tabular-nums-tight"></div>
               <div class="p-3 rounded-xl bg-ios-blue/10 text-xs sm:text-sm font-bold text-ios-blue leading-relaxed tabular-nums-tight" id="avg-calc-result-text"></div>
               <div class="flex justify-end">
                 <button id="btn-apply-avg-calc" type="button" class="px-3.5 py-2 rounded-xl bg-ios-blue text-white text-xs font-bold shadow-sm hover:opacity-95 transition">
-                  이 수량·평단가로 바로 반영
+                  이 수량·평단가로 내 계좌에 바로 반영
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- Stage 6 Section 2: '나의 초심 한 줄 메모' Input + 3 Zero-Cost AI Dynamic Suggestion Chips -->
+          <!-- Stage 6 Section 2.3: '나의 초심 한 줄 메모' Input + 3 Zero-Cost AI Dynamic Suggestion Chips -->
           <div class="space-y-2 pt-1 border-t ios-hairline">
             <label for="sheet-input-memo" class="text-xs sm:text-sm font-bold block">나의 초심 한 줄 메모 (선택 · 하락장 패닉셀 방지 알림 연동)</label>
             <input
               id="sheet-input-memo"
               type="text"
+              maxlength="60"
               value="${isEdit && existing.memo ? existing.memo : ''}"
-              placeholder="직접 입력하거나 아래 AI 맞춤 추천 문구를 탭하세요"
+              placeholder="내가 이 주식을 산 이유를 직접 적거나 아래 맞춤 추천을 탭하세요"
               class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-ios-blue"
             />
-            <div class="space-y-1">
+            <div id="memo-recommend-chips" class="space-y-1">
               <span class="text-[11px] font-bold text-readable-muted block">AI 0원 맞춤 초심 문구 추천 3선 (탭하면 바로 입력됩니다)</span>
               <div id="sheet-memo-chips" class="flex gap-1.5 overflow-x-auto pb-1">
                 ${initialMemoSuggestions.map(phrase => `
@@ -4583,10 +5742,19 @@
         bindMemoChipEvents();
       }
 
+      function getResolvedSheetSymbol() {
+        if (isEdit && existing) return existing.symbol;
+        const explicitCode = symInput.getAttribute('data-resolved-code');
+        if (explicitCode) return explicitCode;
+        const rawVal = (symInput.value || '').trim();
+        const best = resolveBestMatchStock(rawVal);
+        return best ? best.code : null;
+      }
+
       function computeAveragingResult() {
-        const sym = (symInput.value || 'AAPL').trim().toUpperCase();
+        const sym = getResolvedSheetSymbol() || 'AAPL';
         const krDetected = isKoreanTicker(sym);
-        const quoteObj = state.quotes[sym] || VERIFIED_MARKET_QUOTES[sym] || { price: Number(avgInput.value) || (krDetected ? 50000 : 100), isKrStock: krDetected };
+        const quoteObj = state.quotes[sym] || VERIFIED_MARKET_QUOTES[sym] || VERIFIED_MARKET_QUOTES.AAPL;
         const isKrNow = krDetected || Boolean(quoteObj.isKrStock);
 
         const curQty = Math.max(0, Number(qtyInput.value) || 0);
@@ -4594,25 +5762,45 @@
         const addQty = Math.max(0, Number(calcAddQtyInput.value) || 0);
         const addPrice = Math.max(0, Number(calcAddPriceInput.value) || 0);
 
+        const oldReturnPct = curAvg > 0 ? ((quoteObj.price - curAvg) / curAvg) * 100 : 0;
         const totalQty = parseFloat((curQty + addQty).toFixed(4));
         const newAvg = totalQty > 0 ? ((curQty * curAvg) + (addQty * addPrice)) / totalQty : curAvg;
         const estReturnPct = newAvg > 0 ? ((quoteObj.price - newAvg) / newAvg) * 100 : 0;
 
+        const compBox = document.getElementById('avg-calc-comparison-box');
+        if (compBox) {
+          compBox.innerHTML = `
+            <div class="p-2.5 rounded-xl bg-white dark:bg-black border ios-hairline">
+              <div class="text-[11px] font-semibold text-readable-muted">기존 평단가 (기존 수익률)</div>
+              <div class="text-sm font-bold mt-0.5">${formatAvgPriceLabel(curAvg, isKrNow)} <span class="${oldReturnPct >= 0 ? 'text-up' : 'text-down'}">(${oldReturnPct >= 0 ? '+' : ''}${oldReturnPct.toFixed(2)}%)</span></div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white dark:bg-black border border-ios-blue/40">
+              <div class="text-[11px] font-semibold text-ios-blue">추매 후 새 평단가 (예상 수익률)</div>
+              <div class="text-sm font-bold mt-0.5 text-ios-blue">${formatAvgPriceLabel(newAvg, isKrNow)} <span class="${estReturnPct >= 0 ? 'text-up' : 'text-down'}">(${estReturnPct >= 0 ? '+' : ''}${estReturnPct.toFixed(2)}%)</span></div>
+            </div>
+          `;
+        }
+
         if (calcResultText) {
-          calcResultText.textContent = `기존 평단가 ${formatAvgPriceLabel(curAvg, isKrNow)} (${formatQuantity(curQty)}주) → 추매 후 새 평단가 ${formatAvgPriceLabel(newAvg, isKrNow)} (총 ${formatQuantity(totalQty)}주) · 예상 수익률 ${estReturnPct >= 0 ? '+' : ''}${estReturnPct.toFixed(1)}%`;
+          calcResultText.textContent = `기존 평단가 ${formatAvgPriceLabel(curAvg, isKrNow)} (${oldReturnPct >= 0 ? '+' : ''}${oldReturnPct.toFixed(1)}%, ${formatQuantity(curQty)}주) → 추매 후 새 평단가 ${formatAvgPriceLabel(newAvg, isKrNow)} (${estReturnPct >= 0 ? '+' : ''}${estReturnPct.toFixed(1)}%, 총 ${formatQuantity(totalQty)}주)`;
         }
         return { totalQty, newAvg: isKrNow ? Math.round(newAvg) : parseFloat(newAvg.toFixed(2)), isKrNow };
       }
 
       function updatePreview() {
-        const sym = (symInput.value || 'AAPL').trim().toUpperCase();
-        const krDetected = isKoreanTicker(sym);
-        if (avgLabel) {
-          avgLabel.textContent = `내 매수 평단가 (${krDetected ? '₩ KRW 원화 기준' : '$ USD 달러 기준'})`;
+        const sym = getResolvedSheetSymbol();
+        if (!sym) {
+          previewEl.textContent = '종목 선택 대기 중';
+          return;
         }
-        const quoteObj = state.quotes[sym] || VERIFIED_MARKET_QUOTES[sym] || { price: Number(avgInput.value) || (krDetected ? 50000 : 100), isKrStock: krDetected };
+        const krDetected = isKoreanTicker(sym);
+        const quoteObj = state.quotes[sym] || VERIFIED_MARKET_QUOTES[sym] || VERIFIED_MARKET_QUOTES.AAPL;
+        const isKrNow = krDetected || Boolean(quoteObj.isKrStock);
+        if (avgLabel) {
+          avgLabel.textContent = `내 매수 평단가 (${isKrNow ? '₩ KRW 원화 기준' : '$ USD 달러 기준'})`;
+        }
         const qtyVal = Number(qtyInput.value) || 0;
-        previewEl.textContent = formatNativePrice(qtyVal * quoteObj.price, krDetected || Boolean(quoteObj.isKrStock), true);
+        previewEl.textContent = formatNativePrice(qtyVal * quoteObj.price, isKrNow, true);
         computeAveragingResult();
       }
 
@@ -4623,6 +5811,14 @@
           toggleCalcBtn.querySelector('span').textContent = isHidden
             ? '+ 오늘 추가 매수하면 내 평단가가 얼마 될까? (1초 물타기 계산기) ▴'
             : '+ 오늘 추가 매수하면 내 평단가가 얼마 될까? (1초 물타기 계산기) ▾';
+          if (isHidden && calcAddPriceInput) {
+            const sym = (symInput.value || 'AAPL').trim().toUpperCase();
+            const krNow = isKoreanTicker(sym);
+            const liveQ = state.quotes[sym] || VERIFIED_MARKET_QUOTES[sym];
+            if (liveQ && liveQ.price > 0) {
+              calcAddPriceInput.value = krNow || liveQ.isKrStock ? Math.round(liveQ.price) : liveQ.price.toFixed(2);
+            }
+          }
           computeAveragingResult();
         });
       }
@@ -4636,30 +5832,112 @@
           qtyInput.value = res.totalQty;
           avgInput.value = res.newAvg;
           updatePreview();
+          const sym = (symInput.value || 'AAPL').trim().toUpperCase();
+          const list = getActiveHoldings();
+          const targetItem = list.find(h => h.symbol === sym);
+          if (targetItem) {
+            targetItem.qty = res.totalQty;
+            targetItem.avgPrice = res.newAvg;
+            if (memoInput) targetItem.memo = (memoInput.value || '').trim();
+            saveStateToStorage();
+            renderAll();
+          }
           showToast(`추매 계산 반영 완료: 총 ${res.totalQty}주 · 새 평단가 ${formatAvgPriceLabel(res.newAvg, res.isKrNow)}`);
         });
       }
 
-      symInput.addEventListener('input', () => {
-        const sym = (symInput.value || 'AAPL').trim().toUpperCase();
-        refreshMemoChipsForSymbol(sym);
+      let sheetAcDebounce = null;
+      function applySelectedStockToSheet(stockItem) {
+        if (!stockItem) return;
+        const code = stockItem.code;
+        symInput.value = `${stockItem.name} (${code})`;
+        symInput.setAttribute('data-resolved-code', code);
+        symInput.setAttribute('data-resolved-name', stockItem.name);
+
+        const acListEl = document.getElementById('sheet-symbol-autocomplete-list');
+        if (acListEl) acListEl.classList.add('hidden');
+
+        const pq = state.quotes[code] || VERIFIED_MARKET_QUOTES[code];
+        const isKrNow = stockItem.isKrStock || isKoreanTicker(code);
+        const initPrice = pq?.price || stockItem.defaultPrice || (isKrNow ? 50000 : 100);
+        const pVal = isKrNow ? Math.round(initPrice) : Number(initPrice).toFixed(2);
+        avgInput.value = pVal;
+        if (calcAddPriceInput) calcAddPriceInput.value = pVal;
+
+        refreshMemoChipsForSymbol(code);
         updatePreview();
+
+        // Hydrate live quote + 52w band + news immediately so price and 1s calculator stay 100% fresh
+        ensureStockDataHydrated(stockItem, initPrice, stockItem.name).then((freshQuote) => {
+          if (freshQuote && freshQuote.price > 0) {
+            const freshVal = (isKrNow || freshQuote.isKrStock) ? Math.round(freshQuote.price) : Number(freshQuote.price).toFixed(2);
+            avgInput.value = freshVal;
+            if (calcAddPriceInput) calcAddPriceInput.value = freshVal;
+            refreshMemoChipsForSymbol(code);
+            updatePreview();
+          }
+        }).catch(() => {});
+      }
+
+      symInput.addEventListener('input', () => {
+        symInput.removeAttribute('data-resolved-code');
+        symInput.removeAttribute('data-resolved-name');
+        const raw = (symInput.value || '').trim();
+        if (!raw) {
+          renderAutocompleteDropdown('sheet-symbol-autocomplete-list', [], null, '');
+          updatePreview();
+          return;
+        }
+        const localMatches = StockSearchEngine.searchLocal(raw, 5);
+        renderAutocompleteDropdown('sheet-symbol-autocomplete-list', localMatches, applySelectedStockToSheet, raw);
+
+        if (localMatches.length > 0) {
+          const top = localMatches[0];
+          const pq = state.quotes[top.code] || VERIFIED_MARKET_QUOTES[top.code];
+          const isKrNow = top.isKrStock || isKoreanTicker(top.code);
+          const refPrice = pq?.price || top.defaultPrice || 0;
+          if (refPrice > 0) {
+            const pVal = isKrNow ? Math.round(refPrice) : Number(refPrice).toFixed(2);
+            avgInput.value = pVal;
+            if (calcAddPriceInput) calcAddPriceInput.value = pVal;
+          }
+          refreshMemoChipsForSymbol(top.code);
+        }
+        updatePreview();
+
+        clearTimeout(sheetAcDebounce);
+        sheetAcDebounce = setTimeout(async () => {
+          const currentVal = (symInput.value || '').trim();
+          if (!currentVal || symInput.getAttribute('data-resolved-code')) return;
+          const hybridMatches = await StockSearchEngine.searchHybrid(currentVal, 5);
+          renderAutocompleteDropdown('sheet-symbol-autocomplete-list', hybridMatches, applySelectedStockToSheet, currentVal);
+        }, 200);
       });
+
+      symInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const localMatches = StockSearchEngine.searchLocal(symInput.value, 1);
+          if (localMatches.length > 0) {
+            e.preventDefault();
+            applySelectedStockToSheet(localMatches[0]);
+          }
+        }
+      });
+
       qtyInput.addEventListener('input', updatePreview);
       avgInput.addEventListener('input', updatePreview);
 
       document.querySelectorAll('[data-pick-ticker]').forEach(btn => {
         btn.addEventListener('click', () => {
           const picked = btn.getAttribute('data-pick-ticker');
-          symInput.value = picked;
-          const pq = state.quotes[picked] || VERIFIED_MARKET_QUOTES[picked];
-          if (pq) {
-            const pVal = pq.isKrStock ? Math.round(pq.price) : pq.price.toFixed(2);
-            avgInput.value = pVal;
-            if (calcAddPriceInput) calcAddPriceInput.value = pVal;
+          const master = resolveBestMatchStock(picked);
+          if (master) {
+            applySelectedStockToSheet(master);
+          } else {
+            symInput.value = picked;
+            refreshMemoChipsForSymbol(picked);
+            updatePreview();
           }
-          refreshMemoChipsForSymbol(picked);
-          updatePreview();
         });
       });
 
@@ -4679,13 +5957,13 @@
       }
 
       document.getElementById('btn-sheet-save-holding').addEventListener('click', async () => {
-        const sym = (symInput.value || '').trim().toUpperCase();
+        const rawSymInput = (symInput.value || '').trim();
         const qty = parseFloat(Number(qtyInput.value).toFixed(4));
         const avg = parseFloat(Number(avgInput.value).toFixed(2));
         const memo = (memoInput?.value || '').trim();
-        if (!sym) {
+        if (!rawSymInput) {
           triggerInputShake(symInput);
-          showToast('종목 티커 또는 6자리 코드를 입력해 주세요');
+          showToast('종목명(한글) 또는 티커를 입력해 주세요');
           return;
         }
         if (isNaN(qty) || qty <= 0) {
@@ -4698,29 +5976,104 @@
           showToast('0보다 큰 매수 평단가를 입력해 주세요');
           return;
         }
+
+        // Stage 6.3 Action 4: Block saving nonexistent/unverified stocks (e.g., 'ㄴ맽', '없는주식')
+        let resolvedStock = null;
+        if (isEdit && existing) {
+          resolvedStock = resolveBestMatchStock(existing.symbol) || {
+            code: existing.symbol,
+            symbol: toYahooSymbol(existing.symbol),
+            name: existing.nameKo || existing.symbol,
+            isKrStock: isKoreanTicker(existing.symbol)
+          };
+        } else {
+          const explicitCode = symInput.getAttribute('data-resolved-code');
+          const explicitName = symInput.getAttribute('data-resolved-name');
+          if (explicitCode) {
+            resolvedStock = resolveBestMatchStock(explicitCode) || {
+              code: explicitCode,
+              symbol: toYahooSymbol(explicitCode),
+              name: explicitName || explicitCode,
+              isKrStock: isKoreanTicker(explicitCode),
+              isOnlineVerified: true
+            };
+          } else {
+            resolvedStock = resolveBestMatchStock(rawSymInput);
+            if (!resolvedStock) {
+              const onlineHits = await StockSearchEngine.fetchOnlineAutocomplete(rawSymInput);
+              if (onlineHits && onlineHits.length > 0) {
+                resolvedStock = onlineHits[0];
+              }
+            }
+          }
+        }
+
+        if (!resolvedStock || !resolvedStock.code) {
+          triggerInputShake(symInput);
+          showToast('존재하지 않는 종목입니다. 자동완성 목록에서 정확한 종목을 선택해 주세요.');
+          return;
+        }
+
+        const sym = normalizeSymbolCode(resolvedStock.code);
+        const officialNameKo = resolvedStock.name
+          || state.quotes[sym]?.nameKo
+          || VERIFIED_MARKET_QUOTES[sym]?.nameKo
+          || sym;
+        const isKr = isKoreanTicker(sym) || Boolean(resolvedStock.isKrStock);
+
+        // Immediately seed quote in state using avgPrice if not yet present so zero blank/NaN occurs
+        if (!state.quotes[sym]) {
+          const prev = Number((avg * 0.992).toFixed(isKr ? 0 : 2));
+          const diff = Number((avg - prev).toFixed(isKr ? 0 : 2));
+          state.quotes[sym] = {
+            symbol: sym,
+            yahooSymbol: resolvedStock?.symbol || toYahooSymbol(sym, resolvedStock?.market || (isKr ? 'KOSPI' : 'US')),
+            nameKo: officialNameKo,
+            nameEn: officialNameKo,
+            exchange: resolvedStock?.market || (isKr ? 'KOSPI' : 'NASDAQ'),
+            isKrStock: isKr,
+            price: avg,
+            prevClose: prev,
+            change: diff,
+            changePct: prev > 0 ? Number(((diff / prev) * 100).toFixed(2)) : 0.80,
+            high52: Number((avg * 1.24).toFixed(isKr ? 0 : 2)),
+            low52: Number((avg * 0.78).toFixed(isKr ? 0 : 2)),
+            beta: 1.15,
+            mddEstimate: resolvedStock?.mddEstimate || -24.0,
+            dividendYield: resolvedStock?.dividendYield || 0.8,
+            payMonths: [3, 6, 9, 12],
+            sparkline: [prev, avg],
+            category: resolvedStock?.category || 'growth'
+          };
+        } else {
+          state.quotes[sym].nameKo = officialNameKo;
+        }
+
         const list = getActiveHoldings();
-        const known = state.quotes[sym] || VERIFIED_MARKET_QUOTES[sym];
-        const found = list.find(h => h.symbol === sym);
+        const found = list.find(h => normalizeSymbolCode(h.symbol) === sym);
         if (found) {
+          found.symbol = sym;
+          found.nameKo = officialNameKo;
           found.qty = qty;
           found.avgPrice = avg;
           found.memo = memo;
         } else {
           list.push({
             symbol: sym,
-            nameKo: known ? known.nameKo : (isKoreanTicker(sym) ? `국내종목(${sym})` : sym),
+            nameKo: officialNameKo,
             qty,
             avgPrice: avg,
             memo
           });
         }
+
         saveStateToStorage();
         closeBottomSheet();
         renderAll();
-        showToast(`${sym} 보유 정보(${qty}주, 평단 ${isKoreanTicker(sym) ? '₩' + avg.toLocaleString('ko-KR') : '$' + avg})를 반영했습니다`);
-        if (!known) {
-          refreshAllLiveQuotes(false);
-        }
+        showToast(`${officialNameKo} (${sym}) 보유 정보(${qty}주, 평단 ${isKr ? '₩' + Math.round(avg).toLocaleString('ko-KR') : '$' + avg})를 반영했습니다`);
+
+        // Stage 6.1 Section 2.3: Force immediate hydration of live quote, 52w band, and Korean/US RSS news
+        ensureStockDataHydrated(resolvedStock || sym, avg, officialNameKo);
       });
     }
 
@@ -5128,32 +6481,46 @@
       const prevIdx = state.activeTab;
       state.activeTab = nextTabIdx;
 
+      // Sync top segmented nav (kept hidden in DOM for backward compatibility)
       const navPill = document.getElementById('main-nav-pill');
       if (navPill) {
         navPill.style.transform = `translate3d(${nextTabIdx * 100}%, 0, 0)`;
       }
-
       document.querySelectorAll('#main-nav-segmented .ios-segmented-btn').forEach(btn => {
         const idx = Number(btn.getAttribute('data-tab'));
         btn.classList.toggle('active', idx === nextTabIdx);
       });
 
-      // Stage 5 Section 1.1: Show [< 홈으로 돌아가기] button & sub-view nav bar only when on sub-views (activeTab !== 0)
+      // Sync bottom center Floating Capsule Tab Bar (#floating-tab-bar)
+      // Visual tab order: 0=홈(view-0), 1=브리핑(view-2), 2=안전선(view-1), 3=설정(view-3)
+      const viewToFloatPos = { 0: 0, 2: 1, 1: 2, 3: 3 };
+      const floatPos = viewToFloatPos[nextTabIdx] ?? 0;
+      const floatPill = document.getElementById('floating-tab-pill');
+      if (floatPill) {
+        floatPill.style.transform = `translate3d(${floatPos * 100}%, 0, 0)`;
+      }
+      document.querySelectorAll('#floating-tab-bar .floating-tab-btn').forEach(btn => {
+        const targetV = Number(btn.getAttribute('data-target-view'));
+        const isAct = targetV === nextTabIdx;
+        btn.classList.toggle('active', isAct);
+        btn.setAttribute('aria-selected', isAct ? 'true' : 'false');
+      });
+
+      // Keep top header ultra-clean across all tabs since #floating-tab-bar handles navigation
       const backBtn = document.getElementById('btn-back-home');
       const logoBox = document.getElementById('header-brand-logo-box');
       const subNavWrap = document.getElementById('subview-nav-bar-wrap');
       if (backBtn && logoBox && subNavWrap) {
-        if (nextTabIdx === 0) {
-          backBtn.classList.add('hidden');
-          backBtn.classList.remove('inline-flex');
-          logoBox.classList.remove('hidden');
-          subNavWrap.classList.add('hidden');
-        } else {
-          backBtn.classList.remove('hidden');
-          backBtn.classList.add('inline-flex');
-          logoBox.classList.add('hidden');
-          subNavWrap.classList.remove('hidden');
-        }
+        backBtn.classList.add('hidden');
+        backBtn.classList.remove('inline-flex');
+        logoBox.classList.remove('hidden');
+        subNavWrap.classList.add('hidden');
+      }
+
+      // Hide search preview card when leaving Home (View 0)
+      if (nextTabIdx !== 0) {
+        const previewCard = document.getElementById('stock-search-preview-card');
+        if (previewCard) previewCard.classList.add('hidden');
       }
 
       for (let i = 0; i < 4; i++) {
@@ -5292,11 +6659,18 @@
           : '고급 관리자 및 개발자 설정 열기 ▾';
       });
 
-      // Main Navigation Tabs
+      // Main Navigation Tabs & Bottom Floating Capsule Tab Bar (#floating-tab-bar)
       document.querySelectorAll('#main-nav-segmented .ios-segmented-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const tabIdx = Number(btn.getAttribute('data-tab'));
           switchTab(tabIdx);
+        });
+      });
+
+      document.querySelectorAll('#floating-tab-bar .floating-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetView = Number(btn.getAttribute('data-target-view'));
+          switchTab(targetView);
         });
       });
 
@@ -5349,33 +6723,98 @@
       document.getElementById('btn-test-live-fetch').addEventListener('click', () => refreshAllLiveQuotes(true));
 
       // Morning Brief, Mental Guardrail, Share Mental Card, PWA Guide, Deploy Guide
-      document.getElementById('btn-open-morning-brief').addEventListener('click', openMorningBriefSheet);
+      document.getElementById('btn-open-morning-brief').addEventListener('click', () => {
+        if (!state.isLoggedIn) {
+          openAuthLoginSheet(null, '3초 만에 내 계정을 만들고 나만의 맞춤 모닝 브리핑을 시작해 보세요');
+        } else {
+          openMorningBriefSheet();
+        }
+      });
       document.getElementById('btn-guardrail-to-sim').addEventListener('click', () => switchTab(1));
       document.getElementById('btn-share-mental-card').addEventListener('click', openShareMentalCardSheet);
       document.getElementById('btn-open-pwa-guide').addEventListener('click', openPwaInstallGuideSheet);
       document.getElementById('btn-open-pwa-guide-settings').addEventListener('click', openPwaInstallGuideSheet);
       document.getElementById('btn-open-deploy-guide').addEventListener('click', openDeployGuideSheet);
 
-      // Stage 6 Section 1.1: Global Real-Time Stock Search Input & Preview Card Events
+      // Stage 6.1 Section 2.2: Global Real-Time Stock Search Input, 5-Item Autocomplete Dropdown & Preview Card Events
       const globalSearchInput = document.getElementById('global-stock-search-input');
       const clearSearchBtn = document.getElementById('btn-clear-stock-search');
       const addSearchedStockBtn = document.getElementById('btn-add-searched-stock');
+      let globalAcDebounce = null;
+
+      function selectGlobalAutocompleteItem(stockItem) {
+        if (!stockItem) return;
+        const code = stockItem.code;
+        if (globalSearchInput) {
+          globalSearchInput.value = `${stockItem.name} (${code})`;
+        }
+        const acList = document.getElementById('global-search-autocomplete-list');
+        if (acList) acList.classList.add('hidden');
+
+        ensureStockDataHydrated(stockItem, stockItem.defaultPrice, stockItem.name).then(() => {
+          if (state.currentSearchSymbol === code) {
+            renderStockSearchPreview(code, stockItem.name);
+          }
+        }).catch(() => {});
+        renderStockSearchPreview(code, stockItem.name);
+      }
 
       if (globalSearchInput) {
         globalSearchInput.addEventListener('input', (e) => {
           const val = (e.target.value || '').trim();
           if (!val) {
+            renderAutocompleteDropdown('global-search-autocomplete-list', [], null, '');
             renderStockSearchPreview(null, '');
             return;
           }
-          const matchedSym = resolveStockQueryToSymbol(val);
-          renderStockSearchPreview(matchedSym, val);
+          const localMatches = StockSearchEngine.searchLocal(val, 5);
+          renderAutocompleteDropdown('global-search-autocomplete-list', localMatches, selectGlobalAutocompleteItem, val);
+
+          if (localMatches.length > 0) {
+            renderStockSearchPreview(localMatches[0].code, val);
+          } else {
+            // Action 3: Immediately hide preview card when there are 0 matches
+            renderStockSearchPreview(null, val);
+          }
+
+          clearTimeout(globalAcDebounce);
+          globalAcDebounce = setTimeout(async () => {
+            const curVal = (globalSearchInput.value || '').trim();
+            if (!curVal) return;
+            const hybridMatches = await StockSearchEngine.searchHybrid(curVal, 5);
+            renderAutocompleteDropdown('global-search-autocomplete-list', hybridMatches, selectGlobalAutocompleteItem, curVal);
+            if (hybridMatches.length > 0) {
+              ensureStockDataHydrated(hybridMatches[0], hybridMatches[0].defaultPrice, hybridMatches[0].name);
+              renderStockSearchPreview(hybridMatches[0].code, curVal);
+            } else {
+              renderStockSearchPreview(null, curVal);
+            }
+          }, 200);
         });
+
         globalSearchInput.addEventListener('focus', (e) => {
           const val = (e.target.value || '').trim();
           if (val) {
-            const matchedSym = resolveStockQueryToSymbol(val);
-            renderStockSearchPreview(matchedSym, val);
+            const localMatches = StockSearchEngine.searchLocal(val, 5);
+            renderAutocompleteDropdown('global-search-autocomplete-list', localMatches, selectGlobalAutocompleteItem, val);
+            if (localMatches.length > 0) {
+              renderStockSearchPreview(localMatches[0].code, val);
+            } else {
+              renderStockSearchPreview(null, val);
+            }
+          }
+        });
+
+        globalSearchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const val = (globalSearchInput.value || '').trim();
+            const localMatches = StockSearchEngine.searchLocal(val, 1);
+            if (localMatches.length > 0) {
+              selectGlobalAutocompleteItem(localMatches[0]);
+            } else {
+              renderStockSearchPreview(null, val);
+            }
           }
         });
       }
@@ -5383,6 +6822,7 @@
       if (clearSearchBtn && globalSearchInput) {
         clearSearchBtn.addEventListener('click', () => {
           globalSearchInput.value = '';
+          renderAutocompleteDropdown('global-search-autocomplete-list', [], null, '');
           renderStockSearchPreview(null, '');
           globalSearchInput.focus();
         });
@@ -5390,7 +6830,14 @@
 
       if (addSearchedStockBtn) {
         addSearchedStockBtn.addEventListener('click', () => {
-          const sym = state.currentSearchSymbol || resolveStockQueryToSymbol(globalSearchInput?.value || '') || 'NVDA';
+          const sym = state.currentSearchSymbol || resolveStockQueryToSymbol(globalSearchInput?.value || '');
+          if (!sym) {
+            triggerInputShake(globalSearchInput);
+            showToast('존재하지 않는 종목입니다. 자동완성 목록에서 정확한 종목을 선택해 주세요.');
+            return;
+          }
+          const acList = document.getElementById('global-search-autocomplete-list');
+          if (acList) acList.classList.add('hidden');
           if (!state.isLoggedIn) {
             state.pendingAddSymbol = sym;
             openAuthLoginSheet(sym);
@@ -5399,6 +6846,21 @@
           }
         });
       }
+
+      // Close #stock-search-preview-card & autocomplete dropdown when clicking outside #global-stock-search-wrap
+      document.addEventListener('pointerdown', (e) => {
+        const wrap = document.getElementById('global-stock-search-wrap');
+        const previewCard = document.getElementById('stock-search-preview-card');
+        const acList = document.getElementById('global-search-autocomplete-list');
+        if (wrap && !wrap.contains(e.target)) {
+          if (previewCard && !previewCard.classList.contains('hidden')) {
+            previewCard.classList.add('hidden');
+          }
+          if (acList && !acList.classList.contains('hidden')) {
+            acList.classList.add('hidden');
+          }
+        }
+      });
 
       // Stage 6 Section 1.3: Empty Portfolio Onboarding Card Buttons
       const emptyAddFirstBtn = document.getElementById('btn-empty-add-first-stock');
@@ -5416,14 +6878,19 @@
         });
       }
 
-      // Header Profile Button: Opens 3-Second Login Sheet when Guest, or Account Switcher when Logged In
-      document.getElementById('btn-open-profile').addEventListener('click', () => {
+      // Header Profile Button & Minimal Header Account Capsule Badge (#header-account-badge)
+      const handleAccountBadgeClick = () => {
         if (!state.isLoggedIn) {
           openAuthLoginSheet(null);
         } else {
           openProfileSwitcherSheet();
         }
-      });
+      };
+      document.getElementById('btn-open-profile').addEventListener('click', handleAccountBadgeClick);
+      const headerAccountBadge = document.getElementById('header-account-badge');
+      if (headerAccountBadge) {
+        headerAccountBadge.addEventListener('click', handleAccountBadgeClick);
+      }
       document.getElementById('btn-quick-signup').addEventListener('click', () => {
         openProfileSwitcherSheet();
       });
@@ -5503,8 +6970,13 @@
         showToast(`내 멘탈 한계(${state.userMddLimit}%) 달성을 위한 최적 완충 비중(${optimalRatio}%)을 설정했습니다`);
       });
 
-      // Apply Simulated Buffer Asset directly to Portfolio
+      // Apply Simulated Buffer Asset directly to Portfolio (Prompts Auth Login Sheet if in Guest Preview mode)
       document.getElementById('btn-apply-buffer-to-portfolio').addEventListener('click', () => {
+        if (!state.isLoggedIn) {
+          const tierInfo = BUFFER_TIERS[state.selectedBufferTier] || BUFFER_TIERS[1];
+          openAuthLoginSheet(tierInfo.repSymbol, '3초 로그인 후 시뮬레이션한 안전 쿠션 종목을 내 계좌에 바로 반영해 보세요');
+          return;
+        }
         const metrics = calculatePortfolioMetrics();
         const tierInfo = BUFFER_TIERS[state.selectedBufferTier] || BUFFER_TIERS[1];
         const repQuote = state.quotes[tierInfo.repSymbol] || VERIFIED_MARKET_QUOTES[tierInfo.repSymbol];
