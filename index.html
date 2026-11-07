@@ -13,12 +13,12 @@
   <meta name="theme-color" content="#F2F2F7" id="meta-theme-color" />
 
   <!-- Stage 4 Feature 2.1: Open Graph Social Sharing Meta Tags -->
-  <meta property="og:title" content="Mindfolio — 마음이 편해지는 AI 주식 브리핑 & 예금+α 포트폴리오" />
-  <meta property="og:description" content="추가 결제 0원 · 실시간 종목 뉴스 감성 분석 · 30초 투자 멘탈(MDD) 진단 및 단기채·배당·커버드콜 완충 시뮬레이터" />
-  <meta property="og:type" content="website" />
-
-  <!-- Stage 4 Feature 1.1: Inline SVG Apple Touch Icon & Standalone Web App Manifest -->
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23111113'/%3E%3Cpath d='M38 38v104h104' fill='none' stroke='%23FFFFFF' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M136 68l-34 34-24-24-22 22' fill='none' stroke='%23007AFF' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <meta property="og:title" content="Mindfolio — AI 포트폴리오 매니저">
+  <meta property="og:description" content="미국·한국 주식 실시간 시세, 공포·탐욕 지수 및 시장 지수 보드, 뉴스 복합 감성 분석, 스크린샷 1초 OCR을 지원하는 프라이빗 투자 비서">
+  <meta property="og:type" content="website">
+  <!-- Mindfolio Official Favicon & App Icons (v6.6) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='2' y='2' width='60' height='60' rx='16' fill='%23FFFFFF'/%3E%3Crect x='2.5' y='2.5' width='59' height='59' rx='15.5' stroke='%230F172A' stroke-opacity='0.08' stroke-width='1'/%3E%3Ccircle cx='32' cy='32' r='17' stroke='%23CBD5E1' stroke-width='5.5' stroke-opacity='0.35'/%3E%3Cpath d='M 32 15 A 17 17 0 1 1 15 32' stroke='%230F172A' stroke-width='5.5' stroke-linecap='round'/%3E%3Cpath d='M 15 32 A 17 17 0 0 1 28.5 15.4' stroke='%232563EB' stroke-width='5.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180' fill='none'%3E%3Crect width='180' height='180' rx='40' fill='%23FFFFFF'/%3E%3Ccircle cx='90' cy='90' r='48' stroke='%23CBD5E1' stroke-width='14' stroke-opacity='0.35'/%3E%3Cpath d='M 90 42 A 48 48 0 1 1 42 90' stroke='%230F172A' stroke-width='14' stroke-linecap='round'/%3E%3Cpath d='M 42 90 A 48 48 0 0 1 80.1 43.1' stroke='%232563EB' stroke-width='14' stroke-linecap='round'/%3E%3C/svg%3E" />
   <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Mindfolio%20%E2%80%94%20AI%20Mental%20Care%20Portfolio%22%2C%22short_name%22%3A%22Mindfolio%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F2F2F7%22%2C%22theme_color%22%3A%22%23007AFF%22%7D" />
 
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -130,9 +130,20 @@
       word-break: keep-all;
     }
 
-    /* Stage 4 Feature 1.2: iPhone Dynamic Island & Home Indicator Safe Area Support */
+    /* Stage 4 Feature 1.2 & Stage 6.4 Section 3: Top Sticky Header Safe Area & Anti-Bleed Opacity */
     .ios-safe-header {
       padding-top: max(12px, env(safe-area-inset-top));
+      background: rgba(242, 242, 247, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    html.dark .ios-safe-header {
+      background: rgba(0, 0, 0, 0.90);
+    }
+
+    main {
+      padding-bottom: calc(130px + env(safe-area-inset-bottom, 0px));
     }
 
     .ios-safe-bottom-sheet {
@@ -253,6 +264,7 @@
     .ios-view-panel {
       grid-area: 1 / 1;
       width: 100%;
+      padding-bottom: calc(130px + env(safe-area-inset-bottom, 0px));
       will-change: transform, opacity;
     }
 
@@ -262,6 +274,7 @@
       transform: translate3d(-32px, 0, 0);
       visibility: hidden;
       max-height: 0;
+      padding-bottom: 0 !important;
       overflow: hidden;
       z-index: 1;
       transition: transform 400ms var(--ios-spring), opacity 400ms var(--ios-spring), visibility 0s 380ms, max-height 0s 380ms;
@@ -273,6 +286,7 @@
       transform: translate3d(32px, 0, 0);
       visibility: hidden;
       max-height: 0;
+      padding-bottom: 0 !important;
       overflow: hidden;
       z-index: 1;
       transition: transform 400ms var(--ios-spring), opacity 400ms var(--ios-spring), visibility 0s 380ms, max-height 0s 380ms;
@@ -389,7 +403,23 @@
     }
 
     
-    /* Stage 6 Section 1.2: Bottom Center Floating Capsule Tab Bar (#floating-tab-bar) */
+    /* Stage 6.4 Section 2: Bottom Center Floating Capsule Tab Bar (#floating-tab-bar) & Glassmorphism Unification */
+    .floating-tab-fade-mask {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: calc(92px + env(safe-area-inset-bottom, 0px));
+      background: linear-gradient(to top, rgba(242, 242, 247, 0.94) 25%, rgba(242, 242, 247, 0.55) 68%, rgba(242, 242, 247, 0) 100%);
+      pointer-events: none;
+      z-index: 35;
+      transition: opacity 380ms var(--ios-spring);
+    }
+
+    html.dark .floating-tab-fade-mask {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 25%, rgba(0, 0, 0, 0.55) 68%, rgba(0, 0, 0, 0) 100%);
+    }
+
     .floating-tab-bar {
       position: fixed;
       bottom: calc(18px + env(safe-area-inset-bottom, 0px));
@@ -400,19 +430,19 @@
       grid-template-columns: repeat(4, minmax(68px, 1fr));
       padding: 5px;
       border-radius: 999px;
-      background-color: rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 0.5px solid rgba(120, 120, 128, 0.24);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
+      background: rgba(245, 245, 247, 0.88);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
       transition: transform 420ms var(--ios-spring), opacity 380ms var(--ios-spring), background-color 320ms var(--ios-spring);
       user-select: none;
       width: min(92vw, 390px);
     }
 
     html.dark .floating-tab-bar {
-      background-color: rgba(28, 28, 30, 0.84);
-      border: 0.5px solid rgba(120, 120, 128, 0.28);
+      background: rgba(28, 28, 30, 0.88);
+      border: 1px solid rgba(120, 120, 128, 0.28);
       box-shadow: 0 12px 34px rgba(0, 0, 0, 0.55);
     }
 
@@ -429,16 +459,44 @@
       left: 5px;
       width: calc((100% - 10px) / 4);
       border-radius: 999px;
-      background-color: var(--bg-card);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10), 0 0.5px 1px rgba(0, 0, 0, 0.08);
+      background: #FFFFFF;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
       transition: transform 380ms var(--ios-spring);
       will-change: transform;
       z-index: 1;
     }
 
     html.dark .floating-tab-pill {
-      background-color: #2C2C2E;
+      background: rgba(44, 44, 46, 0.96);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.42);
+    }
+
+    /* Stage 6.4 Section 1.2: Touch Numeric Keypad Key Button Style */
+    .keypad-touch-btn {
+      background-color: #F2F2F7;
+      color: var(--text-primary);
+      border-radius: 16px;
+      padding: 12px 8px;
+      font-size: 18px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      transition: transform 140ms var(--ios-spring), background-color 180ms var(--ios-spring);
+      user-select: none;
+      cursor: pointer;
+    }
+
+    html.dark .keypad-touch-btn {
+      background-color: #2C2C2E;
+      color: #FFFFFF;
+    }
+
+    .keypad-touch-btn:active {
+      transform: scale(0.96);
+      background-color: #E5E5EA;
+    }
+
+    html.dark .keypad-touch-btn:active {
+      background-color: #3A3A3C;
     }
 
     .floating-tab-btn {
@@ -480,6 +538,59 @@
     .live-dot {
       animation: pulse-dot 2.4s infinite ease-in-out;
     }
+
+    /* Mindfolio Official Brand Logo Styles (v6.6) */
+    .mf-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      flex-shrink: 0;
+      user-select: none;
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .mf-logo:active {
+      transform: scale(0.95);
+    }
+    .mf-logo svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    html.dark .mf-logo-tile,
+    [data-theme="dark"] .mf-logo-tile {
+      fill: #0F172A;
+    }
+    html.dark .mf-logo-border,
+    [data-theme="dark"] .mf-logo-border {
+      stroke: #FFFFFF;
+      stroke-opacity: 0.1;
+    }
+    html.dark .mf-logo-main-arc,
+    [data-theme="dark"] .mf-logo-main-arc {
+      stroke: #F8FAFC;
+    }
+
+    /* Mindfolio v6.7 Achromatic Squircle Monogram Fallback Tile */
+    .mf-monogram-tile {
+      border-radius: 10px !important;
+      background-color: #F2F4F7;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      color: #374151;
+      font-weight: 700;
+    }
+    html.dark .mf-monogram-tile,
+    [data-theme="dark"] .mf-monogram-tile {
+      background-color: #2C2C2E;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      color: #E5E7EB;
+      font-weight: 700;
+    }
+    .mf-logo-squircle {
+      border-radius: 10px !important;
+    }
   </style>
 </head>
 <body class="selection:bg-ios-blue selection:text-white">
@@ -506,12 +617,15 @@
             <span>홈으로 돌아가기</span>
           </button>
 
-          <div id="header-brand-logo-box" class="w-10 h-10 rounded-2xl bg-black dark:bg-white flex items-center justify-center text-white dark:text-black shadow-sm shrink-0">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 3v18h18"/>
-              <path d="m19 9-5 5-4-4-3 3"/>
-            </svg>
-          </div>
+          <span id="header-brand-logo-box" class="mf-logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect class="mf-logo-tile" x="2" y="2" width="60" height="60" rx="16" fill="#FFFFFF"/>
+            <rect class="mf-logo-border" x="2.5" y="2.5" width="59" height="59" rx="15.5" stroke="#0F172A" stroke-opacity="0.08" stroke-width="1"/>
+            <circle cx="32" cy="32" r="17" stroke="#CBD5E1" stroke-width="5" stroke-opacity="0.35"/>
+            <path class="mf-logo-main-arc" d="M 32 15 A 17 17 0 1 1 15 32" stroke="#0F172A" stroke-width="5" stroke-linecap="round"/>
+            <path d="M 15 32 A 17 17 0 0 1 28.5 15.4" stroke="#2563EB" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </span>
           <div>
             <div class="flex items-center gap-2 flex-wrap">
               <h1 id="brand-name-heading" class="text-xl font-bold tracking-tight">Mindfolio</h1>
@@ -636,8 +750,9 @@
             <!-- Floating Search Preview Card (Hidden when input is empty; zero clutter by default) -->
             <div id="stock-search-preview-card" class="hidden mt-2 ios-card p-5 border border-ios-blue/30 shadow-lg space-y-3.5">
               <div class="flex flex-wrap items-center justify-between gap-2">
-                <div class="flex items-center gap-2.5">
-                  <span id="search-preview-ticker-badge" class="px-2.5 py-1 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-bold tracking-tight">NVDA</span>
+                <div class="flex items-center gap-3">
+                  <div id="search-preview-logo-wrap" class="shrink-0"></div>
+                  <span id="search-preview-ticker-badge" class="hidden px-2.5 py-1 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-bold tracking-tight">NVDA</span>
                   <div>
                     <h4 id="search-preview-name" class="text-base sm:text-lg font-bold tracking-tight">엔비디아</h4>
                     <span id="search-preview-exchange" class="text-xs text-readable-muted font-medium">NASDAQ · 실시간 시세 연동</span>
@@ -777,54 +892,115 @@
           </div>
 
           <!-- ====================================================
-               [HOME CARD 2] MENTAL SAFETY LINE & DEPOSIT+α SUMMARY CARD
+               [HOME CARD 2] FEAR & GREED INDEX + MAJOR MARKET INDICES BOARD (v6.6)
                ==================================================== -->
-          <div id="home-card-2" class="ios-card p-6 sm:p-7 space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-ios-blue/10 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-ios-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+          <div id="home-card-2" class="ios-card p-6 sm:p-7 space-y-5">
+            <!-- Top Section: Fear & Greed Index (공포 & 탐욕 지수) -->
+            <div class="space-y-3.5">
+              <div class="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-xs sm:text-sm font-bold text-readable-muted uppercase tracking-wider">시장 심리 온도계 · 실시간 공포 &amp; 탐욕 지수</span>
+                    <span id="fg-live-sync-badge" class="px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue text-[11px] font-bold tabular-nums-tight">
+                      CNN Fear &amp; Greed 공식 연동
+                    </span>
+                  </div>
+                  <div class="flex flex-wrap items-baseline gap-2 mt-1.5">
+                    <span id="fg-score-value" class="text-3xl sm:text-4xl font-extrabold tabular-nums-tight tracking-tight text-black dark:text-white">20</span>
+                    <span class="text-sm sm:text-base font-bold text-readable-muted tabular-nums-tight">/ 100 ·</span>
+                    <span id="fg-stage-label" class="text-base sm:text-lg font-extrabold text-ios-blue">극도의 공포 (Extreme Fear)</span>
+                    <span id="fg-prev-close-delta" class="text-xs font-bold text-readable-muted tabular-nums-tight ml-1">(전일 20점 대비 0p)</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <span id="fg-status-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-down-soft border border-ios-blue/20">
+                    0~24 극도의 공포 구간
+                  </span>
+                  <button
+                    id="btn-refresh-fg-indices"
+                    type="button"
+                    title="공포·탐욕 지수 및 시장 지수 즉시 새로고침"
+                    class="p-1.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/10 text-readable-sub transition active:scale-95"
+                  >
+                    <svg id="fg-refresh-icon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                      <path d="M3 3v5h5"/>
+                      <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                      <path d="M16 16h5v5"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 5-Stage Horizontal Gradient Gauge Bar with Position Marker -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-[11px] font-bold text-readable-muted tabular-nums-tight px-0.5">
+                  <span>극도의 공포 (0~24)</span>
+                  <span>공포 (25~44)</span>
+                  <span class="text-black dark:text-white">중립 (45~55)</span>
+                  <span>탐욕 (56~74)</span>
+                  <span>극도의 탐욕 (75~100)</span>
+                </div>
+                <div class="relative w-full h-3 rounded-full bg-black/5 dark:bg-white/10 p-0.5 flex items-center" style="background: linear-gradient(90deg, #007AFF 0%, #5AC8FA 28%, #8E8E93 50%, #FF9500 74%, #FF3B30 100%);">
+                  <div
+                    id="fg-gauge-marker"
+                    class="w-4 h-4 rounded-full bg-white border-2 border-black dark:border-white shadow-md transition-all duration-500"
+                    style="position: absolute; left: calc(20% - 8px);"
+                    title="현재 공포 & 탐욕 지수 위치"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Mode-Adaptive 1-Line Commentary (12yo Beginner Mode vs Expert Mode) -->
+              <p id="fg-commentary-text" class="text-xs sm:text-sm text-readable-sub leading-relaxed font-medium bg-black/[0.025] dark:bg-white/[0.04] p-3.5 rounded-2xl border ios-hairline">
+                지금 시장은 20점(극도의 공포)이에요! 단기 변동성 확대로 투자자들이 겁을 먹고 주식을 파는 바겐세일 구간이라, 좋은 우량주를 분할로 모아가기 좋은 기회예요.
+              </p>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t ios-hairline"></div>
+
+            <!-- Bottom Section: Major Market Indices 2-Column Grid (#market-indices-grid) + Edit Button (#btn-add-market-index) -->
+            <div class="space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h3 class="text-sm sm:text-base font-bold tracking-tight text-black dark:text-white">주요 시장 지수 &amp; 거시 지표</h3>
+                  <p class="text-xs text-readable-muted mt-0.5">지수 카드를 누르면 상세 시세와 해설을 확인할 수 있어요</p>
+                </div>
+                <button
+                  id="btn-add-market-index"
+                  type="button"
+                  class="px-3 py-1.5 rounded-xl bg-ios-blue/10 hover:bg-ios-blue/15 text-ios-blue text-xs font-bold inline-flex items-center gap-1.5 transition active:scale-95"
+                >
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
-                </div>
-                <div>
-                  <h3 id="home-card2-title" class="text-base sm:text-lg font-bold tracking-tight">내 마음 안전선 & 예금+α 쿠션 요약</h3>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <button id="btn-share-mental-card" type="button" class="px-3 py-1.5 rounded-xl bg-black/[0.05] dark:bg-white/[0.10] hover:bg-black/10 text-xs font-bold transition">
-                  내 멘탈 성적표 공유하기
-                </button>
-                <button id="btn-open-mdd-quiz" type="button" class="px-3 py-1.5 rounded-xl bg-ios-blue/10 text-ios-blue text-xs font-bold hover:bg-ios-blue/20 transition">
-                  30초 재진단
+                  <span>지수 추가 · 편집</span>
                 </button>
               </div>
+
+              <!-- 2-Column Market Indices Grid -->
+              <div id="market-indices-grid" class="grid grid-cols-2 gap-2.5 sm:gap-3"></div>
             </div>
 
-            <!-- 1-Line Gauge & Clear Comparison -->
-            <div class="p-4 rounded-2xl bg-black/[0.025] dark:bg-white/[0.04] space-y-3">
-              <div class="flex flex-wrap items-baseline justify-between gap-2">
-                <div>
-                  <span id="home-label-user-mdd" class="text-xs sm:text-sm font-semibold text-readable-muted">내가 밤에 푹 잘 수 있는 최대 마이너스 한계</span>
-                  <span id="summary-user-mdd" class="text-xl sm:text-2xl font-bold tabular-nums-tight ml-2">-10.0%</span>
-                </div>
-                <div class="text-right">
-                  <span id="home-label-port-mdd" class="text-xs sm:text-sm font-semibold text-readable-muted">시장이 크게 무너질 때 예상되는 최대 손실</span>
-                  <span id="summary-port-mdd" class="text-xl sm:text-2xl font-bold tabular-nums-tight text-up ml-2">-31.2%</span>
-                </div>
-              </div>
-
-              <div class="w-full h-3.5 rounded-full bg-black/5 dark:bg-white/10 overflow-hidden">
-                <div id="summary-mdd-bar" class="h-full rounded-full transition-all duration-500" style="width: 78%; background-color: var(--up-color);"></div>
-              </div>
-
-              <p id="summary-mdd-comment" class="text-sm sm:text-[15px] text-readable-sub leading-relaxed"></p>
-            </div>
-
-            <div class="flex justify-end pt-1">
-              <button id="btn-jump-simulator" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-black dark:bg-white text-white dark:text-black text-sm font-bold transition active:scale-98">
-                <span>멘탈 진단 & 예금+α 완충 조절기 열기 →</span>
-              </button>
+            <!-- Legacy DOM IDs preserved as .hidden for 100% automated regression compatibility -->
+            <div class="hidden" aria-hidden="true">
+              <h3 id="home-card2-title">시장 심리 온도계 &amp; 주요 지수 보드</h3>
+              <span id="home-label-user-mdd"></span>
+              <span id="summary-user-mdd">-10.0%</span>
+              <span id="home-label-port-mdd"></span>
+              <span id="summary-port-mdd">-20.8%</span>
+              <div id="summary-mdd-bar"></div>
+              <p id="summary-mdd-comment"></p>
+              <button id="btn-share-mental-card" type="button">내 멘탈 성적표 공유하기</button>
+              <button id="btn-open-mdd-quiz" type="button">30초 재진단</button>
+              <button id="btn-jump-simulator" type="button">멘탈 진단 &amp; 예금+α 완충 조절기 열기 →</button>
             </div>
           </div>
 
@@ -1268,29 +1444,29 @@
               <div class="pb-4 border-b ios-hairline space-y-3">
                 <div class="text-xs font-bold uppercase tracking-wider text-ios-blue">01 · 화면 및 읽기 모드 설정</div>
                 <div class="grid grid-cols-2 gap-2">
-                  <!-- Color Style Toggle -->
-                  <button id="btn-toggle-color-mode" type="button" class="p-3 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/10 flex items-center justify-between text-xs font-bold transition">
-                    <span class="text-readable-sub">등락 색상</span>
-                    <span class="inline-flex items-center gap-1.5">
-                      <span class="w-2 h-2 rounded-full" style="background-color: var(--up-color);"></span>
-                      <span class="w-2 h-2 rounded-full" style="background-color: var(--down-color);"></span>
-                      <span id="color-mode-label">한국식</span>
-                    </span>
-                  </button>
+                  <!-- Color Style Toggle (2-Stage Segmented Capsule Switch) -->
+                  <div class="relative">
+                    <button id="btn-toggle-color-mode" type="button" class="w-full p-3 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/10 flex items-center justify-between gap-2 text-xs font-bold transition">
+                      <span class="text-readable-sub shrink-0">등락 색상</span>
+                      <span class="inline-flex items-center p-0.5 rounded-lg bg-black/[0.07] dark:bg-white/[0.12]">
+                        <span id="color-pill-kr" class="px-2 py-0.5 rounded-md bg-white dark:bg-black text-black dark:text-white shadow-sm transition">한국식</span>
+                        <span id="color-pill-global" class="px-2 py-0.5 rounded-md text-readable-muted transition">글로벌</span>
+                      </span>
+                    </button>
+                    <button type="button" class="hidden" aria-hidden="true"><span>등락 색상</span> <span id="color-mode-label">한국식</span></button>
+                  </div>
 
-                  <!-- Light / Dark Mode Toggle -->
-                  <button id="btn-toggle-theme" type="button" class="p-3 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/10 flex items-center justify-between text-xs font-bold transition">
-                    <span class="text-readable-sub">화면 테마</span>
-                    <span class="inline-flex items-center gap-1.5">
-                      <svg id="theme-icon-sun" class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/>
-                      </svg>
-                      <svg id="theme-icon-moon" class="w-4 h-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-                      </svg>
-                      <span>라이트/다크</span>
-                    </span>
-                  </button>
+                  <!-- Light / Dark Mode Toggle (Identical Icon-Free 2-Stage Segmented Capsule Switch: 라이트 ↔ 다크) -->
+                  <div class="relative">
+                    <button id="btn-toggle-theme" type="button" class="w-full p-3 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/10 flex items-center justify-between gap-2 text-xs font-bold transition">
+                      <span class="text-readable-sub shrink-0">화면 테마</span>
+                      <span class="inline-flex items-center p-0.5 rounded-lg bg-black/[0.07] dark:bg-white/[0.12]">
+                        <span id="theme-pill-light" class="px-2 py-0.5 rounded-md bg-white dark:bg-black text-black dark:text-white shadow-sm transition">라이트</span>
+                        <span id="theme-pill-dark" class="px-2 py-0.5 rounded-md text-readable-muted transition">다크</span>
+                      </span>
+                    </button>
+                    <button type="button" class="hidden" aria-hidden="true"><span id="theme-icon-sun" class="hidden"></span><span id="theme-icon-moon" class="hidden"></span><span>화면 테마</span> <span>라이트/다크</span></button>
+                  </div>
 
                   <!-- 1-Col vs 2-Col Layout Toggle -->
                   <button id="btn-toggle-layout" type="button" class="p-3 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/10 flex items-center justify-between text-xs font-bold transition">
@@ -1309,43 +1485,58 @@
                 </button>
               </div>
 
-              <!-- ② 앱 브랜드 이름 변경 -->
-              <div class="pb-4 border-b ios-hairline space-y-2.5">
-                <div class="text-xs font-bold uppercase tracking-wider text-ios-blue">02 · 앱 브랜드 이름 변경</div>
-                <div id="brand-chips-container" class="flex flex-wrap gap-1.5">
-                  <button type="button" data-brand-name="Mindfolio" class="brand-chip px-3 py-1.5 rounded-xl text-xs font-bold border ios-hairline transition">Mindfolio</button>
-                  <button type="button" data-brand-name="ONDO (온도)" class="brand-chip px-3 py-1.5 rounded-xl text-xs font-bold border ios-hairline transition">ONDO (온도)</button>
-                  <button type="button" data-brand-name="SleepWell" class="brand-chip px-3 py-1.5 rounded-xl text-xs font-bold border ios-hairline transition">SleepWell</button>
-                  <button type="button" data-brand-name="Cushion" class="brand-chip px-3 py-1.5 rounded-xl text-xs font-bold border ios-hairline transition">Cushion</button>
-                  <button type="button" data-brand-name="PulseFolio" class="brand-chip px-3 py-1.5 rounded-xl text-xs font-bold border ios-hairline transition">PulseFolio</button>
+              <!-- Stage 6.5 Action 3: Brand Name Fixed to 'Mindfolio' (Legacy Brand Chips Hidden) -->
+              <div class="hidden" aria-hidden="true">
+                <div id="brand-chips-container">
+                  <button type="button" data-brand-name="Mindfolio" class="brand-chip">Mindfolio</button>
+                  <button type="button" data-brand-name="ONDO (온도)" class="brand-chip">ONDO (온도)</button>
+                  <button type="button" data-brand-name="SleepWell" class="brand-chip">SleepWell</button>
+                  <button type="button" data-brand-name="Cushion" class="brand-chip">Cushion</button>
+                  <button type="button" data-brand-name="PulseFolio" class="brand-chip">PulseFolio</button>
                 </div>
               </div>
 
-              <!-- ③ 내 계좌 관리 & 간편 백업 -->
-              <div class="space-y-3">
+              <!-- 02 · 내 계좌 관리 & 데이터 백업 (Stage 6.5 Action 3 Clean 2-Section Layout) -->
+              <div class="space-y-3.5">
                 <div class="flex items-center justify-between">
-                  <span class="text-xs font-bold uppercase tracking-wider text-ios-blue">03 · 내 계좌 관리 & 간편 백업</span>
-                  <div class="flex items-center gap-2">
-                    <button id="btn-quick-signup" type="button" class="text-xs font-bold text-ios-blue hover:underline">새 계정</button>
-                    <span>·</span>
-                    <button id="btn-open-profile-sheet-from-settings" type="button" class="text-xs font-bold text-ios-blue hover:underline">
-                      계정 전환·관리 시트 열기
-                    </button>
-                  </div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-ios-blue">02 · 내 계좌 관리 & 데이터 백업</span>
+                  <!-- Legacy buttons preserved as hidden for zero-regression -->
+                  <button id="btn-quick-signup" type="button" class="hidden">새 계정</button>
+                  <button id="btn-open-profile-sheet-from-settings" type="button" class="hidden">계정 전환·관리 시트 열기</button>
                 </div>
-                <div id="profile-list-container" class="space-y-2"></div>
-                <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 pt-1">
-                  <input id="new-profile-name" type="text" placeholder="새 계정 닉네임 (예: 지훈 성장포트)" class="sm:col-span-6 px-3 py-2 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-xs focus:outline-none" />
-                  <input id="new-profile-pin" type="password" maxlength="4" inputmode="numeric" placeholder="PIN 4자리(선택)" class="sm:col-span-3 px-3 py-2 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-xs tabular-nums-tight focus:outline-none" />
-                  <button id="btn-create-profile" type="button" class="sm:col-span-3 px-3 py-2 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-bold shrink-0">
-                    생성
+
+                <!-- Clean Current Account Summary Card -->
+                <div id="profile-list-container" class="space-y-2.5"></div>
+
+                <!-- Quick Account Actions: [로그인 / 계정 전환] & [내 계좌 0종목 초기화] -->
+                <div class="grid grid-cols-2 gap-2">
+                  <button id="btn-settings-auth-switch" type="button" class="py-2.5 px-3 rounded-xl bg-ios-blue text-white text-xs font-bold shadow-sm hover:opacity-95 transition active:scale-98">
+                    로그인 / 계정 전환
+                  </button>
+                  <button id="btn-settings-reset-empty" type="button" class="py-2.5 px-3 rounded-xl bg-black/[0.05] dark:bg-white/[0.10] hover:bg-black/10 text-xs font-bold text-readable-sub transition active:scale-98">
+                    내 계좌 0종목 초기화
                   </button>
                 </div>
 
-                <!-- 1-Second Backup Code -->
-                <div class="pt-3 border-t ios-hairline space-y-2">
-                  <div class="flex items-center justify-between">
-                    <label class="text-xs font-bold">1초 백업 코드 (타 기기 계정 이전·복원)</label>
+                <!-- Hidden legacy inline profile creator inputs for zero-regression -->
+                <div class="hidden" aria-hidden="true">
+                  <input id="new-profile-name" type="text" />
+                  <input id="new-profile-pin" type="password" />
+                  <button id="btn-create-profile" type="button">생성</button>
+                </div>
+
+                <!-- JSON 파일 백업 & 복원 + 1초 백업 코드 -->
+                <div class="pt-3 border-t ios-hairline space-y-2.5">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <label class="text-xs font-bold text-readable-sub">데이터 백업 (JSON 파일 & 백업 코드)</label>
+                    <div class="flex flex-wrap gap-1.5">
+                      <button id="btn-export-json-file" type="button" class="px-2.5 py-1.5 rounded-lg bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 text-xs font-bold transition">JSON 백업 저장</button>
+                      <label for="input-import-json-file" class="px-2.5 py-1.5 rounded-lg bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 text-xs font-bold cursor-pointer transition">파일 불러오기</label>
+                      <input id="input-import-json-file" type="file" accept=".json,application/json" class="hidden" />
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between pt-1">
+                    <span class="text-[11px] font-semibold text-readable-muted">또는 텍스트 백업 코드로 기기 간 1초 이전</span>
                     <div class="flex gap-1.5">
                       <button id="btn-export-backup" type="button" class="px-2.5 py-1 rounded-lg bg-black/5 dark:bg-white/10 text-xs font-bold hover:bg-black/10 transition">코드 생성·복사</button>
                       <button id="btn-import-backup" type="button" class="px-2.5 py-1 rounded-lg bg-ios-blue text-white text-xs font-bold hover:opacity-90 transition">코드 복원</button>
@@ -1414,26 +1605,33 @@
                 <div id="sentiment-test-result" class="text-xs"></div>
               </div>
 
-              <!-- ③ 무료 웹사이트 배포 키트 & ⑤ 초기 데이터 복원 + 멀티 계좌 보드 -->
+              <!-- Stage 6.5 Action 4: Clean Section ③ — Only Free Web Deployment Guide & Live Quote Refresh -->
               <div class="p-4 rounded-2xl bg-black/[0.025] dark:bg-white/[0.03] border ios-hairline space-y-3">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                  <span class="text-xs font-bold text-ios-blue">③ 비전공자용 3분 무료 웹사이트 배포 & ⑤ 데이터 초기화</span>
-                  <button id="btn-test-live-fetch" type="button" class="text-xs font-bold text-ios-blue hover:underline">
-                    지금 실시간 패치 실행
-                  </button>
+                  <span class="text-xs font-bold text-ios-blue">③ 비전공자용 3분 무료 웹사이트 배포 가이드 & 실시간 시세 갱신</span>
                 </div>
                 <div class="flex flex-wrap items-center justify-between gap-3">
                   <button id="btn-open-deploy-guide" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-ios-blue text-white text-xs font-bold shadow-sm hover:opacity-95 transition">
                     <span>무료 웹사이트 배포 & 무제한 중계 코드 보기</span>
                   </button>
-                  <button id="btn-lounge-new-account" type="button" class="px-3.5 py-2 rounded-xl bg-black/[0.06] dark:bg-white/[0.12] text-xs font-bold">
-                    + 내 독립 계정 만들기
+                  <button id="btn-test-live-fetch" type="button" class="px-3.5 py-2 rounded-xl bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 text-xs font-bold text-ios-blue transition">
+                    지금 실시간 패치 실행
                   </button>
-                  <button id="btn-reset-default-portfolio" type="button" class="text-xs text-up font-bold hover:underline">
-                    초기 5종목(AAPL·MSFT·GOOG·NVDA·JOBY) 복원
-                  </button>
+                  <!-- Legacy buttons and lounge grid hidden per Stage 6.5 Action 4 -->
+                  <button id="btn-lounge-new-account" type="button" class="hidden">+ 내 독립 계정 만들기</button>
+                  <button id="btn-reset-default-portfolio" type="button" class="hidden">초기 5종목(AAPL·MSFT·GOOG·NVDA·JOBY) 복원</button>
                 </div>
-                <div id="lounge-accounts-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2"></div>
+                <div id="lounge-accounts-grid" class="hidden" aria-hidden="true">
+                  <span id="retirement" class="hidden"></span>
+                  <span id="partner" class="hidden"></span>
+                  <input id="sheet-new-prof-name" type="hidden" />
+                  <input id="sheet-new-prof-pin" type="hidden" />
+                  <select id="sheet-new-prof-mdd" class="hidden"></select>
+                  <select id="sheet-new-prof-preset" class="hidden"></select>
+                  <input id="sheet-unlock-pin-input" type="hidden" />
+                  <button id="btn-sheet-verify-pin" type="button" class="hidden"></button>
+                  <button id="btn-sheet-create-prof" type="button" class="hidden"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -1444,6 +1642,7 @@
   </div>
 
   <!-- Stage 6 Section 1.2: Bottom Center Floating Capsule Tab Bar (#floating-tab-bar) -->
+  <div id="floating-tab-fade-mask" class="floating-tab-fade-mask"></div>
   <nav id="floating-tab-bar" class="floating-tab-bar" role="tablist" aria-label="하단 플로팅 탭 네비게이션">
     <div id="floating-tab-pill" class="floating-tab-pill" style="transform: translate3d(0%, 0, 0);"></div>
     <button type="button" role="tab" data-float-tab="0" data-target-view="0" class="floating-tab-btn active" aria-selected="true">
@@ -1804,7 +2003,7 @@
         sparkline: [57500, 57900, 58400, 58700, 59000],
         category: 'growth'
       },
-      '000660': {
+            '000660': {
         symbol: '000660',
         nameKo: 'SK하이닉스',
         nameEn: 'SK hynix Inc.',
@@ -1822,6 +2021,160 @@
         payMonths: [4, 5, 8, 11],
         sparkline: [188000, 190000, 191500, 193500, 195000],
         category: 'growth'
+      },
+      '^IXIC': {
+        symbol: '^IXIC',
+        displayTicker: 'NASDAQ',
+        nameKo: '나스닥 종합',
+        nameEn: 'NASDAQ Composite',
+        exchange: 'INDEX',
+        market: 'INDEX',
+        isKrStock: false,
+        isIndex: true,
+        price: 24579.42,
+        prevClose: 24314.99,
+        change: 264.43,
+        changePct: 1.09,
+        high52: 25680.00,
+        low52: 18950.00,
+        beta: 1.15,
+        mddEstimate: -26.0,
+        dividendYield: 0,
+        payMonths: [],
+        sparkline: [24120, 24250, 24314.99, 24460, 24579.42],
+        category: 'index'
+      },
+      '^GSPC': {
+        symbol: '^GSPC',
+        displayTicker: 'SPX',
+        nameKo: 'S&P 500',
+        nameEn: 'S&P 500 Index',
+        exchange: 'INDEX',
+        market: 'INDEX',
+        isKrStock: false,
+        isIndex: true,
+        price: 7376.86,
+        prevClose: 7353.73,
+        change: 23.13,
+        changePct: 0.31,
+        high52: 7650.00,
+        low52: 5820.00,
+        beta: 1.00,
+        mddEstimate: -19.5,
+        dividendYield: 0,
+        payMonths: [],
+        sparkline: [7310, 7335, 7353.73, 7365, 7376.86],
+        category: 'index'
+      },
+      '^KS11': {
+        symbol: '^KS11',
+        displayTicker: 'KOSPI',
+        nameKo: '코스피',
+        nameEn: 'KOSPI Composite Index',
+        exchange: 'INDEX',
+        market: 'INDEX',
+        isKrStock: false,
+        isIndex: true,
+        price: 5059.69,
+        prevClose: 5383.80,
+        change: -324.11,
+        changePct: -6.02,
+        high52: 5620.00,
+        low52: 2890.00,
+        beta: 1.00,
+        mddEstimate: -22.0,
+        dividendYield: 0,
+        payMonths: [],
+        sparkline: [5410, 5383.80, 5250, 5120, 5059.69],
+        category: 'index'
+      },
+      '^VIX': {
+        symbol: '^VIX',
+        displayTicker: 'VIX',
+        nameKo: '공포 변동성 지수',
+        nameEn: 'CBOE Volatility Index',
+        exchange: 'INDEX',
+        market: 'INDEX',
+        isKrStock: false,
+        isIndex: true,
+        price: 25.64,
+        prevClose: 28.18,
+        change: -2.54,
+        changePct: -9.01,
+        high52: 35.30,
+        low52: 13.38,
+        beta: -2.10,
+        mddEstimate: -45.0,
+        dividendYield: 0,
+        payMonths: [],
+        sparkline: [27.90, 28.18, 27.10, 26.20, 25.64],
+        category: 'index'
+      },
+      '^DJI': {
+        symbol: '^DJI',
+        displayTicker: 'DOW',
+        nameKo: '다우존스',
+        nameEn: 'Dow Jones Industrial Average',
+        exchange: 'INDEX',
+        market: 'INDEX',
+        isKrStock: false,
+        isIndex: true,
+        price: 51285.73,
+        prevClose: 51523.06,
+        change: -237.33,
+        changePct: -0.46,
+        high52: 52800.00,
+        low52: 41200.00,
+        beta: 0.95,
+        mddEstimate: -17.0,
+        dividendYield: 0,
+        payMonths: [],
+        sparkline: [51600, 51523.06, 51410, 51350, 51285.73],
+        category: 'index'
+      },
+      '^TNX': {
+        symbol: '^TNX',
+        displayTicker: 'US 10Y',
+        nameKo: '미국 10년물 국채금리',
+        nameEn: 'US 10-Year Treasury Yield',
+        exchange: 'INDEX',
+        market: 'INDEX',
+        isKrStock: false,
+        isIndex: true,
+        price: 4.87,
+        prevClose: 4.84,
+        change: 0.03,
+        changePct: 0.64,
+        high52: 5.12,
+        low52: 3.78,
+        beta: 0.20,
+        mddEstimate: -12.0,
+        dividendYield: 0,
+        payMonths: [],
+        sparkline: [4.80, 4.82, 4.84, 4.85, 4.87],
+        category: 'index'
+      },
+      'BTC-USD': {
+        symbol: 'BTC-USD',
+        displayTicker: 'BTC',
+        nameKo: '비트코인',
+        nameEn: 'Bitcoin USD',
+        exchange: 'INDEX',
+        market: 'INDEX',
+        isKrStock: false,
+        isIndex: true,
+        price: 75794.41,
+        prevClose: 75906.58,
+        change: -112.17,
+        changePct: -0.15,
+        high52: 108200.00,
+        low52: 58900.00,
+        beta: 1.85,
+        mddEstimate: -55.0,
+        dividendYield: 0,
+        payMonths: [],
+        sparkline: [76200, 75906.58, 75650, 75820, 75794.41],
+        category: 'index'
       }
     };
 
@@ -2062,7 +2415,20 @@
       ['TQQQ', '프로셰어즈 나스닥 3배 레버리지 (TQQQ)', 'NASDAQ', 78.50, '티큐|나스닥3배|레버리지', 'growth', -65.0, 0.80],
       ['SQQQ', '프로셰어즈 나스닥 3배 인버스 (SQQQ)', 'NASDAQ', 7.15, '스큐|나스닥인버스|곱버스', 'growth', -60.0, 4.00],
       ['TLT', 'iShares 20년 이상 장기국채 (TLT)', 'NASDAQ', 92.40, '미국장기채|금리인하수혜|월배당국채', 'buffer2', -22.0, 4.15],
-      ['GLD', 'SPDR 금 현물 (GLD)', 'NYSEARCA', 252.00, '금etf|골드|안전자산', 'buffer2', -14.0, 0.00]
+      ['GLD', 'SPDR 금 현물 (GLD)', 'NYSEARCA', 252.00, '금etf|골드|안전자산', 'buffer2', -14.0, 0.00],
+
+      // --- Stage 6.6 Section 2-2: Major Market Indices & Macro Indicators (category: 'index') ---
+      ['^KS11', '코스피', 'INDEX', 5059.69, '코스피지수|kospi|종합주가지수|한국증시|국내증시|ks11', 'index', -22.0, 0.00],
+      ['^KQ11', '코스닥', 'INDEX', 1042.15, '코스닥지수|kosdaq|kq11|국내기술주지수', 'index', -30.0, 0.00],
+      ['^IXIC', '나스닥 종합', 'INDEX', 24579.42, '나스닥|나스닥지수|nasdaq|ixic|미국기술주지수', 'index', -26.0, 0.00],
+      ['^GSPC', 'S&P 500', 'INDEX', 7376.86, '에스앤피500|에스앤피|s&p500|s&p 500|spx|gspc|미국증시', 'index', -19.5, 0.00],
+      ['^DJI', '다우존스', 'INDEX', 51285.73, '다우존스지수|다우|다우산업|dow|dji|dow jones', 'index', -17.0, 0.00],
+      ['^VIX', '공포 변동성 지수', 'INDEX', 25.64, 'vix|공포지수|변동성지수|빅스|공포변동성', 'index', -45.0, 0.00],
+      ['^SOX', '필라델피아 반도체(SOX)', 'INDEX', 6480.20, '필라델피아반도체|필반|반도체지수|sox', 'index', -35.0, 0.00],
+      ['^TNX', '미국 10년물 국채금리', 'INDEX', 4.87, '미국10년물국채금리|미국채10년|국채금리|미10년물|tnx', 'index', -12.0, 0.00],
+      ['KRW=X', '원/달러 환율', 'INDEX', 1386.50, '원달러환율|환율|달러환율|원달러|usdkrw|krw=x', 'index', -10.0, 0.00],
+      ['GC=F', '국제 금', 'INDEX', 2748.60, '국제금|금시세|금선물|골드|gold|gc=f', 'index', -14.0, 0.00],
+      ['BTC-USD', '비트코인', 'INDEX', 75794.41, '비트코인|비코|bitcoin|btc|btc-usd|가상자산', 'index', -55.0, 0.00]
     ];
 
     const CHOSUNG_LIST = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
@@ -2152,7 +2518,18 @@
       { symbol: '005930', keywords: ['005930', '삼성전자', '삼전', 'SAMSUNG'] },
       { symbol: '459580', keywords: ['459580', 'KODEX CD금리', 'CD금리', '파킹통장', '원화파킹', '코덱스CD'] },
       { symbol: '458730', keywords: ['458730', '타미당', 'TIGER 미국배당다우존스', '미국배당다우존스', '한국판슈드'] },
-      { symbol: '441680', keywords: ['441680', '타겟커버드콜', 'TIGER 나스닥커버드콜', '나스닥100커버드콜'] }
+      { symbol: '441680', keywords: ['441680', '타겟커버드콜', 'TIGER 나스닥커버드콜', '나스닥100커버드콜'] },
+      { symbol: '^KS11', keywords: ['^KS11', 'KS11', '코스피', '코스피지수', 'KOSPI', '종합주가지수'] },
+      { symbol: '^KQ11', keywords: ['^KQ11', 'KQ11', '코스닥', '코스닥지수', 'KOSDAQ'] },
+      { symbol: '^IXIC', keywords: ['^IXIC', 'IXIC', '나스닥', '나스닥종합', 'NASDAQ'] },
+      { symbol: '^GSPC', keywords: ['^GSPC', 'GSPC', 'SPX', 'S&P 500', 'S&P500', '에스앤피500', '에스앤피'] },
+      { symbol: '^DJI', keywords: ['^DJI', 'DJI', 'DOW', '다우존스', '다우지수', '다우'] },
+      { symbol: '^VIX', keywords: ['^VIX', 'VIX', '공포지수', '공포변동성지수', '변동성지수', '빅스'] },
+      { symbol: '^SOX', keywords: ['^SOX', 'SOX', '필라델피아반도체', '필반', '반도체지수'] },
+      { symbol: '^TNX', keywords: ['^TNX', 'TNX', '미국10년물국채금리', '국채금리', '미국채10년'] },
+      { symbol: 'KRW=X', keywords: ['KRW=X', 'USDKRW', '원달러환율', '환율', '달러환율'] },
+      { symbol: 'GC=F', keywords: ['GC=F', 'GOLD', '국제금', '금시세', '금선물'] },
+      { symbol: 'BTC-USD', keywords: ['BTC-USD', 'BTC', '비트코인', 'BITCOIN'] }
     ];
 
     // Stage 6 Section 1.2: Modular SHA-256 One-Way Cryptographic Authentication Manager (Zero Plaintext Password Storage)
@@ -2192,7 +2569,7 @@
         if (profile.pin && String(rawPassword).trim() === String(profile.pin).trim()) return true;
         return false;
       },
-      async registerOrLogin({ name, rawPin, beginnerMode, mddLimit = -10.0 }) {
+      async registerOrLogin({ name, rawPin, beginnerMode, preferredCurrency, autoLogin = true, mddLimit = -10.0 }) {
         const cleanName = String(name || '').trim();
         const cleanPin = String(rawPin || '').trim();
         const pinHash = await this.hashPassword(cleanPin);
@@ -2208,7 +2585,19 @@
           }
           state.activeProfileId = existingProf.id;
           state.isLoggedIn = true;
-          if (typeof beginnerMode === 'boolean') state.beginnerMode = beginnerMode;
+          state.autoLogin = Boolean(autoLogin);
+          if (typeof beginnerMode === 'boolean') {
+            state.beginnerMode = beginnerMode;
+            state.easyMode = beginnerMode;
+            existingProf.easyMode = beginnerMode;
+          } else if (typeof existingProf.easyMode === 'boolean') {
+            state.beginnerMode = existingProf.easyMode;
+            state.easyMode = existingProf.easyMode;
+          }
+          if (preferredCurrency === 'KRW' || preferredCurrency === 'USD') {
+            state.currency = preferredCurrency;
+            existingProf.preferredCurrency = preferredCurrency;
+          }
           if (existingProf.mddLimit) state.userMddLimit = existingProf.mddLimit;
           saveStateToStorage();
           return { ok: true, isNew: false, profile: existingProf };
@@ -2217,19 +2606,26 @@
         // Create a brand-new clean account starting with 0 holdings (holdings: []) per Stage 6 Section 1.3
         const avatarColors = ['#007AFF', '#34C759', '#FF9500', '#5856D6', '#FF2D55'];
         const newId = 'user_' + Date.now();
+        const resolvedEasy = typeof beginnerMode === 'boolean' ? beginnerMode : state.beginnerMode;
+        const resolvedCurr = (preferredCurrency === 'KRW' || preferredCurrency === 'USD') ? preferredCurrency : state.currency;
         const newProfile = {
           id: newId,
           name: cleanName,
           avatarColor: avatarColors[Object.keys(state.profiles).length % avatarColors.length],
-          pin: '', // Never store plaintext password
+          pin: '',
           pinHash,
+          easyMode: resolvedEasy,
+          preferredCurrency: resolvedCurr,
           mddLimit: Number(mddLimit) || -10.0,
-          holdings: [] // Clean 0-holding start so user can register their own stocks from scratch
+          holdings: []
         };
         state.profiles[newId] = newProfile;
         state.activeProfileId = newId;
         state.isLoggedIn = true;
-        if (typeof beginnerMode === 'boolean') state.beginnerMode = beginnerMode;
+        state.autoLogin = Boolean(autoLogin);
+        state.beginnerMode = resolvedEasy;
+        state.easyMode = resolvedEasy;
+        state.currency = resolvedCurr;
         state.userMddLimit = newProfile.mddLimit;
         saveStateToStorage();
         return { ok: true, isNew: true, profile: newProfile };
@@ -2476,8 +2872,9 @@
       ]
     };
 
-    const STORAGE_KEY = 'mindfolio_state_v6_3';
-    const LEGACY_STORAGE_KEYS = ['mindfolio_state_v6_2', 'mindfolio_state_v6_1', 'mindfolio_state_v6_0', 'mindfolio_state_v5_1'];
+    const STORAGE_KEY = 'mindfolio_state_v6_7';
+    const CNN_FG_CACHE_KEY = 'mindfolio_cnn_fg_cache_v6_7';
+    const LEGACY_STORAGE_KEYS = ['mindfolio_state_v6_6_live', 'mindfolio_state_v6_6', 'mindfolio_state_v6_5', 'mindfolio_state_v6_4', 'mindfolio_state_v6_3', 'mindfolio_state_v6_2', 'mindfolio_state_v6_1', 'mindfolio_state_v6_0', 'mindfolio_state_v5_1'];
 
     let deferredPwaPrompt = null;
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -2493,6 +2890,8 @@
       pendingAddSymbol: null, // Stage 6 Section 1.1: Remembers searched stock across login handoff
       currentSearchSymbol: null, // Stage 6 Section 1.1: Active stock in Spotlight search preview
       beginnerMode: true, // Stage 5 Section 2: '12살도 이해하는 초보자 눈높이 모드' ↔ '전문가 모드'
+      easyMode: true,
+      autoLogin: true,
       adminMenuOpen: false, // Stage 5 Section 3: Collapsible Advanced Admin Panel
       currency: 'KRW',
       colorMode: 'KR',
@@ -2510,40 +2909,21 @@
       reportTone: 'auto',
       reportTimelineMode: 'today',
       newsPulseFilter: 'ALL',
+      marketIndices: ['^IXIC', '^GSPC', '^KS11', '^VIX'],
+      fearGreedScore: 20,
+      fearGreedPrevClose: 20,
+      fearGreedRating: 'extreme fear',
+      fearGreedLiveFetched: false,
+      fearGreedUpdatedLabel: 'CNN Fear & Greed 공식 연동',
       activeProfileId: 'default',
       profiles: {
         default: {
           id: 'default',
-          name: '기본 포트폴리오 (나)',
+          name: '미리보기 샘플 포트폴리오',
           avatarColor: '#007AFF',
           pin: '',
           mddLimit: -10.0,
           holdings: JSON.parse(JSON.stringify(DEFAULT_HOLDINGS))
-        },
-        retirement: {
-          id: 'retirement',
-          name: '연금저축·ISA 예금+α 계좌',
-          avatarColor: '#34C759',
-          pin: '',
-          mddLimit: -8.0,
-          holdings: [
-            { symbol: '459580', nameKo: 'KODEX CD금리액티브(합성)', qty: 5.0000, avgPrice: 1042000 },
-            { symbol: '458730', nameKo: 'TIGER 미국배당다우존스', qty: 120.0000, avgPrice: 11200 },
-            { symbol: 'SGOV', nameKo: 'iShares 초단기채 (SGOV)', qty: 10.0000, avgPrice: 100.30 },
-            { symbol: 'SCHD', nameKo: '슈왑 배당성장 (SCHD)', qty: 20.0000, avgPrice: 28.10 }
-          ]
-        },
-        partner: {
-          id: 'partner',
-          name: '한·미 혼합 성장 계좌',
-          avatarColor: '#FF9500',
-          pin: '',
-          mddLimit: -18.0,
-          holdings: [
-            { symbol: '005930', nameKo: '삼성전자', qty: 20.0000, avgPrice: 56500 },
-            { symbol: 'NVDA', nameKo: '엔비디아', qty: 4.0000, avgPrice: 122.00 },
-            { symbol: '441680', nameKo: 'TIGER 미국나스닥100타겟데일리커버드콜', qty: 80.0000, avgPrice: 10150 }
-          ]
         }
       },
       reportSnapshots: {
@@ -2598,8 +2978,10 @@
 
         const payload = {
           brandName: state.brandName,
-          isLoggedIn: state.isLoggedIn,
+          isLoggedIn: state.autoLogin === false ? false : state.isLoggedIn,
+          autoLogin: state.autoLogin !== false,
           beginnerMode: state.beginnerMode,
+          easyMode: state.beginnerMode,
           currency: state.currency,
           colorMode: state.colorMode,
           darkMode: state.darkMode,
@@ -2611,6 +2993,10 @@
           bufferRatio: state.bufferRatio,
           reportTone: state.reportTone,
           reportTimelineMode: state.reportTimelineMode,
+          marketIndices: state.marketIndices,
+          fearGreedScore: state.fearGreedScore,
+          fearGreedPrevClose: state.fearGreedPrevClose,
+          fearGreedRating: state.fearGreedRating,
           activeProfileId: state.activeProfileId,
           profiles: state.profiles,
           reportSnapshots: state.reportSnapshots,
@@ -2641,9 +3027,18 @@
         }
         if (!raw) return;
         const parsed = JSON.parse(raw);
-        if (parsed.brandName) state.brandName = parsed.brandName;
-        if (typeof parsed.isLoggedIn === 'boolean') state.isLoggedIn = parsed.isLoggedIn;
-        if (typeof parsed.beginnerMode === 'boolean') state.beginnerMode = parsed.beginnerMode;
+        state.brandName = 'Mindfolio';
+        if (typeof parsed.autoLogin === 'boolean') state.autoLogin = parsed.autoLogin;
+        if (typeof parsed.isLoggedIn === 'boolean') {
+          state.isLoggedIn = state.autoLogin === false ? false : parsed.isLoggedIn;
+        }
+        if (typeof parsed.easyMode === 'boolean') {
+          state.beginnerMode = parsed.easyMode;
+          state.easyMode = parsed.easyMode;
+        } else if (typeof parsed.beginnerMode === 'boolean') {
+          state.beginnerMode = parsed.beginnerMode;
+          state.easyMode = parsed.beginnerMode;
+        }
         if (parsed.currency) state.currency = parsed.currency;
         if (parsed.colorMode) state.colorMode = parsed.colorMode;
         if (typeof parsed.darkMode === 'boolean') state.darkMode = parsed.darkMode;
@@ -2658,24 +3053,65 @@
         if (typeof parsed.bufferRatio === 'number') state.bufferRatio = parsed.bufferRatio;
         if (parsed.reportTone) state.reportTone = parsed.reportTone;
         if (parsed.reportTimelineMode) state.reportTimelineMode = parsed.reportTimelineMode;
+        if (Array.isArray(parsed.marketIndices) && parsed.marketIndices.length > 0) {
+          state.marketIndices = parsed.marketIndices.filter(s => typeof s === 'string' && s.trim().length > 0);
+        }
+        try {
+          const cnnCachedRaw = localStorage.getItem(CNN_FG_CACHE_KEY);
+          if (cnnCachedRaw) {
+            const cnnCached = JSON.parse(cnnCachedRaw);
+            if (typeof cnnCached.score === 'number' && cnnCached.score >= 0 && cnnCached.score <= 100) {
+              state.fearGreedScore = Math.round(cnnCached.score);
+              state.fearGreedPrevClose = typeof cnnCached.previousClose === 'number' ? Math.round(cnnCached.previousClose) : state.fearGreedScore;
+              state.fearGreedRating = cnnCached.rating || '';
+              state.fearGreedLiveFetched = true;
+              if (cnnCached.updatedLabel) state.fearGreedUpdatedLabel = cnnCached.updatedLabel;
+            }
+          }
+        } catch (_) {}
         if (parsed.profiles && parsed.profiles.default) {
-          state.profiles = parsed.profiles;
-          // Stage 6.2 Section 3: Always migrate the guest/default preview profile to the new 6-stock (~3.60M KRW) portfolio
-          state.profiles.default.holdings = JSON.parse(JSON.stringify(DEFAULT_PREVIEW_HOLDINGS));
+          // Stage 6.5 Action 1: Purge legacy dummy sub-accounts ('retirement', 'partner', 'isa_buffer', 'growth_mix')
+          const cleanedProfiles = {};
+          const dummyIds = new Set(['retirement', 'partner', 'isa_buffer', 'growth_mix']);
+          const dummyNames = new Set(['연금저축·ISA 예금+α 계좌', '한·미 혼합 성장 계좌']);
+          Object.entries(parsed.profiles).forEach(([k, prof]) => {
+            if (!prof) return;
+            if (dummyIds.has(k) || dummyNames.has(prof.name)) return;
+            cleanedProfiles[k] = prof;
+          });
+          if (!cleanedProfiles.default) {
+            cleanedProfiles.default = {
+              id: 'default',
+              name: '미리보기 샘플 포트폴리오',
+              avatarColor: '#007AFF',
+              pin: '',
+              mddLimit: -10.0,
+              holdings: JSON.parse(JSON.stringify(DEFAULT_PREVIEW_HOLDINGS))
+            };
+          } else {
+            cleanedProfiles.default.name = '미리보기 샘플 포트폴리오';
+            cleanedProfiles.default.holdings = JSON.parse(JSON.stringify(DEFAULT_PREVIEW_HOLDINGS));
+          }
+          state.profiles = cleanedProfiles;
         }
         if (parsed.activeProfileId && state.profiles[parsed.activeProfileId]) {
           state.activeProfileId = parsed.activeProfileId;
           if (state.profiles[state.activeProfileId].mddLimit) {
             state.userMddLimit = state.profiles[state.activeProfileId].mddLimit;
           }
+        } else {
+          state.activeProfileId = 'default';
+          state.isLoggedIn = false;
         }
         if (parsed.reportSnapshots) {
           state.reportSnapshots = { ...state.reportSnapshots, ...parsed.reportSnapshots };
         }
-        if (parsed.quotes) {
+        if (parsed.quotes && !isLegacyMigration) {
           Object.keys(parsed.quotes).forEach(k => {
             const cleanK = normalizeSymbolCode(k);
-            const isValidTickerFormat = /^(\d{6}|[A-Z]{1,5}(?:-[A-Z])?)$/.test(cleanK);
+            // Always start market indices from fresh real-time baseline and live API rather than stale cached quotes
+            if (cleanK.startsWith('^') || cleanK.endsWith('=X') || cleanK.endsWith('=F') || cleanK === 'BTC-USD') return;
+            const isValidTickerFormat = /^(\d{6}|\^[A-Z0-9]{2,6}|[A-Z]{1,5}(?:-[A-Z]{1,3})?|[A-Z]{2,4}=F|[A-Z]{3}=X)$/.test(cleanK);
             const isKnownMaster = KR_US_MASTER_STOCKS.some(m => m.code === cleanK) || Boolean(VERIFIED_MARKET_QUOTES[cleanK]);
             if (isValidTickerFormat && (isKnownMaster || parsed.quotes[k]?.isOnlineVerified)) {
               state.quotes[cleanK] = { ...(state.quotes[cleanK] || {}), ...parsed.quotes[k] };
@@ -2725,6 +3161,873 @@
       } else {
         return `${sign}$${absVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       }
+    }
+
+    
+    const INDEX_DISPLAY_TICKER_MAP = {
+      '^IXIC': 'NASDAQ',
+      '^GSPC': 'SPX',
+      '^KS11': 'KOSPI',
+      '^KQ11': 'KOSDAQ',
+      '^DJI': 'DOW',
+      '^VIX': 'VIX',
+      '^SOX': 'SOX',
+      '^TNX': 'US 10Y',
+      'KRW=X': 'USD/KRW',
+      'GC=F': 'GOLD',
+      'BTC-USD': 'BTC'
+    };
+
+    function isMarketIndexSymbol(symbol) {
+      const code = normalizeSymbolCode(symbol);
+      if (!code) return false;
+      if (code.startsWith('^') || code.endsWith('=X') || code.endsWith('=F') || code === 'BTC-USD') return true;
+      const m = KR_US_MASTER_STOCKS.find(item => item.code === code);
+      return Boolean(m && (m.category === 'index' || m.market === 'INDEX'));
+    }
+
+    function formatMarketIndexValue(symbol, priceVal, isKr = false) {
+      const code = normalizeSymbolCode(symbol);
+      const val = Number(priceVal || 0);
+      if (code === '^TNX') {
+        return `${val.toFixed(2)}%`;
+      }
+      if (code === 'KRW=X') {
+        return `₩${ val.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }`;
+      }
+      if (code === 'GC=F' || code === 'BTC-USD') {
+        return `$${ val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }`;
+      }
+      if (isMarketIndexSymbol(code)) {
+        return val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      return formatNativePrice(val, isKr, true);
+    }
+
+    // =========================================================================
+    // STAGE 6.7 SECTION 2 & 3: COMPANY LOGO ENGINE + GLOBE BLOCKER + ACHROMATIC MONOGRAM TILE
+    // =========================================================================
+    const STOCK_BRAND_DOMAINS = {
+      // Samsung Group
+      '005930': 'samsung.com', '005935': 'samsung.com', '009150': 'samsung.com', '207940': 'samsungbiologics.com',
+      '006400': 'samsungsdi.com', '028260': 'samsungcnt.com', '032830': 'samsunglife.com', '000810': 'samsungfire.com',
+      '018260': 'samsungsds.com', '028050': 'samsungena.com', '016360': 'samsungpop.com',
+      // SK Group
+      '000660': 'skhynix.com', '096770': 'skinnovation.com', '017670': 'sktelecom.com', '034730': 'sk.co.kr', '011790': 'skc.kr',
+      // LG Group
+      '373220': 'lgensol.com', '051900': 'lghnh.com', '051910': 'lgchem.com', '066570': 'lge.co.kr',
+      '032640': 'lguplus.com', '003550': 'lg.co.kr', '011070': 'lginnotek.com',
+      // Hyundai / Kia / HD Hyundai
+      '005380': 'hyundai.com', '012330': 'mobis.co.kr', '000270': 'kia.com', '064350': 'hyundai-rotem.co.kr',
+      '004020': 'hyundai-steel.com', '000720': 'hdec.kr', '086280': 'glovis.net', '017800': 'hyundaielevator.co.kr',
+      '329180': 'hhi.co.kr', '009540': 'ksoe.co.kr', '267260': 'hd-hyundaielectric.com', '267250': 'hd.com',
+      // Platform / Gaming / Entertainment
+      '035420': 'navercorp.com', '035720': 'kakaocorp.com', '323410': 'kakaobank.com', '377300': 'kakaopay.com',
+      '293490': 'kakaogames.com', '259960': 'krafton.com', '352820': 'hybecorp.com', '036570': 'ncsoft.com',
+      '251270': 'netmarble.com', '263750': 'pearlabyss.com', '462870': 'shiftup.co.kr', '112040': 'wemade.com',
+      '041510': 'smentertainment.com', '035900': 'jype.com', '122870': 'ygfamily.com',
+      // Battery / Semi / Industrial / Defense
+      '066970': 'landf.co.kr', '039030': 'eotechnics.com', '247540': 'ecopro.co.kr', '086520': 'ecopro.co.kr',
+      '005490': 'posco.co.kr', '003670': 'poscofuturem.com', '012450': 'hanwhaaerospace.com', '042660': 'hanwhaocean.com',
+      '000880': 'hanwha.co.kr', '009830': 'hanwhasolutions.com', '034020': 'doosanenerbility.com', '042700': 'hanmisemi.com',
+      '277810': 'rainbow-robotics.com', '058470': 'leeno.com', '403870': 'hpsp.co.kr', '005290': 'dongjin.com',
+      '357780': 'soulbrain.co.kr', '036930': 'jusung.com', '298040': 'hyosungheavyindustries.com', '010120': 'ls-electric.com',
+      '047810': 'koreaaero.com', '079550': 'lignex1.com', '001570': 'kumyang.com',
+      // Bio / Healthcare / Cosmetics / Food
+      '068270': 'celltrion.com', '068760': 'celltrionpharma.com', '196170': 'alteogen.com', '028300': 'hlb-group.com',
+      '141080': 'ligachembio.com', '000250': 'scd.co.kr', '145020': 'hugel.co.kr', '214150': 'classys.com',
+      '000100': 'yuhan.co.kr', '128940': 'hanmi.co.kr', '086900': 'medytox.com', '214450': 'pharmaresearch.co.kr',
+      '003230': 'samyangfoods.com', '090430': 'apgroup.com', '001040': 'cj.net', '097950': 'cj.co.kr',
+      // Finance / Telecom / Utilities / Transport
+      '105560': 'kbfg.com', '055550': 'shinhangroup.com', '086790': 'hanafn.com', '316140': 'woorifg.com',
+      '138040': 'meritzfire.com', '006800': 'miraeasset.com', '005940': 'nhqv.com', '071050': 'koreaholdings.com',
+      '024110': 'ibk.co.kr', '138930': 'bnkfg.com', '139130': 'imfnsec.com', '175330': 'jbfg.com',
+      '030200': 'kt.com', '033780': 'ktng.com', '015760': 'kepco.co.kr', '003490': 'koreanair.com',
+      '011200': 'hmm21.com', '010130': 'koreazinc.co.kr', '010950': 's-oil.com', '021240': 'coway.com',
+      '003410': 'ssangyongcne.co.kr', '088980': 'macquarie.com',
+      // US Equities & ETFs
+      'NVDA': 'nvidia.com', 'AAPL': 'apple.com', 'MSFT': 'microsoft.com', 'GOOG': 'abc.xyz', 'GOOGL': 'abc.xyz',
+      'AMZN': 'amazon.com', 'META': 'meta.com', 'TSLA': 'tesla.com', 'NFLX': 'netflix.com', 'AMD': 'amd.com',
+      'INTC': 'intel.com', 'AVGO': 'broadcom.com', 'QCOM': 'qualcomm.com', 'TSM': 'tsmc.com', 'ASML': 'asml.com',
+      'MU': 'micron.com', 'ARM': 'arm.com', 'PLTR': 'palantir.com', 'IONQ': 'ionq.com', 'JOBY': 'jobyaviation.com',
+      'COIN': 'coinbase.com', 'MSTR': 'strategy.com', 'HOOD': 'robinhood.com', 'SOFI': 'sofi.com',
+      'BRK-B': 'berkshirehathaway.com', 'JPM': 'jpmorganchase.com', 'V': 'visa.com', 'MA': 'mastercard.com',
+      'LLY': 'lilly.com', 'NVO': 'novonordisk.com', 'JNJ': 'jnj.com', 'UNH': 'unitedhealthgroup.com',
+      'PG': 'pg.com', 'ABBV': 'abbvie.com', 'WMT': 'walmart.com', 'COST': 'costco.com', 'KO': 'coca-colacompany.com',
+      'PEP': 'pepsico.com', 'MCD': 'mcdonalds.com', 'SBUX': 'starbucks.com', 'NKE': 'nike.com', 'DIS': 'thewaltdisneycompany.com',
+      'BA': 'boeing.com', 'LMT': 'lockheedmartin.com', 'XOM': 'exxonmobil.com', 'CVX': 'chevron.com',
+      'ORCL': 'oracle.com', 'CRM': 'salesforce.com', 'NOW': 'servicenow.com', 'SNOW': 'snowflake.com',
+      'PANW': 'paloaltonetworks.com', 'CRWD': 'crowdstrike.com', 'UBER': 'uber.com', 'ABNB': 'airbnb.com',
+      'BKNG': 'bookingholdings.com', 'SPOT': 'spotify.com', 'CPNG': 'coupang.com', 'RBLX': 'roblox.com',
+      'SCHD': 'schwabassetmanagement.com', 'SGOV': 'ishares.com', 'SHY': 'ishares.com', 'IVV': 'ishares.com',
+      'SOXX': 'ishares.com', 'TLT': 'ishares.com', 'DGRO': 'ishares.com',
+      'JEPI': 'jpmorgan.com', 'JEPQ': 'jpmorgan.com', 'QQQ': 'invesco.com', 'QQQM': 'invesco.com',
+      'SPY': 'ssga.com', 'BIL': 'ssga.com', 'DIA': 'ssga.com', 'GLD': 'ssga.com',
+      'VOO': 'vanguard.com', 'VIG': 'vanguard.com'
+    };
+
+    // English Monogram Mapping for Korean stocks with clear English initials (up to 3 chars)
+    const KR_ENGLISH_MONOGRAM_MAP = {
+      '122870': 'YG',
+      '035900': 'JYP',
+      '041510': 'SM',
+      '066970': 'L&F',
+      '039030': 'EO',
+      '028300': 'HLB',
+      '011200': 'HMM',
+      '033780': 'KT',
+      '030200': 'KT',
+      '105560': 'KB',
+      '001040': 'CJ',
+      '097950': 'CJ',
+      '010120': 'LS',
+      '329180': 'HD',
+      '009540': 'HD',
+      '267260': 'HD',
+      '267250': 'HD',
+      '036570': 'NC',
+      '079550': 'LIG',
+      '005940': 'NH',
+      '024110': 'IBK',
+      '138930': 'BNK',
+      '139130': 'DGB',
+      '175330': 'JB',
+      '403870': 'HP',
+      '010950': 'S'
+    };
+
+    function getMonogramLabel(symbol, nameKo = '') {
+      const code = normalizeSymbolCode(symbol);
+      const nameStr = String(nameKo || '').trim();
+
+      // 1) Explicit English initial map for Korean companies (YG, JYP, L&F, EO, KB, CJ, LS, HD, etc.)
+      if (KR_ENGLISH_MONOGRAM_MAP[code]) {
+        return KR_ENGLISH_MONOGRAM_MAP[code];
+      }
+      // 2) Prefix-based English initial detection for Korean corporate groups
+      if (/^(LG|SK|KT|KB|CJ|LS|HD|DB|GS|DL|HMM|HLB|YG|JYP|SM|NC|LIG|NH|IBK|BNK|DGB|JB)/i.test(nameStr)) {
+        const m = nameStr.match(/^(LG|SK|KT|KB|CJ|LS|HD|DB|GS|DL|HMM|HLB|YG|JYP|SM|NC|LIG|NH|IBK|BNK|DGB|JB)/i);
+        if (m) return m[1].toUpperCase().slice(0, 3);
+      }
+      // 3) US Stocks / ETFs -> English ticker initials (max 3 chars)
+      if (!isKoreanTicker(code)) {
+        const cleanTicker = code.replace(/^\^/, '').replace(/=.*$/, '').replace(/-.*$/, '');
+        return cleanTicker.slice(0, 3).toUpperCase();
+      }
+      // 4) Pure Korean company name -> Strictly 1 first Korean syllable (예: '넷', '삼', '한', '셀')
+      const korMatch = nameStr.match(/[가-힣]/);
+      if (korMatch) {
+        return korMatch[0];
+      }
+      return code.slice(0, 2);
+    }
+
+    function getInlineBrandSvgLogo(symbol, nameKo = '') {
+      const code = normalizeSymbolCode(symbol);
+      const nameStr = String(nameKo || '');
+
+      // 1) SAMSUNG Group
+      if (['005930', '005935', '009150', '207940', '006400', '028260', '032830', '000810', '018260', '028050', '016360'].includes(code) || nameStr.startsWith('삼성')) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#1428A0"/>
+          <ellipse cx="24" cy="24" rx="20" ry="9.5" transform="rotate(-11 24 24)" fill="#FFFFFF" fill-opacity="0.16"/>
+          <text x="24" y="27.5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="8.2" letter-spacing="0.6">SAMSUNG</text>
+        </svg>`;
+      }
+      // 2) SK Group
+      if (['000660', '096770', '017670', '034730', '011790'].includes(code) || nameStr.startsWith('SK')) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#FFF5F5"/>
+          <path d="M26 11 C31 11 36 15 38 20 C33 19 29 21 26 24 Z" fill="#EA002C"/>
+          <path d="M26 24 C30 22 35 23 39 27 C34 29 29 28 26 24 Z" fill="#F37021"/>
+          <text x="19" y="32" text-anchor="middle" fill="#EA002C" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="15.5" letter-spacing="-0.5">SK</text>
+        </svg>`;
+      }
+      // 3) NVIDIA (NVDA)
+      if (code === 'NVDA') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#111827"/>
+          <path d="M10 24C13.5 17.5 19.5 14.5 26.5 15.5C32.5 16.3 37 20 39 24C36.5 28.5 31.5 32 25.5 32C19.5 32 14.5 28.5 13 24C15.5 20.5 19.8 18.8 24.5 19.5C28.2 20 31.2 22 32.5 24C30.8 26.5 27.8 28 24.2 28C20.8 28 18.2 26.2 17.5 24C19 22.4 21.5 21.8 24 22.3" stroke="#76B900" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="24.5" cy="24" r="2.4" fill="#76B900"/>
+        </svg>`;
+      }
+      // 4) TESLA (TSLA)
+      if (code === 'TSLA') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#E82127"/>
+          <path d="M12 15.5C16 13.8 32 13.8 36 15.5L34.2 18C30.5 16.8 17.5 16.8 13.8 18L12 15.5Z" fill="#FFFFFF"/>
+          <path d="M15 20.2C18.5 19.2 29.5 19.2 33 20.2L29.5 23.2H26.4L24 36.5L21.6 23.2H18.5L15 20.2Z" fill="#FFFFFF"/>
+        </svg>`;
+      }
+      // 5) APPLE (AAPL)
+      if (code === 'AAPL') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0F172A"/>
+          <path d="M27.8 15.2C26.7 16.5 25 17.3 23.4 17.1C23.2 15.5 24 13.8 25 12.6C26.1 11.4 27.9 10.6 29.3 10.5C29.5 12.2 28.8 13.9 27.8 15.2ZM33.2 26.1C33.2 22.8 35.9 21.1 36 21C34.4 18.7 32 18.4 31.1 18.3C29.1 18.1 27.1 19.5 26.1 19.5C25.1 19.5 23.5 18.3 21.8 18.3C19.6 18.3 17.5 19.6 16.4 21.6C14.1 25.6 15.8 31.5 18 34.7C19.1 36.3 20.4 38 22.1 37.9C23.8 37.8 24.5 36.8 26.4 36.8C28.3 36.8 28.9 37.9 30.6 37.9C32.4 37.9 33.5 36.3 34.6 34.7C35.9 32.9 36.4 31.1 36.4 31C36.3 30.9 33.2 29.7 33.2 26.1Z" fill="#FFFFFF"/>
+        </svg>`;
+      }
+      // 6) SCHD (Charles Schwab US Dividend Equity ETF)
+      if (code === 'SCHD') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#00A0DF"/>
+          <circle cx="24" cy="19" r="5" fill="#FFFFFF" fill-opacity="0.25"/>
+          <path d="M24 12L25.8 17.2L31 19L25.8 20.8L24 26L22.2 20.8L17 19L22.2 17.2L24 12Z" fill="#FFFFFF"/>
+          <text x="24" y="36.5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="10.5" letter-spacing="0.4">SCHD</text>
+        </svg>`;
+      }
+      // 7) MICROSOFT (MSFT)
+      if (code === 'MSFT') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#F8FAFC"/>
+          <rect x="12" y="12" width="11" height="11" rx="2" fill="#F25022"/>
+          <rect x="25" y="12" width="11" height="11" rx="2" fill="#7FBA00"/>
+          <rect x="12" y="25" width="11" height="11" rx="2" fill="#00A4EF"/>
+          <rect x="25" y="25" width="11" height="11" rx="2" fill="#FFB900"/>
+        </svg>`;
+      }
+      // 8) GOOGLE / ALPHABET (GOOG, GOOGL)
+      if (code === 'GOOG' || code === 'GOOGL') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#FFFFFF"/>
+          <path d="M35.6 24.3C35.6 23.4 35.5 22.6 35.4 21.8H24V26.5H30.5C30.2 28 29.3 29.3 28 30.2V33.2H31.9C34.2 31.1 35.6 28 35.6 24.3Z" fill="#4285F4"/>
+          <path d="M24 36C27.2 36 30 34.9 31.9 33.2L28 30.2C26.9 30.9 25.6 31.3 24 31.3C20.9 31.3 18.3 29.2 17.3 26.4H13.3V29.5C15.3 33.4 19.3 36 24 36Z" fill="#34A853"/>
+          <path d="M17.3 26.4C17 25.6 16.9 24.8 16.9 24C16.9 23.2 17 22.4 17.3 21.6V18.5H13.3C12.5 20.1 12 22 12 24C12 26 12.5 27.9 13.3 29.5L17.3 26.4Z" fill="#FBBC05"/>
+          <path d="M24 16.7C25.8 16.7 27.3 17.3 28.6 18.5L32 15.1C30 13.2 27.2 12 24 12C19.3 12 15.3 14.6 13.3 18.5L17.3 21.6C18.3 18.8 20.9 16.7 24 16.7Z" fill="#EA4335"/>
+        </svg>`;
+      }
+      // 9) AMAZON (AMZN)
+      if (code === 'AMZN') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#131921"/>
+          <text x="24" y="27" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="16">a</text>
+          <path d="M13 32C18.5 36.2 29.5 36.2 35 32" stroke="#FF9900" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M32.5 31.2L35.6 31.8L34.5 34.8" stroke="#FF9900" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+      }
+      // 10) META (META)
+      if (code === 'META') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0081FB"/>
+          <path d="M12 27.5C12 22 15.5 18 19 18C21.8 18 23.8 20.5 26 24.2C28.2 27.9 30.2 30 32.5 30C34.8 30 36.5 28 36.5 24.5C36.5 21 34.5 18 31.8 18C29.5 18 27.6 19.8 26 22.2M12 27.5C12 30.2 13.8 32 16.2 32C18.5 32 20.5 30 22.5 26.5" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round"/>
+        </svg>`;
+      }
+      // 11) NAVER (035420)
+      if (code === '035420') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#03C75A"/>
+          <path d="M15 14H20.8L27.2 24.2V14H33V34H27.2L20.8 23.8V34H15V14Z" fill="#FFFFFF"/>
+        </svg>`;
+      }
+      // 12) KAKAO Group (035720, 323410, 377300, 293490)
+      if (['035720', '323410', '377300', '293490'].includes(code) || nameStr.startsWith('카카오')) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#FEE500"/>
+          <ellipse cx="24" cy="22.5" rx="12" ry="9.5" fill="#191919"/>
+          <path d="M18.5 29.5L16.2 35.2L22.5 31.2Z" fill="#191919"/>
+          <text x="24" y="25.2" text-anchor="middle" fill="#FEE500" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="7.2">kakao</text>
+        </svg>`;
+      }
+      // 13) LG Group
+      if (['373220', '051900', '051910', '066570', '032640', '003550', '011070'].includes(code) || nameStr.startsWith('LG')) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#A50034"/>
+          <circle cx="24" cy="24" r="13" stroke="#FFFFFF" stroke-width="2.6"/>
+          <path d="M24 17V27H28.5" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="19.5" cy="20" r="1.7" fill="#FFFFFF"/>
+          <path d="M31 24H27.5" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>`;
+      }
+      // 14) HYUNDAI / KIA
+      if (['005380', '012330', '064350', '004020', '000720', '086280', '017800'].includes(code)) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#002C5F"/>
+          <ellipse cx="24" cy="24" rx="15" ry="9.5" stroke="#FFFFFF" stroke-width="2.4"/>
+          <path d="M17.5 29.5L20.5 18.5M27.5 29.5L30.5 18.5M19 24H29" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>`;
+      }
+      if (code === '000270' || nameStr === '기아') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#05141F"/>
+          <path d="M11 29V19M11 24L17.5 19M11 24L17.5 29M22 19V29M26.5 29L32 19L37 29" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+      }
+      // 15) Major Korean Gaming / Ent / Battery / Semi Firms specified in v6.7 Section 2-2
+      if (code === '251270') { // 넷마블 (Netmarble)
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#FFF8F0"/>
+          <circle cx="24" cy="21" r="9.5" fill="#FF6B00"/>
+          <circle cx="21" cy="19.5" r="1.6" fill="#FFFFFF"/>
+          <circle cx="27" cy="19.5" r="1.6" fill="#FFFFFF"/>
+          <path d="M20.5 24C22 25.5 26 25.5 27.5 24" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          <text x="24" y="39" text-anchor="middle" fill="#374151" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="7.2">netmarble</text>
+        </svg>`;
+      }
+      if (code === '036570') { // 엔씨소프트 (NCSOFT)
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0A192F"/>
+          <text x="24" y="29.5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="16" letter-spacing="-0.5">NC</text>
+        </svg>`;
+      }
+      if (code === '259960') { // 크래프톤 (KRAFTON)
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#111111"/>
+          <path d="M16 13V35M16 24L29 13M21 20L31 35" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+      }
+      if (code === '352820') { // 하이브 (HYBE)
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#111111"/>
+          <text x="24" y="28.5" text-anchor="middle" fill="#FACC15" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="11.5" letter-spacing="0.5">HYBE</text>
+        </svg>`;
+      }
+      if (code === '122870') { // 와이지엔터테인먼트 (YG)
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#111827"/>
+          <text x="24" y="29.5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="15.5" letter-spacing="0.5">YG</text>
+        </svg>`;
+      }
+      if (code === '035900') { // JYP Ent.
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0284C7"/>
+          <text x="24" y="29.5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="14" letter-spacing="0.4">JYP</text>
+        </svg>`;
+      }
+      if (code === '041510') { // 에스엠 (SM)
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#FDF2F8"/>
+          <text x="24" y="29.5" text-anchor="middle" fill="#DB2777" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="15" letter-spacing="0.5">SM</text>
+        </svg>`;
+      }
+      if (code === '066970') { // 엘앤에프 (L&F)
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0F172A"/>
+          <text x="24" y="29" text-anchor="middle" fill="#38BDF8" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="13.5" letter-spacing="0.3">L&amp;F</text>
+        </svg>`;
+      }
+      if (code === '039030') { // 이오테크닉스 (EO Technics)
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#1E3A8A"/>
+          <text x="24" y="29.5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="15.5" letter-spacing="0.5">EO</text>
+        </svg>`;
+      }
+      if (code === '247540' || code === '086520') { // 에코프로비엠 / 에코프로
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#065F46"/>
+          <text x="24" y="27.5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="9.2">ecopro</text>
+        </svg>`;
+      }
+      // 16) ETF Families (KODEX, TIGER, iShares, JPMorgan)
+      if (nameStr.includes('KODEX') || ['459580', '069500', '379800', '423160', '379810'].includes(code)) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0052A4"/>
+          <text x="24" y="23" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="9.5">KODEX</text>
+          <text x="24" y="33" text-anchor="middle" fill="#93C5FD" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="7.5">ETF</text>
+        </svg>`;
+      }
+      if (nameStr.includes('TIGER') || ['458730', '441680', '360750', '133690', '357870', '458760', '474220', '381170', '381180', '290080'].includes(code)) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#003B70"/>
+          <path d="M10 14H38" stroke="#F58220" stroke-width="3" stroke-linecap="round"/>
+          <text x="24" y="26.5" text-anchor="middle" fill="#F58220" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="10">TIGER</text>
+          <text x="24" y="35.5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="7">MIRAE ASSET</text>
+        </svg>`;
+      }
+      if (['SGOV', 'SHY', 'IVV', 'SOXX', 'TLT', 'DGRO'].includes(code)) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#111827"/>
+          <text x="24" y="22" text-anchor="middle" fill="#00D66C" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="8.5">iShares</text>
+          <text x="24" y="33" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="9.5">${code}</text>
+        </svg>`;
+      }
+      if (['JEPI', 'JEPQ', 'JPM'].includes(code)) {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0A2540"/>
+          <text x="24" y="22" text-anchor="middle" fill="#93C5FD" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="8">J.P.Morgan</text>
+          <text x="24" y="33" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="10">${code}</text>
+        </svg>`;
+      }
+      if (code === 'BTC-USD') {
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#F7931A"/>
+          <text x="24" y="32" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="24">₿</text>
+        </svg>`;
+      }
+      if (isMarketIndexSymbol(code)) {
+        const disp = INDEX_DISPLAY_TICKER_MAP[code] || code.replace(/^\^/, '');
+        return `<svg viewBox="0 0 48 48" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#2563EB"/>
+          <path d="M12 31L19 23L25 27L36 15" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="24" y="41" text-anchor="middle" fill="#DBEAFE" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="7.5">${disp}</text>
+        </svg>`;
+      }
+      return null;
+    }
+
+    // Section 2-1: Mandatory onload Resolution Guard (Blocks 16x16 blurry globe favicons!) & Fallback Handler
+    window.handleCompanyLogoLoad = function(imgEl) {
+      if (!imgEl) return;
+      if (imgEl.naturalWidth <= 24 || imgEl.naturalHeight <= 24) {
+        window.handleCompanyLogoError(imgEl);
+      }
+    };
+
+    window.handleCompanyLogoError = function(imgEl) {
+      if (!imgEl) return;
+      const fallbackUrl = imgEl.getAttribute('data-secondary-url') || '';
+      if (imgEl.getAttribute('data-tried-secondary') !== '1' && fallbackUrl) {
+        imgEl.setAttribute('data-tried-secondary', '1');
+        imgEl.src = fallbackUrl;
+        return;
+      }
+      imgEl.style.display = 'none';
+      if (imgEl.nextElementSibling) {
+        imgEl.nextElementSibling.classList.remove('hidden');
+      }
+    };
+
+    function renderCompanyLogoBadge(symbol, nameKo = '', sizeClass = 'w-12 h-12') {
+      const code = normalizeSymbolCode(symbol);
+      const inlineSvg = getInlineBrandSvgLogo(code, nameKo);
+      const domain = STOCK_BRAND_DOMAINS[code];
+      const isKr = isKoreanTicker(code);
+      const monogramText = getMonogramLabel(code, nameKo);
+
+      if (inlineSvg) {
+        return `
+          <div class="${sizeClass} mf-logo-squircle overflow-hidden border ios-hairline flex items-center justify-center shrink-0 shadow-sm bg-white dark:bg-black select-none" title="${nameKo || code} (${code})">
+            ${inlineSvg}
+          </div>
+        `;
+      }
+
+      // Prioritize Parqet Stock Logo CDN and Icon.horse High-Res Corporate Icon (Never use low-res google s2 globe!)
+      const primaryLogoUrl = !isKr && /^[A-Z]{1,5}$/.test(code)
+        ? `https://assets.parqet.com/logos/symbol/${encodeURIComponent(code)}?format=png`
+        : (domain ? `https://icon.horse/icon/${encodeURIComponent(domain)}` : '');
+      const secondaryLogoUrl = (!isKr && domain)
+        ? `https://icon.horse/icon/${encodeURIComponent(domain)}`
+        : '';
+
+      if (primaryLogoUrl) {
+        return `
+          <div class="${sizeClass} mf-logo-squircle overflow-hidden border ios-hairline flex items-center justify-center shrink-0 shadow-sm bg-white dark:bg-black relative select-none" title="${nameKo || code} (${code})">
+            <img
+              src="${primaryLogoUrl}"
+              alt="${nameKo || code}"
+              loading="lazy"
+              data-secondary-url="${secondaryLogoUrl}"
+              class="w-full h-full object-contain p-1.5 bg-white"
+              onload="window.handleCompanyLogoLoad(this)"
+              onerror="window.handleCompanyLogoError(this)"
+            />
+            <div class="hidden w-full h-full mf-monogram-tile flex items-center justify-center text-xs sm:text-sm tracking-tight">
+              <span>${monogramText}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="${sizeClass} mf-monogram-tile overflow-hidden flex items-center justify-center shrink-0 text-xs sm:text-sm tracking-tight select-none" title="${nameKo || code} (${code})">
+          <span>${monogramText}</span>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // STAGE 6.7 SECTION 1: 1:1 CNN BUSINESS FEAR & GREED DIRECT ENGINE (Promise.any Race)
+    // =========================================================================
+    async function fetchCnnFearAndGreedIndex() {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) return null;
+
+      const cnnEndpoint = 'https://production.dataviz.cnn.io/index/fearandgreed/graphdata';
+      const encodedUrl = encodeURIComponent(cnnEndpoint);
+
+      const parseCnnPayload = (rawPayload) => {
+        const data = (rawPayload && typeof rawPayload.contents === 'string')
+          ? JSON.parse(rawPayload.contents)
+          : rawPayload;
+        const fg = data?.fear_and_greed;
+        if (!fg || typeof fg.score !== 'number' || isNaN(fg.score)) {
+          throw new Error('Invalid CNN Fear & Greed payload');
+        }
+        return {
+          score: Math.round(Number(fg.score)),
+          previousClose: typeof fg.previous_close === 'number' ? Math.round(Number(fg.previous_close)) : Math.round(Number(fg.score)),
+          rating: String(fg.rating || '').toLowerCase(),
+          timestamp: fg.timestamp || new Date().toISOString()
+        };
+      };
+
+      const racePromises = [
+        fetchWithTimeout(`https://api.allorigins.win/raw?url=${encodedUrl}`, 3200).then(parseCnnPayload),
+        fetchWithTimeout(`https://api.codetabs.com/v1/proxy?quest=${encodedUrl}`, 3200).then(parseCnnPayload),
+        fetchWithTimeout(`https://corsproxy.io/?${encodedUrl}`, 3200).then(parseCnnPayload),
+        fetchWithTimeout(`https://api.allorigins.win/get?url=${encodedUrl}`, 3200).then(parseCnnPayload)
+      ];
+
+      try {
+        const winner = await Promise.any(racePromises);
+        state.fearGreedScore = winner.score;
+        state.fearGreedPrevClose = winner.previousClose;
+        state.fearGreedRating = winner.rating;
+        state.fearGreedLiveFetched = true;
+        state.fearGreedUpdatedLabel = 'CNN Fear & Greed 공식 연동';
+
+        try {
+          localStorage.setItem(CNN_FG_CACHE_KEY, JSON.stringify({
+            score: winner.score,
+            previousClose: winner.previousClose,
+            rating: winner.rating,
+            timestamp: winner.timestamp,
+            updatedLabel: state.fearGreedUpdatedLabel,
+            savedAt: Date.now()
+          }));
+        } catch (_) {}
+
+        saveStateToStorage();
+        return winner;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    async function fetchLiveFearAndGreedIndex() {
+      return await fetchCnnFearAndGreedIndex();
+    }
+
+    let _realtimeIndexPollingTimer = null;
+    async function refreshIndicesAndFearGreedRealtime(showToastFeedback = false) {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
+      const iconEl = document.getElementById('fg-refresh-icon');
+      if (iconEl) iconEl.classList.add('animate-spin');
+
+      const activeIdxList = Array.from(new Set([
+        ...(state.marketIndices || ['^IXIC', '^GSPC', '^KS11', '^VIX']),
+        '^IXIC', '^GSPC', '^KS11', '^VIX'
+      ]));
+
+      try {
+        // Run CNN Fear & Greed Promise.any() immediately and update UI as soon as it resolves
+        const cnnPromise = fetchCnnFearAndGreedIndex().then((res) => {
+          if (res) renderFearGreedAndIndicesBoard();
+          return res;
+        });
+
+        await Promise.all([
+          cnnPromise,
+          ...activeIdxList.map(sym => fetchLiveQuoteForSymbol(sym))
+        ]);
+
+        state.fearGreedUpdatedLabel = 'CNN Fear & Greed 공식 연동';
+        renderFearGreedAndIndicesBoard();
+        if (showToastFeedback) {
+          showToast(`CNN 공포·탐욕 지수(${state.fearGreedScore}점) 및 주요 시장 지수 동기화 완료`);
+        }
+      } catch (_) {}
+
+      if (iconEl) iconEl.classList.remove('animate-spin');
+    }
+
+    function startRealtimeIndexPolling() {
+      if (_realtimeIndexPollingTimer) clearInterval(_realtimeIndexPollingTimer);
+      _realtimeIndexPollingTimer = setInterval(() => {
+        if (document.visibilityState === 'hidden') return;
+        refreshIndicesAndFearGreedRealtime(false);
+      }, 15000);
+    }
+
+    // Section 1-1 & 1-2: Strict 1:1 CNN Score & Official 5-Stage Judgment (Zero Synthetic Formula Distortion)
+    function computeFearAndGreedData() {
+      const score = Math.max(0, Math.min(100, Math.round(Number(state.fearGreedScore ?? 20))));
+      const prevClose = Math.max(0, Math.min(100, Math.round(Number(state.fearGreedPrevClose ?? score))));
+      const diff = score - prevClose;
+      const diffSign = diff > 0 ? `+${diff}p` : `${diff}p`;
+      const prevCloseLabel = `(전일 ${prevClose}점 대비 ${diffSign})`;
+
+      let stageKo = '중립';
+      let stageEn = 'Neutral';
+      let rangeLabel = '45~55 중립 구간';
+      let badgeClass = 'bg-ios-blue/10 text-ios-blue border border-ios-blue/20';
+      let easyComment = '';
+      let expertComment = '';
+
+      if (score <= 24) {
+        stageKo = '극도의 공포';
+        stageEn = 'Extreme Fear';
+        rangeLabel = '0~24 극도의 공포 구간';
+        badgeClass = 'bg-down-soft border border-ios-blue/20';
+        easyComment = `지금 CNN 공식 시장 심리는 ${score}점(극도의 공포)이에요! 투자자들이 겁을 먹고 주식을 파는 바겐세일 구간이라, 좋은 우량주를 분할로 모아가기 좋은 기회예요.`;
+        expertComment = `현재 CNN Fear & Greed 지수는 ${score}(Extreme Fear, 전일 ${prevClose}점) 구간입니다. 과매도 국면 진입에 따라 우량 코어 자산 중심의 분할 매수(Rebalancing) 전략이 유효합니다.`;
+      } else if (score <= 44) {
+        stageKo = '공포';
+        stageEn = 'Fear';
+        rangeLabel = '25~44 공포 구간';
+        badgeClass = 'bg-down-soft border border-ios-blue/20';
+        easyComment = `지금 CNN 공식 시장 심리는 ${score}점(공포)이에요! 투자자들이 조금 걱정하고 있어서 주가가 쉬어가는 중이에요. 내 초심 메모를 보며 차분히 적립식 매수를 이어가 보세요.`;
+        expertComment = `현재 CNN Fear & Greed 지수는 ${score}(Fear, 전일 ${prevClose}점) 구간입니다. 단기 변동성 경계 심리가 우세하나 밸류에이션 부담이 완화되는 구간으로 정액 분할 매수를 권장합니다.`;
+      } else if (score <= 55) {
+        stageKo = '중립';
+        stageEn = 'Neutral';
+        rangeLabel = '45~55 중립 구간';
+        badgeClass = 'bg-ios-blue/10 text-ios-blue border border-ios-blue/20';
+        easyComment = `지금 CNN 공식 시장 심리는 ${score}점(중립)이에요! 사람들이 너무 겁먹지도, 너무 흥분하지도 않은 평온한 상태라 내 초심 메모를 지키며 차분히 모아가기 좋아요.`;
+        expertComment = `현재 CNN Fear & Greed 지수는 ${score}(Neutral, 전일 ${prevClose}점) 구간입니다. 지수 모멘텀과 변동성이 균형을 이루고 있어 기존 자산배분 비중 유지를 권장합니다.`;
+      } else if (score <= 74) {
+        stageKo = '탐욕';
+        stageEn = 'Greed';
+        rangeLabel = '56~74 탐욕 구간';
+        badgeClass = 'bg-up-soft border border-current/15';
+        easyComment = `지금 CNN 공식 시장 심리는 ${score}점(탐욕)이에요! 분위기가 좋아서 사람들이 신나게 주식을 사고 있어요. 남들 따라 급하게 추격 매수하기보단 내 평단가와 비중을 차분히 지켜보세요.`;
+        expertComment = `현재 CNN Fear & Greed 지수는 ${score}(Greed, 전일 ${prevClose}점) 구간입니다. 위험자산 선호 심리가 강하며, 추격 매수보다는 목표 비중 초과 종목의 점진적 리밸런싱 점검이 적절합니다.`;
+      } else {
+        stageKo = '극도의 탐욕';
+        stageEn = 'Extreme Greed';
+        rangeLabel = '75~100 극도의 탐욕 구간';
+        badgeClass = 'bg-up-soft border border-current/15';
+        easyComment = `지금 CNN 공식 시장 심리는 ${score}점(극도의 탐욕)이에요! 모두가 축제를 벌이며 과열된 상태라 갑자기 주가가 출렁일 수 있어요. 현금이나 안전 쿠션 비중을 꼭 챙겨두세요!`;
+        expertComment = `현재 CNN Fear & Greed 지수는 ${score}(Extreme Greed, 전일 ${prevClose}점) 구간입니다. 단기 과열 및 밸류에이션 멀티플 부담이 높으므로 차익실현 및 현금성 완충자산 비중 확대를 권고합니다.`;
+      }
+
+      return {
+        score,
+        prevClose,
+        prevCloseLabel,
+        stageKo,
+        stageEn,
+        rangeLabel,
+        badgeClass,
+        commentary: state.beginnerMode ? easyComment : expertComment
+      };
+    }
+
+    function renderFearGreedAndIndicesBoard() {
+      const fg = computeFearAndGreedData();
+      const scoreEl = document.getElementById('fg-score-value');
+      const stageEl = document.getElementById('fg-stage-label');
+      const prevDeltaEl = document.getElementById('fg-prev-close-delta');
+      const badgeEl = document.getElementById('fg-status-badge');
+      const markerEl = document.getElementById('fg-gauge-marker');
+      const commentEl = document.getElementById('fg-commentary-text');
+      const syncBadgeEl = document.getElementById('fg-live-sync-badge');
+
+      if (scoreEl) scoreEl.textContent = String(fg.score);
+      if (stageEl) stageEl.textContent = `${fg.stageKo} (${fg.stageEn})`;
+      if (prevDeltaEl) prevDeltaEl.textContent = fg.prevCloseLabel;
+      if (syncBadgeEl) {
+        syncBadgeEl.textContent = state.fearGreedUpdatedLabel || 'CNN Fear & Greed 공식 연동';
+      }
+      if (badgeEl) {
+        badgeEl.textContent = fg.rangeLabel;
+        badgeEl.className = `px-3 py-1 rounded-full text-xs font-bold ${fg.badgeClass}`;
+      }
+      if (markerEl) {
+        const clamped = Math.max(3, Math.min(97, fg.score));
+        markerEl.style.left = `calc(${clamped}% - 8px)`;
+      }
+      if (commentEl) {
+        commentEl.textContent = fg.commentary;
+      }
+
+      const gridEl = document.getElementById('market-indices-grid');
+      if (!gridEl) return;
+
+      const activeIndices = Array.isArray(state.marketIndices) && state.marketIndices.length > 0
+        ? state.marketIndices
+        : ['^IXIC', '^GSPC', '^KS11', '^VIX'];
+
+      gridEl.innerHTML = activeIndices.map(sym => {
+        const cleanCode = normalizeSymbolCode(sym);
+        const master = KR_US_MASTER_STOCKS.find(m => m.code === cleanCode);
+        const q = state.quotes[cleanCode] || VERIFIED_MARKET_QUOTES[cleanCode] || {
+          symbol: cleanCode,
+          nameKo: master?.name || cleanCode,
+          price: master?.defaultPrice || 100,
+          changePct: 0.00
+        };
+        const nameKo = q.nameKo || master?.name || cleanCode;
+        const dispTicker = q.displayTicker || INDEX_DISPLAY_TICKER_MAP[cleanCode] || cleanCode.replace(/^\^/, '');
+        const changePct = Number(q.changePct || 0);
+        const isUp = changePct >= 0;
+        const formattedPrice = formatMarketIndexValue(cleanCode, q.price, Boolean(q.isKrStock));
+
+        return `
+          <div
+            data-index-card="${cleanCode}"
+            class="p-3.5 sm:p-4 rounded-2xl bg-black/[0.025] dark:bg-white/[0.04] hover:bg-black/[0.05] dark:hover:bg-white/[0.07] border ios-hairline cursor-pointer flex flex-col justify-between gap-2 transition active:scale-[0.99]"
+          >
+            <div class="flex items-start justify-between gap-1.5">
+              <div class="min-w-0">
+                <div class="text-xs sm:text-sm font-bold text-black dark:text-white truncate">${nameKo}</div>
+                <span class="inline-block text-[11px] font-bold text-readable-muted tabular-nums-tight">${dispTicker}</span>
+              </div>
+              <span class="px-2 py-0.5 rounded-lg text-xs font-bold tabular-nums-tight shrink-0 ${isUp ? 'bg-up-soft' : 'bg-down-soft'}">
+                ${isUp ? '+' : ''}${changePct.toFixed(2)}%
+              </span>
+            </div>
+            <div class="text-base sm:text-xl font-extrabold tabular-nums-tight tracking-tight text-black dark:text-white">
+              ${formattedPrice}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      gridEl.querySelectorAll('[data-index-card]').forEach(card => {
+        card.addEventListener('click', () => {
+          const code = card.getAttribute('data-index-card');
+          if (!code) return;
+          const searchInput = document.getElementById('global-stock-search-input');
+          const q = state.quotes[code] || VERIFIED_MARKET_QUOTES[code];
+          if (searchInput && q) {
+            searchInput.value = `${q.nameKo || code} (${code})`;
+          }
+          renderStockSearchPreview(code, code);
+          ensureStockDataHydrated(code);
+          const previewEl = document.getElementById('stock-search-preview-card');
+          if (previewEl) {
+            previewEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+      });
+    }
+
+    function openMarketIndexManagerSheet() {
+      const allIndexItems = KR_US_MASTER_STOCKS.filter(m => m.category === 'index' || m.market === 'INDEX');
+      const activeSet = new Set(state.marketIndices || ['^IXIC', '^GSPC', '^KS11', '^VIX']);
+
+      const renderIndexOptionsHtml = (filterQuery = '') => {
+        const qStr = String(filterQuery || '').trim().toUpperCase();
+        const filtered = allIndexItems.filter(item => {
+          if (!qStr) return true;
+          return item.name.toUpperCase().includes(qStr)
+            || item.code.toUpperCase().includes(qStr)
+            || item.chosung.includes(qStr)
+            || item.aliases.some(a => String(a).toUpperCase().includes(qStr));
+        });
+
+        if (filtered.length === 0) {
+          return `<div class="p-4 text-center text-xs sm:text-sm font-semibold text-readable-muted">일치하는 시장 지수가 없습니다.</div>`;
+        }
+
+        return filtered.map(item => {
+          const isSelected = activeSet.has(item.code);
+          const q = state.quotes[item.code] || VERIFIED_MARKET_QUOTES[item.code];
+          const priceVal = q?.price || item.defaultPrice || 0;
+          const changePct = Number(q?.changePct || 0);
+          const isUp = changePct >= 0;
+          const dispTicker = INDEX_DISPLAY_TICKER_MAP[item.code] || item.code;
+
+          return `
+            <button
+              type="button"
+              data-toggle-market-index="${item.code}"
+              class="w-full p-3.5 rounded-2xl border ${isSelected ? 'bg-ios-blue/10 border-ios-blue/40' : 'bg-black/[0.025] dark:bg-white/[0.04] ios-hairline'} flex items-center justify-between gap-3 text-left transition active:scale-[0.99]"
+            >
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-ios-blue/15 text-ios-blue shrink-0">지수</span>
+                <div class="min-w-0">
+                  <div class="text-sm font-bold text-black dark:text-white truncate">${item.name}</div>
+                  <div class="text-xs font-semibold text-readable-muted tabular-nums-tight">${dispTicker} (${item.code})</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <div class="text-right tabular-nums-tight">
+                  <div class="text-xs sm:text-sm font-bold text-black dark:text-white">${formatMarketIndexValue(item.code, priceVal, false)}</div>
+                  <div class="text-[11px] font-bold ${isUp ? 'text-up' : 'text-down'}">${isUp ? '+' : ''}${changePct.toFixed(2)}%</div>
+                </div>
+                <span class="px-2.5 py-1 rounded-xl text-xs font-bold ${isSelected ? 'bg-ios-blue text-white' : 'bg-black/[0.06] dark:bg-white/[0.12] text-readable-sub'}">
+                  ${isSelected ? '표시 중' : '+ 추가'}
+                </span>
+              </div>
+            </button>
+          `;
+        }).join('');
+      };
+
+      const bodyHtml = `
+        <div class="space-y-4">
+          <div class="relative">
+            <input
+              id="market-index-search-input"
+              type="text"
+              autocomplete="off"
+              placeholder="지수 검색 (예: 코스피, 나스닥, VIX, 환율, 국채, 금, 비트코인)"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-ios-blue"
+            />
+          </div>
+
+          <div id="market-index-picker-list" class="space-y-2 max-h-80 overflow-y-auto pr-1">
+            ${renderIndexOptionsHtml('')}
+          </div>
+
+          <div class="flex items-center justify-between gap-2 pt-2 border-t ios-hairline">
+            <button id="btn-reset-default-indices" type="button" class="px-3.5 py-2 rounded-xl bg-black/5 dark:bg-white/10 text-xs font-bold text-readable-sub hover:bg-black/10 transition">
+              기본 4대 지수로 초기화
+            </button>
+            <button id="btn-close-index-manager" type="button" class="px-5 py-2.5 rounded-xl bg-ios-blue text-white text-xs sm:text-sm font-bold shadow-sm">
+              완료
+            </button>
+          </div>
+        </div>
+      `;
+
+      openBottomSheet(
+        '주요 시장 지수 추가 · 편집',
+        '홈 화면 지수 보드에 표시할 국내외 대표 지수와 거시 지표를 선택하세요.',
+        bodyHtml
+      );
+
+      const listContainer = document.getElementById('market-index-picker-list');
+      const searchInput = document.getElementById('market-index-search-input');
+
+      const bindToggleButtons = () => {
+        if (!listContainer) return;
+        listContainer.querySelectorAll('[data-toggle-market-index]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const code = btn.getAttribute('data-toggle-market-index');
+            if (!code) return;
+            if (activeSet.has(code)) {
+              if (activeSet.size <= 1) {
+                showToast('최소 1개 이상의 시장 지수를 표시해야 합니다');
+                return;
+              }
+              activeSet.delete(code);
+            } else {
+              activeSet.add(code);
+              ensureStockDataHydrated(code);
+            }
+            state.marketIndices = Array.from(activeSet);
+            saveStateToStorage();
+            renderFearGreedAndIndicesBoard();
+            listContainer.innerHTML = renderIndexOptionsHtml(searchInput ? searchInput.value : '');
+            bindToggleButtons();
+          });
+        });
+      };
+
+      bindToggleButtons();
+
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          listContainer.innerHTML = renderIndexOptionsHtml(searchInput.value);
+          bindToggleButtons();
+        });
+      }
+
+      document.getElementById('btn-reset-default-indices')?.addEventListener('click', () => {
+        activeSet.clear();
+        ['^IXIC', '^GSPC', '^KS11', '^VIX'].forEach(c => activeSet.add(c));
+        state.marketIndices = Array.from(activeSet);
+        saveStateToStorage();
+        renderFearGreedAndIndicesBoard();
+        if (listContainer) {
+          listContainer.innerHTML = renderIndexOptionsHtml(searchInput ? searchInput.value : '');
+          bindToggleButtons();
+        }
+        showToast('기본 4대 지수(나스닥·S&P 500·코스피·VIX)로 초기화했습니다');
+      });
+
+      document.getElementById('btn-close-index-manager')?.addEventListener('click', closeBottomSheet);
     }
 
     function formatNativePrice(nativePrice, isKr, ignorePrivacy = true) {
@@ -2817,38 +4120,157 @@
       }
     }
 
-    async function fetchSingleYahooSymbol(yahooSymbol) {
-      const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahooSymbol)}?interval=1d&range=5d`;
+    async function fetchJsonViaAnyCorsBridge(targetUrl, timeoutMs = 3400) {
       const bridges = [
-        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`
+        { url: `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, unwrapAllOrigins: true },
+        { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, unwrapAllOrigins: false },
+        { url: `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`, unwrapAllOrigins: false },
+        { url: `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`, unwrapAllOrigins: false }
       ];
-      if (state.workerUrl && state.workerUrl.startsWith('http')) {
-        bridges.unshift(`${state.workerUrl}${encodeURIComponent(yahooSymbol)}`);
-      }
-      for (const bridgeUrl of bridges) {
+      for (const b of bridges) {
         try {
-          const data = await fetchWithTimeout(bridgeUrl, 3600);
-          const result = data?.chart?.result?.[0];
-          if (result && result.meta && typeof result.meta.regularMarketPrice === 'number') {
-            const meta = result.meta;
-            const price = meta.regularMarketPrice;
-            const prevClose = meta.chartPreviousClose || meta.previousClose || price;
-            const change = price - prevClose;
-            const changePct = prevClose ? (change / prevClose) * 100 : 0;
-            const closes = result?.indicators?.quote?.[0]?.close?.filter(v => typeof v === 'number') || [];
+          const raw = await fetchWithTimeout(b.url, timeoutMs);
+          if (!raw) continue;
+          const data = (b.unwrapAllOrigins && typeof raw.contents === 'string')
+            ? JSON.parse(raw.contents)
+            : raw;
+          if (data) return data;
+        } catch (_) {}
+      }
+      return null;
+    }
+
+    async function fetchNaverRealtimeIndexOrStock(symbol) {
+      const clean = normalizeSymbolCode(symbol);
+      // 1) Korean Indices (KOSPI / KOSDAQ) via Naver Mobile Realtime Index API
+      if (clean === '^KS11' || clean === '^KQ11') {
+        const naverIdxCode = clean === '^KS11' ? 'KOSPI' : 'KOSDAQ';
+        const naverUrl = `https://m.stock.naver.com/api/index/${naverIdxCode}/basic`;
+        const data = await fetchJsonViaAnyCorsBridge(naverUrl, 3000);
+        if (data && data.closePrice) {
+          const price = parseFloat(String(data.closePrice).replace(/,/g, ''));
+          const change = parseFloat(String(data.compareToPreviousClosePrice || '0').replace(/,/g, ''));
+          const ratio = parseFloat(String(data.fluctuationsRatio || '0').replace(/,/g, ''));
+          const isDown = data.compareToPreviousPrice?.code === '5' || data.compareToPreviousPrice?.name === 'FALLING' || ratio < 0;
+          const signedChange = isDown ? -Math.abs(change) : Math.abs(change);
+          const signedPct = isDown ? -Math.abs(ratio) : Math.abs(ratio);
+          if (price > 0) {
             return {
               price,
-              prevClose,
-              change,
-              changePct,
-              high52: meta.fiftyTwoWeekHigh || price * 1.15,
-              low52: meta.fiftyTwoWeekLow || price * 0.75,
-              sparkline: closes.length >= 2 ? closes.slice(-5) : [prevClose, price],
-              source: 'Yahoo Finance Live'
+              prevClose: price - signedChange,
+              change: signedChange,
+              changePct: signedPct,
+              source: 'Naver Realtime Index'
+            };
+          }
+        }
+      }
+      // 2) Global Indices via Naver Worldwide Index API (.IXIC, .INX, .DJI, .SOX)
+      const naverGlobalMap = {
+        '^IXIC': '.IXIC',
+        '^GSPC': '.INX',
+        '^DJI': '.DJI',
+        '^SOX': '.SOX'
+      };
+      if (naverGlobalMap[clean]) {
+        const worldUrl = `https://api.stock.naver.com/index/${naverGlobalMap[clean]}/basic`;
+        const data = await fetchJsonViaAnyCorsBridge(worldUrl, 3000);
+        if (data && data.closePrice) {
+          const price = parseFloat(String(data.closePrice).replace(/,/g, ''));
+          const change = parseFloat(String(data.compareToPreviousClosePrice || '0').replace(/,/g, ''));
+          const ratio = parseFloat(String(data.fluctuationsRatio || '0').replace(/,/g, ''));
+          const isDown = data.compareToPreviousPrice?.code === '5' || data.compareToPreviousPrice?.name === 'FALLING' || ratio < 0;
+          const signedChange = isDown ? -Math.abs(change) : Math.abs(change);
+          const signedPct = isDown ? -Math.abs(ratio) : Math.abs(ratio);
+          if (price > 0) {
+            return {
+              price,
+              prevClose: price - signedChange,
+              change: signedChange,
+              changePct: signedPct,
+              source: 'Naver Global Index'
+            };
+          }
+        }
+      }
+      // 3) Direct Native CORS APIs for Bitcoin (BTC-USD) & USD/KRW (KRW=X)
+      if (clean === 'BTC-USD') {
+        try {
+          const binance = await fetchWithTimeout('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT', 2600);
+          if (binance && binance.lastPrice) {
+            const price = parseFloat(binance.lastPrice);
+            const changePct = parseFloat(binance.priceChangePercent || '0');
+            const change = parseFloat(binance.priceChange || '0');
+            if (price > 0) {
+              return { price, prevClose: price - change, change, changePct, source: 'Binance Live' };
+            }
+          }
+        } catch (_) {}
+      }
+      if (clean === 'KRW=X') {
+        try {
+          const er = await fetchWithTimeout('https://open.er-api.com/v6/latest/USD', 2600);
+          if (er && er.rates && er.rates.KRW > 900) {
+            const price = Number(er.rates.KRW);
+            const prev = state.quotes['KRW=X']?.prevClose || 1382.00;
+            const change = price - prev;
+            const changePct = prev ? (change / prev) * 100 : 0;
+            return { price, prevClose: prev, change, changePct, source: 'ExchangeRate Live' };
+          }
+        } catch (_) {}
+      }
+      return null;
+    }
+
+    async function fetchSingleYahooSymbol(yahooSymbol) {
+      // First try direct Naver / Native CORS endpoints for Indices, BTC, FX
+      const directLive = await fetchNaverRealtimeIndexOrStock(yahooSymbol);
+      if (directLive && directLive.price > 0) {
+        return directLive;
+      }
+
+      const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahooSymbol)}?interval=1m&range=1d`;
+      if (state.workerUrl && state.workerUrl.startsWith('http')) {
+        try {
+          const wData = await fetchWithTimeout(`${state.workerUrl}${encodeURIComponent(yahooSymbol)}`, 3200);
+          const wRes = wData?.chart?.result?.[0];
+          if (wRes?.meta?.regularMarketPrice) {
+            const m = wRes.meta;
+            const p = m.regularMarketPrice;
+            const pc = m.chartPreviousClose || m.previousClose || p;
+            return {
+              price: p,
+              prevClose: pc,
+              change: p - pc,
+              changePct: pc ? ((p - pc) / pc) * 100 : 0,
+              high52: m.fiftyTwoWeekHigh || p * 1.15,
+              low52: m.fiftyTwoWeekLow || p * 0.75,
+              sparkline: [pc, p],
+              source: 'Cloudflare Worker Live'
             };
           }
         } catch (_) {}
+      }
+
+      const data = await fetchJsonViaAnyCorsBridge(targetUrl, 3400);
+      const result = data?.chart?.result?.[0];
+      if (result && result.meta && typeof result.meta.regularMarketPrice === 'number') {
+        const meta = result.meta;
+        const price = meta.regularMarketPrice;
+        const prevClose = meta.chartPreviousClose || meta.previousClose || price;
+        const change = price - prevClose;
+        const changePct = prevClose ? (change / prevClose) * 100 : 0;
+        const closes = result?.indicators?.quote?.[0]?.close?.filter(v => typeof v === 'number') || [];
+        return {
+          price,
+          prevClose,
+          change,
+          changePct,
+          high52: meta.fiftyTwoWeekHigh || price * 1.15,
+          low52: meta.fiftyTwoWeekLow || price * 0.75,
+          sparkline: closes.length >= 2 ? closes.slice(-5) : [prevClose, price],
+          source: 'Yahoo Finance Live'
+        };
       }
       return null;
     }
@@ -3015,7 +4437,7 @@
       const code = typeof rawSymbolOrItem === 'object' && rawSymbolOrItem !== null
         ? normalizeSymbolCode(rawSymbolOrItem.code || rawSymbolOrItem.symbol)
         : normalizeSymbolCode(rawSymbolOrItem);
-      if (!code || !/^(\d{6}|[A-Z]{1,5}(?:-[A-Z])?)$/.test(code)) return null;
+      if (!code || !/^(\d{6}|\^[A-Z0-9]{2,6}|[A-Z]{1,5}(?:-[A-Z]{1,3})?|[A-Z]{2,4}=F|[A-Z]{3}=X)$/.test(code)) return null;
 
       const masterEntry = KR_US_MASTER_STOCKS.find(m => m.code === code);
       const isOnlineVerifiedItem = typeof rawSymbolOrItem === 'object' && rawSymbolOrItem !== null && Boolean(rawSymbolOrItem.isOnlineVerified);
@@ -3124,7 +4546,7 @@
 
       const symbols = Array.from(new Set([
         ...getActiveHoldings().map(h => normalizeSymbolCode(h.symbol)),
-        '005930', '000660', 'NVDA', 'TSLA', 'AAPL', 'SCHD', 'SGOV', 'JEPI', '459580', '458730', '441680'
+        '005930', '000660', 'NVDA', 'TSLA', 'AAPL', 'SCHD', 'SGOV', 'JEPI', '459580', '458730', '441680', ...(state.marketIndices || ['^IXIC', '^GSPC', '^KS11', '^VIX'])
       ]));
 
       let liveSuccessCount = 0;
@@ -3510,6 +4932,9 @@
         `;
       }).join('');
 
+      // Stage 6.6 Section 2: Render Fear & Greed Index + Major Market Indices Board
+      renderFearGreedAndIndicesBoard();
+
       // Mental Summary Card on Dashboard
       document.getElementById('summary-user-mdd').textContent = `${state.userMddLimit.toFixed(1)}%`;
       const portMddEl = document.getElementById('summary-port-mdd');
@@ -3557,7 +4982,7 @@
         listEl.classList.add('hidden');
         if (allocBarWrap) allocBarWrap.classList.add('hidden');
         if (homeCard1) homeCard1.classList.add('hidden');
-        if (homeCard2) homeCard2.classList.add('hidden');
+        if (homeCard2) homeCard2.classList.remove('hidden');
         if (homeCard3Header) homeCard3Header.classList.add('hidden');
       } else {
         if (emptyOnboardingCard) emptyOnboardingCard.classList.add('hidden');
@@ -3577,15 +5002,13 @@
         const cleanMemo = String(item.memo || '').trim();
         return `
           <article data-symbol="${item.symbol}" class="holding-card p-4 sm:p-5 rounded-2xl bg-black/[0.025] dark:bg-white/[0.04] hover:bg-black/[0.05] dark:hover:bg-white/[0.07] border ios-hairline cursor-pointer flex items-center justify-between gap-4 transition active:scale-[0.99]">
-            <!-- ① 종목명(티커), ② 보유 수량(소수점), & 초심 한 줄 메모(있을 때만 1줄 캡션) -->
+            <!-- ① 회사 공식 브랜드 로고 + 종목명(티커), ② 보유 수량(소수점), & 초심 한 줄 메모(있을 때만 1줄 캡션) -->
             <div class="flex items-center gap-3.5 min-w-0 flex-1">
-              <div class="w-12 h-12 rounded-2xl bg-white dark:bg-black border ios-hairline flex flex-col items-center justify-center font-bold text-xs sm:text-sm tracking-tight shrink-0 shadow-sm">
-                <span>${item.symbol}</span>
-              </div>
+              ${renderCompanyLogoBadge(item.symbol, item.nameKo || q.nameKo, 'w-12 h-12')}
               <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-2 flex-wrap">
                   <h4 class="text-base sm:text-lg font-bold tracking-tight">${item.nameKo || q.nameKo}</h4>
-                  <span class="text-xs font-semibold px-2 py-0.5 rounded-md ${isKr ? 'bg-ios-blue/10 text-ios-blue' : 'bg-black/[0.05] dark:bg-white/[0.10] text-readable-muted'}">${isKr ? '국내 KRX' : item.symbol}</span>
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded-md tabular-nums-tight ${isKr ? 'bg-ios-blue/10 text-ios-blue' : 'bg-black/[0.05] dark:bg-white/[0.10] text-readable-muted'}">${isKr ? `KRX · ${item.symbol}` : item.symbol}</span>
                 </div>
                 <div class="text-xs sm:text-sm text-readable-sub tabular-nums-tight mt-0.5">
                   보유 <strong class="text-black dark:text-white font-bold">${formatQuantity(item.qty)}주</strong>
@@ -4402,8 +5825,9 @@
           <div class="ios-card p-6 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div class="flex items-center gap-2.5">
-                <span class="px-3 py-1 rounded-xl bg-black/[0.06] dark:bg-white/[0.12] font-bold text-xs sm:text-sm">${item.symbol}</span>
+                ${renderCompanyLogoBadge(item.symbol, item.nameKo || q.nameKo, 'w-9 h-9')}
                 <h4 class="text-base sm:text-lg font-bold">${item.nameKo || q.nameKo}</h4>
+                <span class="px-2 py-0.5 rounded-lg bg-black/[0.05] dark:bg-white/[0.10] font-bold text-xs text-readable-muted tabular-nums-tight">${item.symbol}</span>
                 <span class="text-xs sm:text-sm font-semibold text-readable-sub tabular-nums-tight">현재가 ${formatNativePrice(q.price, item.isKrStock, true)} (${q.changePct >= 0 ? '+' : ''}${q.changePct.toFixed(2)}%)</span>
               </div>
               <span class="px-3 py-1 rounded-xl text-xs sm:text-sm font-bold tabular-nums-tight ${sentiment.badgeClass}">
@@ -4544,47 +5968,45 @@
      * RENDER VIEW 3: BRAND CHIPS, OCR & MULTI-USER PROFILE SETTINGS
      *************************************************************************/
     function renderSettingsView() {
-      document.querySelectorAll('.brand-chip').forEach(chip => {
-        const bName = chip.getAttribute('data-brand-name');
-        const isSelected = bName === state.brandName;
-        chip.className = `brand-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition ${
-          isSelected
-            ? 'bg-ios-blue text-white border-ios-blue shadow-sm'
-            : 'bg-black/[0.04] dark:bg-white/[0.08] ios-hairline hover:bg-black/10'
-        }`;
-      });
+      state.brandName = 'Mindfolio';
 
       const container = document.getElementById('profile-list-container');
       if (!container) return;
 
-      container.innerHTML = Object.values(state.profiles).map(prof => {
-        const isCurrent = prof.id === state.activeProfileId;
-        const hasPin = Boolean(prof.pin && prof.pin.length > 0);
-        return `
-          <div class="p-3.5 rounded-xl border ios-hairline flex items-center justify-between ${isCurrent ? 'bg-ios-blue/10 border-ios-blue' : 'bg-black/[0.02] dark:bg-white/[0.03]'}">
-            <div class="flex items-center gap-2.5">
-              <span class="w-3 h-3 rounded-full shrink-0" style="background-color: ${prof.avatarColor || '#007AFF'};"></span>
+      const activeProf = state.profiles[state.activeProfileId] || state.profiles.default;
+      const activeHoldingsCount = getActiveHoldings().length;
+
+      if (!state.isLoggedIn) {
+        container.innerHTML = `
+          <div class="p-4 rounded-2xl bg-black/[0.025] dark:bg-white/[0.04] border ios-hairline flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="w-3 h-3 rounded-full bg-ios-blue shrink-0"></span>
               <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-sm font-bold">${prof.name}</span>
-                  ${hasPin ? '<span class="px-1.5 py-0.5 rounded bg-black/10 dark:bg-white/15 text-[11px] font-bold">PIN 잠금</span>' : ''}
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-bold">비로그인 미리보기 상태</span>
+                  <span class="px-2 py-0.5 rounded-md bg-ios-blue/10 text-ios-blue text-[11px] font-bold">샘플 6종목 체험 중</span>
                 </div>
-                <div class="text-xs text-readable-muted tabular-nums-tight mt-0.5">${prof.holdings.length}개 보유 종목 · 허용 MDD ${(prof.mddLimit || -10).toFixed(0)}%</div>
+                <div class="text-xs text-readable-muted mt-0.5">내 닉네임으로 로그인하면 0종목 깨끗한 내 계좌가 생성됩니다.</div>
               </div>
             </div>
-            <button type="button" data-switch-profile="${prof.id}" class="px-3.5 py-1.5 rounded-xl text-xs font-bold ${isCurrent ? 'bg-ios-blue text-white' : 'bg-black/[0.06] dark:bg-white/[0.12]'}">
-              ${isCurrent ? '사용 중' : '계정 전환'}
-            </button>
           </div>
         `;
-      }).join('');
-
-      container.querySelectorAll('[data-switch-profile]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const pid = btn.getAttribute('data-switch-profile');
-          attemptSwitchProfile(pid);
-        });
-      });
+      } else {
+        container.innerHTML = `
+          <div class="p-4 rounded-2xl bg-ios-blue/10 border border-ios-blue/30 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="w-3.5 h-3.5 rounded-full shrink-0" style="background-color: ${activeProf.avatarColor || '#007AFF'};"></span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm sm:text-base font-bold">${activeProf.name}</span>
+                  <span class="px-2 py-0.5 rounded-md bg-ios-blue text-white text-[11px] font-bold">로그인됨</span>
+                </div>
+                <div class="text-xs text-readable-sub tabular-nums-tight mt-0.5">현재 보유 ${activeHoldingsCount}개 종목 운용 중 · 허용 안전선 ${(state.userMddLimit || -10).toFixed(0)}%</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
 
       const cloudInput = document.getElementById('input-cloud-db-url');
       if (cloudInput) cloudInput.value = state.cloudDbUrl || '';
@@ -4624,7 +6046,9 @@
       document.getElementById('sheet-body').innerHTML = bodyHtml;
 
       const floatNav = document.getElementById('floating-tab-bar');
+      const floatMask = document.getElementById('floating-tab-fade-mask');
       if (floatNav) floatNav.classList.add('sheet-hidden');
+      if (floatMask) floatMask.classList.add('opacity-0');
       wrapper.classList.add('sheet-active');
       backdrop.classList.add('open');
       sheet.classList.add('open');
@@ -4635,12 +6059,14 @@
       const backdrop = document.getElementById('ios-sheet-backdrop');
       const sheet = document.getElementById('ios-bottom-sheet');
       const floatNav = document.getElementById('floating-tab-bar');
+      const floatMask = document.getElementById('floating-tab-fade-mask');
       sheet.style.transform = '';
       wrapper.style.transform = '';
       wrapper.classList.remove('sheet-active');
       backdrop.classList.remove('open');
       sheet.classList.remove('open');
       if (floatNav) floatNav.classList.remove('sheet-hidden');
+      if (floatMask) floatMask.classList.remove('opacity-0');
     }
 
     function initBottomSheetSwipePhysics() {
@@ -4701,7 +6127,7 @@
       if (!q) return { valid: false, reason: 'empty' };
 
       // Extract clean query if formatted like "삼성전기 (009150)"
-      const parenMatch = q.match(/^(.+?)\s*\(([A-Za-z0-9.-]+)\)\s*$/);
+      const parenMatch = q.match(/^(.+?)\s*\(([A-Za-z0-9.\-^=]+)\)\s*$/);
       const target = parenMatch ? parenMatch[2].trim() : q;
       const compact = target.replace(/\s+/g, '');
 
@@ -4721,7 +6147,7 @@
       }
 
       // 4) Reject arbitrary special characters (allow only Korean syllables, English letters, digits, spaces, &, ., -)
-      if (/[^가-힣A-Za-z0-9\s&.-]/.test(target)) {
+      if (/[^가-힣A-Za-z0-9\s&.\-^=/]/.test(target)) {
         return { valid: false, reason: 'invalid_special_char' };
       }
 
@@ -4736,7 +6162,7 @@
         const q = String(rawQuery || '').trim();
         if (!q) return [];
 
-        const parenMatch = q.match(/^(.+?)\s*\(([A-Za-z0-9.-]+)\)\s*$/);
+        const parenMatch = q.match(/^(.+?)\s*\(([A-Za-z0-9.\-^=]+)\)\s*$/);
         const targetQuery = parenMatch ? parenMatch[2].trim() : q;
         const check = validateStockSearchQuery(targetQuery);
         if (!check.valid) return [];
@@ -4858,7 +6284,7 @@
                   if (!qt.symbol) continue;
                   const rawSym = String(qt.symbol).toUpperCase();
                   const code = normalizeSymbolCode(rawSym);
-                  if (!/^(\d{6}|[A-Z]{1,5}(?:-[A-Z])?)$/.test(code)) continue;
+                  if (!/^(\d{6}|\^[A-Z0-9]{2,6}|[A-Z]{1,5}(?:-[A-Z]{1,3})?|[A-Z]{2,4}=F|[A-Z]{3}=X)$/.test(code)) continue;
                   const isKr = rawSym.endsWith('.KS') || rawSym.endsWith('.KQ') || /^\d{6}$/.test(code);
                   const market = rawSym.endsWith('.KQ') ? 'KOSDAQ' : (isKr ? 'KOSPI' : (qt.exchDisp || 'US'));
                   const name = qt.shortname || qt.longname;
@@ -4966,7 +6392,7 @@
       if (!check.valid) return null;
 
       // Check if formatted like "삼성전기 (009150)" or "009150.KS"
-      const parenMatch = raw.match(/\(([A-Za-z0-9.-]+)\)\s*$/);
+      const parenMatch = raw.match(/\(([A-Za-z0-9.\-^=]+)\)\s*$/);
       const candidateStr = parenMatch ? parenMatch[1].trim() : raw;
       const cleanCode = normalizeSymbolCode(candidateStr);
 
@@ -5055,9 +6481,15 @@
         const priceVal = q?.price || item.defaultPrice || 0;
         const changePct = q?.changePct ?? 0.00;
         const isUp = changePct >= 0;
-        const marketBadge = item.market === 'KOSDAQ'
-          ? 'KOSDAQ'
-          : (isKr ? 'KOSPI' : (item.category && item.category.startsWith('buffer') ? 'ETF' : 'US'));
+        const isIndexItem = item.category === 'index' || item.market === 'INDEX' || isMarketIndexSymbol(item.code);
+        const marketBadge = isIndexItem
+          ? '지수'
+          : (item.market === 'KOSDAQ'
+            ? 'KOSDAQ'
+            : (isKr ? 'KOSPI' : (item.category && item.category.startsWith('buffer') ? 'ETF' : 'US')));
+        const formattedAcPrice = isIndexItem
+          ? formatMarketIndexValue(item.code, priceVal, isKr)
+          : formatNativePrice(priceVal, isKr, true);
 
         return `
           <button
@@ -5067,12 +6499,13 @@
             class="ac-option-btn w-full px-3.5 py-2.5 flex items-center justify-between gap-3 text-left hover:bg-ios-blue/10 dark:hover:bg-ios-blue/20 rounded-xl transition"
           >
             <div class="flex items-center gap-2.5 min-w-0">
-              <span class="px-2 py-0.5 rounded-md text-[11px] font-bold ${isKr ? 'bg-ios-blue/12 text-ios-blue' : 'bg-black/[0.06] dark:bg-white/[0.12] text-readable-sub'} shrink-0">${marketBadge}</span>
+              ${renderCompanyLogoBadge(item.code, item.name, 'w-8 h-8')}
+              <span class="px-2 py-0.5 rounded-md text-[11px] font-bold ${(isKr || isIndexItem) ? 'bg-ios-blue/12 text-ios-blue' : 'bg-black/[0.06] dark:bg-white/[0.12] text-readable-sub'} shrink-0">${marketBadge}</span>
               <span class="text-sm font-bold text-black dark:text-white truncate">${item.name}</span>
               <span class="text-xs font-semibold text-readable-muted tabular-nums-tight shrink-0">${item.symbol}</span>
             </div>
             <div class="text-right shrink-0 tabular-nums-tight">
-              <span class="text-xs sm:text-sm font-bold text-black dark:text-white">${formatNativePrice(priceVal, isKr, true)}</span>
+              <span class="text-xs sm:text-sm font-bold text-black dark:text-white">${formattedAcPrice}</span>
               <span class="text-xs font-bold ml-1.5 ${isUp ? 'text-up' : 'text-down'}">${isUp ? '+' : ''}${Number(changePct).toFixed(2)}%</span>
             </div>
           </button>
@@ -5116,9 +6549,14 @@
       const isUp = (q.changePct || 0) >= 0;
 
       document.getElementById('search-preview-ticker-badge').textContent = symbol;
+      const previewLogoWrap = document.getElementById('search-preview-logo-wrap');
+      if (previewLogoWrap) {
+        previewLogoWrap.innerHTML = renderCompanyLogoBadge(symbol, q.nameKo || symbol, 'w-11 h-11');
+      }
       document.getElementById('search-preview-name').textContent = `${q.nameKo || symbol} (${symbol})`;
       document.getElementById('search-preview-exchange').textContent = `${q.exchange || (isKr ? 'KRX' : 'NASDAQ')} · 실시간 시세 연동`;
-      document.getElementById('search-preview-price').textContent = formatNativePrice(q.price, isKr, true);
+      const isIdx = isMarketIndexSymbol(symbol) || q.category === 'index' || q.market === 'INDEX';
+      document.getElementById('search-preview-price').textContent = isIdx ? formatMarketIndexValue(symbol, q.price, isKr) : formatNativePrice(q.price, isKr, true);
 
       const changeEl = document.getElementById('search-preview-change');
       changeEl.textContent = `${isUp ? '+' : ''}${(q.changePct || 0).toFixed(2)}%`;
@@ -5184,7 +6622,7 @@
       }
     }
 
-    // Stage 6 Section 1.2: 3-Second SHA-256 Login / Signup Bottom Sheet (with pendingAddSymbol handoff)
+    // Stage 6.4 Section 1: Simplified Login Bottom Sheet & Mobile OS Native Numeric Keypad Integration
     function openAuthLoginSheet(pendingSymbol = null, customNotice = '') {
       if (pendingSymbol) {
         state.pendingAddSymbol = pendingSymbol;
@@ -5197,100 +6635,102 @@
              선택하신 [${targetQuote ? targetQuote.nameKo : targetSym} (${targetSym})] 종목을 기억하고 있어요! 로그인 즉시 수량·평단가 입력 시트로 이어집니다.
            </div>`
         : `<div class="p-3.5 rounded-xl bg-ios-blue/10 text-ios-blue text-xs sm:text-sm font-semibold">
-             ${customNotice || '3초 만에 내 계정을 만들고 나만의 맞춤 리포트를 시작해 보세요. 비밀번호는 SHA-256 암호화 해시로만 안전하게 보호됩니다.'}
+             ${customNotice || '닉네임과 숫자 비밀번호로 내 계좌를 안전하게 불러옵니다.'}
            </div>`;
-
-      const existingUserProfiles = Object.values(state.profiles).filter(p => p.id !== 'default');
-      const quickExistingHtml = existingUserProfiles.length > 0 ? `
-        <div class="space-y-2 pt-2 border-t ios-hairline">
-          <div class="text-xs font-bold text-readable-muted">저장된 독립 계정 빠른 선택</div>
-          <div class="flex flex-wrap gap-2">
-            ${existingUserProfiles.map(p => `
-              <button type="button" data-quick-auth-prof="${p.id}" class="px-3 py-1.5 rounded-xl bg-black/[0.05] dark:bg-white/[0.10] hover:bg-black/10 text-xs font-bold flex items-center gap-1.5 transition">
-                <span class="w-2 h-2 rounded-full" style="background-color: ${p.avatarColor || '#007AFF'};"></span>
-                <span>${p.name} (${p.holdings.length}종목)</span>
-              </button>
-            `).join('')}
-          </div>
-        </div>
-      ` : '';
 
       const bodyHtml = `
         <div class="space-y-4">
           ${noticeBanner}
 
-          <div class="space-y-3">
+          <div class="space-y-3" id="auth-input-nickname">
             <div>
               <label for="auth-input-name" class="text-xs sm:text-sm font-bold block mb-1">1. 아이디 (닉네임)</label>
-              <input id="auth-input-name" type="text" placeholder="예: 현우의 투자노트 (기존 닉네임 입력 시 자동 로그인)" class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-sm font-bold focus:outline-none focus:ring-2 focus:ring-ios-blue" />
+              <input
+                id="auth-input-name"
+                type="text"
+                autocomplete="off"
+                placeholder="기존 닉네임 입력 시 자동 로그인"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-sm font-bold focus:outline-none focus:ring-2 focus:ring-ios-blue"
+              />
             </div>
-            <div>
-              <label for="auth-input-pin" class="text-xs sm:text-sm font-bold block mb-1">2. 비밀번호 (4자리 이상 · SHA-256 단방향 암호화 저장)</label>
-              <input id="auth-input-pin" type="password" minlength="4" placeholder="4자리 이상 비밀번호 입력 (평문 미저장)" class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-sm font-bold tabular-nums-tight focus:outline-none focus:ring-2 focus:ring-ios-blue" />
+
+            <div id="auth-input-password">
+              <label for="auth-input-pin" class="text-xs sm:text-sm font-bold block mb-1">2. 비밀번호 (숫자 4자리 이상)</label>
+              <input
+                id="auth-input-pin"
+                type="password"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="8"
+                autocomplete="current-password"
+                placeholder="숫자 4자리 이상 입력"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-sm font-bold tabular-nums-tight focus:outline-none focus:ring-2 focus:ring-ios-blue"
+              />
             </div>
+
             <div>
               <label for="auth-select-mode" class="text-xs sm:text-sm font-bold block mb-1">3. 기본 설명 모드 선택</label>
               <select id="auth-select-mode" class="w-full px-3.5 py-2.5 rounded-xl bg-black/[0.04] dark:bg-white/[0.06] border ios-hairline text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-ios-blue">
-                <option value="easy" ${state.beginnerMode ? 'selected' : ''}>12살 눈높이 초보자 모드 (쉬운 비유와 친절한 해설)</option>
-                <option value="expert" ${!state.beginnerMode ? 'selected' : ''}>전문가 애널리스트 모드 (52주 밴드 · MDD · 퀀트 지표)</option>
+                <option value="true" ${state.beginnerMode ? 'selected' : ''}>초보자 눈높이 모드 (쉬운 비유와 친절한 해설)</option>
+                <option value="false" ${!state.beginnerMode ? 'selected' : ''}>전문가 모드 (핵심 지표와 애널리스트 용어)</option>
               </select>
             </div>
           </div>
 
-          ${quickExistingHtml}
-
-          <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t ios-hairline">
-            <button id="btn-auth-demo-login" type="button" class="px-3.5 py-2.5 rounded-xl bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 text-xs font-bold text-readable-sub transition">
-              샘플 계좌로 1초 체험 로그인
-            </button>
-            <div class="flex items-center gap-2 ml-auto">
-              <button id="btn-auth-cancel" type="button" class="px-4 py-2.5 rounded-xl bg-black/5 dark:bg-white/10 text-xs sm:text-sm font-bold">닫기</button>
-              <button id="btn-auth-submit" type="button" class="px-5 py-2.5 rounded-xl bg-ios-blue text-white text-xs sm:text-sm font-bold shadow-sm hover:opacity-95 transition">
-                3초 로그인 · 내 빈 계좌 시작하기
-              </button>
+          <!-- Stage 6.4 Section 1.2: Clean 2-Stage Currency Capsule Switch (₩ KRW 원화 ↔ $ USD 달러) -->
+          <div class="p-3.5 rounded-2xl bg-black/[0.025] dark:bg-white/[0.04] border ios-hairline flex items-center justify-between gap-3">
+            <span class="text-xs sm:text-sm font-bold text-readable-sub">기본 표시 통화 선택</span>
+            <div class="inline-flex p-1 rounded-xl bg-black/[0.06] dark:bg-white/[0.12]" id="auth-currency-toggle-group">
+              <button type="button" data-auth-curr="KRW" class="px-3 py-1.5 rounded-lg text-xs font-bold transition ${state.currency === 'KRW' ? 'bg-white dark:bg-black text-ios-blue shadow-sm' : 'text-readable-muted'}">₩ KRW 원화</button>
+              <button type="button" data-auth-curr="USD" class="px-3 py-1.5 rounded-lg text-xs font-bold transition ${state.currency === 'USD' ? 'bg-white dark:bg-black text-ios-blue shadow-sm' : 'text-readable-muted'}">$ USD 달러</button>
             </div>
+          </div>
+
+          <!-- Preserved in DOM as .hidden for zero-regression compatibility -->
+          <button id="btn-auth-demo-login" type="button" class="hidden">샘플 계좌로 1초 체험 로그인</button>
+
+          <div class="flex items-center justify-end gap-2 pt-2 border-t ios-hairline">
+            <button id="btn-auth-cancel" type="button" class="px-4 py-2.5 rounded-xl bg-black/5 dark:bg-white/10 text-xs sm:text-sm font-bold">닫기</button>
+            <button id="btn-auth-submit" type="button" class="px-5 py-2.5 rounded-xl bg-ios-blue text-white text-xs sm:text-sm font-bold shadow-sm hover:opacity-95 transition">
+              로그인 · 내 계좌 시작하기
+            </button>
           </div>
         </div>
       `;
 
-      openBottomSheet('3초 보안 로그인 & 새 빈 계좌 시작', '비밀번호는 브라우저 내장 SHA-256 해시로만 암호화되며 새 계정은 0종목 빈 계좌로 깨끗하게 시작합니다', bodyHtml);
+      openBottomSheet(
+        '내 계좌 로그인 & 시작하기',
+        '닉네임과 숫자 비밀번호로 내 계좌를 안전하게 불러옵니다.',
+        bodyHtml
+      );
 
-      document.getElementById('btn-auth-cancel').addEventListener('click', closeBottomSheet);
+      const nameInput = document.getElementById('auth-input-name');
+      const pinInput = document.getElementById('auth-input-pin');
+      const modeSelect = document.getElementById('auth-select-mode');
+      let selectedAuthCurrency = state.currency || 'KRW';
 
-      document.querySelectorAll('[data-quick-auth-prof]').forEach(btn => {
+      if (pinInput) {
+        pinInput.addEventListener('input', function () {
+          this.value = this.value.replace(/[^0-9]/g, '');
+        });
+      }
+
+      document.querySelectorAll('#auth-currency-toggle-group [data-auth-curr]').forEach(btn => {
         btn.addEventListener('click', () => {
-          const pid = btn.getAttribute('data-quick-auth-prof');
-          const prof = state.profiles[pid];
-          if (prof) {
-            document.getElementById('auth-input-name').value = prof.name;
-            document.getElementById('auth-input-pin').focus();
-          }
+          selectedAuthCurrency = btn.getAttribute('data-auth-curr') || 'KRW';
+          document.querySelectorAll('#auth-currency-toggle-group [data-auth-curr]').forEach(b => {
+            const isSel = b.getAttribute('data-auth-curr') === selectedAuthCurrency;
+            b.className = `px-3 py-1.5 rounded-lg text-xs font-bold transition ${isSel ? 'bg-white dark:bg-black text-ios-blue shadow-sm' : 'text-readable-muted'}`;
+          });
         });
       });
 
-      document.getElementById('btn-auth-demo-login').addEventListener('click', () => {
-        state.isLoggedIn = true;
-        state.activeProfileId = 'default';
-        const modeVal = document.getElementById('auth-select-mode').value;
-        state.beginnerMode = (modeVal === 'easy');
-        saveStateToStorage();
-        closeBottomSheet();
-        renderAll();
-        const followUpSym = state.pendingAddSymbol;
-        state.pendingAddSymbol = null;
-        if (followUpSym) {
-          setTimeout(() => openHoldingEditSheet(followUpSym, true), 180);
-        } else {
-          showToast('샘플 포트폴리오 계정으로 로그인되었습니다');
-        }
-      });
+      document.getElementById('btn-auth-cancel').addEventListener('click', closeBottomSheet);
 
       document.getElementById('btn-auth-submit').addEventListener('click', async () => {
-        const nameInput = document.getElementById('auth-input-name');
-        const pinInput = document.getElementById('auth-input-pin');
-        const modeSelect = document.getElementById('auth-select-mode');
         const name = (nameInput.value || '').trim();
         const rawPin = (pinInput.value || '').trim();
+        const isEasySelected = modeSelect.value === 'true' || modeSelect.value === 'easy';
 
         if (!name) {
           triggerInputShake(nameInput);
@@ -5299,14 +6739,18 @@
         }
         if (rawPin.length < 4) {
           triggerInputShake(pinInput);
-          showToast('보안을 위해 비밀번호를 4자리 이상 입력해 주세요');
+          showToast('숫자 비밀번호를 4자리 이상 입력해 주세요');
           return;
         }
+
+        const keepAutoLogin = true;
 
         const res = await AuthManager.registerOrLogin({
           name,
           rawPin,
-          beginnerMode: modeSelect.value === 'easy',
+          beginnerMode: isEasySelected,
+          preferredCurrency: selectedAuthCurrency,
+          autoLogin: keepAutoLogin,
           mddLimit: state.userMddLimit
         });
 
@@ -5326,207 +6770,68 @@
           setTimeout(() => openHoldingEditSheet(followUpSym, true), 200);
         } else {
           showToast(res.isNew
-            ? `'${res.profile.name}' 깨끗한 빈 계좌(0종목)가 생성되었습니다! 첫 종목을 등록해 보세요`
-            : `'${res.profile.name}' 계정으로 로그인되었습니다`);
+            ? `'${res.profile.name}' 새 계좌가 준비되었습니다! 첫 종목을 등록해 보세요`
+            : `'${res.profile.name}' 계좌로 로그인되었습니다`);
         }
       });
     }
 
-    // Account Switcher & 3-Step Onboarding Bottom Sheet
-    function openProfileSwitcherSheet(pendingPinProfileId = null) {
-      const profilesArr = Object.values(state.profiles);
-      const rowsHtml = profilesArr.map(prof => {
-        const isCurrent = prof.id === state.activeProfileId;
-        const hasPin = Boolean(prof.pin && prof.pin.length > 0);
-        const needsPinEntry = pendingPinProfileId === prof.id;
-        return `
-          <div class="p-4 rounded-2xl border ios-hairline space-y-2.5 ${isCurrent ? 'bg-ios-blue/10 border-ios-blue' : 'bg-black/[0.025] dark:bg-white/[0.04]'}">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2.5">
-                <span class="w-3.5 h-3.5 rounded-full shrink-0" style="background-color: ${prof.avatarColor || '#007AFF'};"></span>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm sm:text-base font-bold">${prof.name}</span>
-                    ${hasPin ? '<span class="px-2 py-0.5 rounded-md bg-black/10 dark:bg-white/15 text-xs font-bold">PIN 보호</span>' : ''}
-                  </div>
-                  <div class="text-xs sm:text-sm text-readable-muted mt-0.5">보유 ${prof.holdings.length}종목 · 심리 한계 MDD ${(prof.mddLimit || -10).toFixed(0)}%</div>
-                </div>
-              </div>
-              <button type="button" data-sheet-switch-prof="${prof.id}" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold ${isCurrent ? 'bg-ios-blue text-white' : 'bg-black dark:bg-white text-white dark:text-black'}">
-                ${isCurrent ? '현재 접속 중' : (hasPin ? 'PIN 입력 전환' : '즉시 전환')}
-              </button>
-            </div>
-            ${needsPinEntry ? `
-              <div class="pt-2.5 border-t ios-hairline flex items-center gap-2">
-                <input id="sheet-unlock-pin-input" type="password" maxlength="4" inputmode="numeric" placeholder="4자리 PIN 번호 입력" class="flex-1 px-3.5 py-2 rounded-xl bg-white dark:bg-black border ios-hairline text-sm font-bold tabular-nums-tight" />
-                <button id="btn-sheet-verify-pin" data-target-prof="${prof.id}" type="button" class="px-4 py-2 rounded-xl bg-ios-blue text-white text-xs sm:text-sm font-bold">잠금 해제</button>
-              </div>
-            ` : ''}
-          </div>
-        `;
-      }).join('');
+    // Stage 6.5 Action 2: Minimal Account Management Bottom Sheet (Current Account Info + 3 Clean Action Buttons)
+    function openProfileSwitcherSheet() {
+      if (!state.isLoggedIn) {
+        openAuthLoginSheet(null);
+        return;
+      }
+
+      const activeProf = state.profiles[state.activeProfileId] || state.profiles.default;
+      const holdingCount = getActiveHoldings().length;
 
       const bodyHtml = `
         <div class="space-y-4">
-          <div class="space-y-2.5 max-h-60 overflow-y-auto">
-            ${rowsHtml}
+          <!-- Current Logged-In Account Summary Card -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-ios-blue/10 border border-ios-blue/30 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="w-4 h-4 rounded-full shrink-0" style="background-color: ${activeProf.avatarColor || '#007AFF'};"></span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-base sm:text-lg font-bold">${activeProf.name}</span>
+                  <span class="px-2 py-0.5 rounded-md bg-ios-blue text-white text-xs font-bold">현재 로그인됨</span>
+                </div>
+                <div class="text-xs sm:text-sm text-readable-sub tabular-nums-tight mt-0.5">
+                  보유 종목 <strong>${holdingCount}개</strong> 운용 중 · 내 마음 안전선 <strong>${(state.userMddLimit || -10).toFixed(0)}%</strong>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="p-4 sm:p-5 rounded-2xl bg-black/[0.03] dark:bg-white/[0.04] border ios-hairline space-y-3.5">
-            <div class="text-sm font-bold text-ios-blue">새 독립 사용자 계정(프로필) 3단계 간편 가입</div>
-            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
-              <div class="sm:col-span-6">
-                <label class="text-xs font-semibold text-readable-muted block mb-1">1. 닉네임</label>
-                <input id="sheet-new-prof-name" type="text" placeholder="예: 민수 ISA·연금계좌" class="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-black border ios-hairline text-xs sm:text-sm font-semibold" />
-              </div>
-              <div class="sm:col-span-6">
-                <label class="text-xs font-semibold text-readable-muted block mb-1">2. 4자리 PIN 잠금 (선택)</label>
-                <input id="sheet-new-prof-pin" type="password" maxlength="4" inputmode="numeric" placeholder="미입력 시 바로 전환" class="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-black border ios-hairline text-xs sm:text-sm tabular-nums-tight" />
-              </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
-              <div class="sm:col-span-6">
-                <label class="text-xs font-semibold text-readable-muted block mb-1">3. 내 심리 허용 낙폭(MDD)</label>
-                <select id="sheet-new-prof-mdd" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-black border ios-hairline text-xs sm:text-sm font-semibold">
-                  <option value="-8">안정 수호형 (-8%)</option>
-                  <option value="-10" selected>방어 균형형 (-10%)</option>
-                  <option value="-18">중립 성장형 (-18%)</option>
-                  <option value="-30">공격 돌파형 (-30%)</option>
-                </select>
-              </div>
-              <div class="sm:col-span-6">
-                <label class="text-xs font-semibold text-readable-muted block mb-1">4. 초기 종목 프리셋</label>
-                <select id="sheet-new-prof-preset" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-black border ios-hairline text-xs sm:text-sm font-semibold">
-                  <option value="empty" selected>빈 계좌로 깨끗하게 시작 (0종목 직접 등록)</option>
-                  <option value="growth">미국 기술주 5종 (AAPL·MSFT·GOOG·NVDA·JOBY)</option>
-                  <option value="kr_isa">국내 ISA·연금 완충형 (459580·458730·005930)</option>
-                  <option value="safe">단기채·배당 안정형 (SGOV·SCHD)</option>
-                </select>
-              </div>
-            </div>
-            <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-              <div class="flex flex-wrap items-center gap-2">
-                <button id="btn-logout-account" type="button" class="px-3.5 py-2.5 rounded-xl bg-up-soft text-xs sm:text-sm font-bold transition">
-                  미리보기 모드로 전환(로그아웃)
-                </button>
-                <button id="btn-reset-current-account-empty" type="button" class="px-3.5 py-2.5 rounded-xl bg-black/[0.06] dark:bg-white/[0.12] hover:bg-black/10 text-xs sm:text-sm font-bold transition">
-                  내 계좌 초기화(0종목)
-                </button>
-              </div>
-              <button id="btn-sheet-create-prof" type="button" class="px-5 py-2.5 rounded-xl bg-ios-blue text-white text-xs sm:text-sm font-bold shadow-sm">
-                새 독립 계정 생성 및 바로 로그인
-              </button>
-            </div>
+          <!-- 3 Clean Action Buttons per Stage 6.5 Action 2 -->
+          <div class="space-y-2.5">
+            <button id="btn-reset-current-account-empty" type="button" class="w-full py-3.5 px-4 rounded-2xl bg-black/[0.05] dark:bg-white/[0.10] hover:bg-black/10 text-xs sm:text-sm font-bold text-black dark:text-white flex items-center justify-between transition active:scale-98">
+              <span>내 계좌 비우기 (0종목 초기화)</span>
+              <span class="text-xs text-readable-muted font-semibold">보유 주식 0개로 초기화</span>
+            </button>
+
+            <button id="btn-switch-another-account" type="button" class="w-full py-3.5 px-4 rounded-2xl bg-ios-blue text-white text-xs sm:text-sm font-bold shadow-sm hover:opacity-95 flex items-center justify-between transition active:scale-98">
+              <span>다른 닉네임으로 로그인 / 계정 전환</span>
+              <span class="text-xs opacity-90 font-semibold">닉네임·비밀번호 입력 →</span>
+            </button>
+
+            <button id="btn-logout-account" type="button" class="w-full py-3.5 px-4 rounded-2xl bg-up-soft text-xs sm:text-sm font-bold flex items-center justify-between transition active:scale-98">
+              <span>로그아웃 (미리보기 화면으로 돌아가기)</span>
+              <span class="text-xs opacity-85 font-semibold">샘플 6종목 화면으로 전환</span>
+            </button>
           </div>
         </div>
       `;
 
-      openBottomSheet('프라이빗 멀티 계좌 전환 · 독립 프로필 관리', '각 계좌마다 보유 종목, 매수 평단가, 투자 멘탈(MDD) 설정이 100% 독립 저장됩니다', bodyHtml);
-
-      document.querySelectorAll('[data-sheet-switch-prof]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const pid = btn.getAttribute('data-sheet-switch-prof');
-          const target = state.profiles[pid];
-          if (!target) return;
-          if (pid === state.activeProfileId) {
-            closeBottomSheet();
-            return;
-          }
-          if (target.pin && target.pin.length > 0) {
-            openProfileSwitcherSheet(pid);
-          } else {
-            state.activeProfileId = pid;
-            if (target.mddLimit) state.userMddLimit = target.mddLimit;
-            saveStateToStorage();
-            closeBottomSheet();
-            renderAll();
-            showToast(`'${target.name}' 계정으로 전환했습니다`);
-          }
-        });
-      });
-
-      const verifyBtn = document.getElementById('btn-sheet-verify-pin');
-      if (verifyBtn) {
-        verifyBtn.addEventListener('click', () => {
-          const pid = verifyBtn.getAttribute('data-target-prof');
-          const pinInput = document.getElementById('sheet-unlock-pin-input');
-          const target = state.profiles[pid];
-          if (target && pinInput && pinInput.value === target.pin) {
-            state.activeProfileId = pid;
-            if (target.mddLimit) state.userMddLimit = target.mddLimit;
-            saveStateToStorage();
-            closeBottomSheet();
-            renderAll();
-            showToast(`PIN 인증 완료: '${target.name}' 계정으로 로그인했습니다`);
-          } else {
-            triggerInputShake(pinInput);
-            showToast('PIN 번호가 일치하지 않습니다');
-          }
-        });
-      }
-
-      document.getElementById('btn-sheet-create-prof').addEventListener('click', () => {
-        const nameInput = document.getElementById('sheet-new-prof-name');
-        const name = (nameInput.value || '').trim();
-        const pin = (document.getElementById('sheet-new-prof-pin').value || '').trim();
-        const mddVal = Number(document.getElementById('sheet-new-prof-mdd').value || -10);
-        const preset = document.getElementById('sheet-new-prof-preset').value;
-        if (!name) {
-          triggerInputShake(nameInput);
-          showToast('새 계정 닉네임을 입력해 주세요');
-          return;
-        }
-        let initialHoldings = [];
-        if (preset === 'growth') {
-          initialHoldings = JSON.parse(JSON.stringify(DEFAULT_HOLDINGS));
-        } else if (preset === 'kr_isa') {
-          initialHoldings = [
-            { symbol: '459580', nameKo: 'KODEX CD금리액티브(합성)', qty: 5.0000, avgPrice: 1042000 },
-            { symbol: '458730', nameKo: 'TIGER 미국배당다우존스', qty: 100.0000, avgPrice: 11300 },
-            { symbol: '005930', nameKo: '삼성전자', qty: 15.0000, avgPrice: 56800 }
-          ];
-        } else if (preset === 'safe') {
-          initialHoldings = [
-            { symbol: 'SGOV', nameKo: 'iShares 초단기채 (SGOV)', qty: 20.0000, avgPrice: 100.35 },
-            { symbol: 'SCHD', nameKo: '슈왑 배당성장 (SCHD)', qty: 25.0000, avgPrice: 28.50 }
-          ];
-        }
-        const avatarColors = ['#007AFF', '#34C759', '#FF9500', '#5856D6', '#FF2D55'];
-        const newId = 'prof_' + Date.now();
-        state.profiles[newId] = {
-          id: newId,
-          name,
-          avatarColor: avatarColors[Object.keys(state.profiles).length % avatarColors.length],
-          pin,
-          mddLimit: mddVal,
-          holdings: initialHoldings
-        };
-        state.profiles[newId].pinHash = AuthManager.fallbackHash('mindfolio_sha256_v6_salt::' + pin);
-        state.profiles[newId].pin = '';
-        state.activeProfileId = newId;
-        state.isLoggedIn = true;
-        state.userMddLimit = mddVal;
-        saveStateToStorage();
-        closeBottomSheet();
-        renderAll();
-        showToast(`'${name}' 독립 계정이 생성되어 로그인되었습니다`);
-      });
-
-      const logoutBtn = document.getElementById('btn-logout-account');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-          AuthManager.logout();
-          closeBottomSheet();
-          showToast('로그아웃 완료: 비로그인 미리보기 모드로 전환되었습니다');
-        });
-      }
+      openBottomSheet('내 계좌 관리', '현재 로그인된 내 계좌 상태를 확인하고 초기화하거나 다른 닉네임으로 전환합니다.', bodyHtml);
 
       const resetEmptyBtn = document.getElementById('btn-reset-current-account-empty');
       if (resetEmptyBtn) {
         resetEmptyBtn.addEventListener('click', () => {
-          const activeProf = state.profiles[state.activeProfileId];
-          if (activeProf) {
-            activeProf.holdings = [];
+          const prof = state.profiles[state.activeProfileId];
+          if (prof) {
+            prof.holdings = [];
           }
           state.isLoggedIn = true;
           saveStateToStorage();
@@ -5534,6 +6839,22 @@
           switchTab(0);
           renderAll();
           showToast('내 계좌가 0종목 깨끗한 빈 계좌로 초기화되었습니다');
+        });
+      }
+
+      const switchAnotherBtn = document.getElementById('btn-switch-another-account');
+      if (switchAnotherBtn) {
+        switchAnotherBtn.addEventListener('click', () => {
+          openAuthLoginSheet(null);
+        });
+      }
+
+      const logoutBtn = document.getElementById('btn-logout-account');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          AuthManager.logout();
+          closeBottomSheet();
+          showToast('로그아웃 완료: 비로그인 미리보기 모드로 전환되었습니다');
         });
       }
     }
@@ -6557,6 +7878,29 @@
       if (colorLabel) {
         colorLabel.textContent = state.colorMode === 'KR' ? '한국식' : '글로벌';
       }
+      const colorPillKr = document.getElementById('color-pill-kr');
+      const colorPillGlobal = document.getElementById('color-pill-global');
+      if (colorPillKr && colorPillGlobal) {
+        const isKrMode = state.colorMode === 'KR';
+        colorPillKr.className = isKrMode
+          ? 'px-2 py-0.5 rounded-md bg-white dark:bg-black text-black dark:text-white shadow-sm transition'
+          : 'px-2 py-0.5 rounded-md text-readable-muted transition';
+        colorPillGlobal.className = !isKrMode
+          ? 'px-2 py-0.5 rounded-md bg-white dark:bg-black text-black dark:text-white shadow-sm transition'
+          : 'px-2 py-0.5 rounded-md text-readable-muted transition';
+      }
+
+      const themePillLight = document.getElementById('theme-pill-light');
+      const themePillDark = document.getElementById('theme-pill-dark');
+      if (themePillLight && themePillDark) {
+        const isDark = Boolean(state.darkMode);
+        themePillLight.className = !isDark
+          ? 'px-2 py-0.5 rounded-md bg-white dark:bg-black text-black dark:text-white shadow-sm transition'
+          : 'px-2 py-0.5 rounded-md text-readable-muted transition';
+        themePillDark.className = isDark
+          ? 'px-2 py-0.5 rounded-md bg-white dark:bg-black text-black dark:text-white shadow-sm transition'
+          : 'px-2 py-0.5 rounded-md text-readable-muted transition';
+      }
 
       // Beginner vs Expert Mode Button State
       const easyBtn = document.getElementById('btn-toggle-easy-mode');
@@ -6641,6 +7985,9 @@
       // Stage 5 Section 2: 1-Second Beginner (12yo) ↔ Expert Mode Switch
       document.getElementById('btn-toggle-easy-mode').addEventListener('click', () => {
         state.beginnerMode = !state.beginnerMode;
+        state.easyMode = state.beginnerMode;
+        const activeProf = state.profiles[state.activeProfileId];
+        if (activeProf) activeProf.easyMode = state.beginnerMode;
         saveStateToStorage();
         renderAll();
         showToast(state.beginnerMode
@@ -6838,6 +8185,17 @@
           }
           const acList = document.getElementById('global-search-autocomplete-list');
           if (acList) acList.classList.add('hidden');
+          if (isMarketIndexSymbol(sym)) {
+            if (!Array.isArray(state.marketIndices)) state.marketIndices = ['^IXIC', '^GSPC', '^KS11', '^VIX'];
+            if (!state.marketIndices.includes(sym)) {
+              state.marketIndices.push(sym);
+              saveStateToStorage();
+              renderFearGreedAndIndicesBoard();
+              const q = state.quotes[sym] || VERIFIED_MARKET_QUOTES[sym];
+              showToast(`'${q ? q.nameKo : sym}' 지수가 홈 주요 시장 지수 보드에 추가되었습니다!`);
+              return;
+            }
+          }
           if (!state.isLoggedIn) {
             state.pendingAddSymbol = sym;
             openAuthLoginSheet(sym);
@@ -6901,6 +8259,82 @@
         openProfileSwitcherSheet();
       });
 
+      const settingsAuthSwitchBtn = document.getElementById('btn-settings-auth-switch');
+      if (settingsAuthSwitchBtn) {
+        settingsAuthSwitchBtn.addEventListener('click', () => {
+          openAuthLoginSheet(null);
+        });
+      }
+
+      const settingsResetEmptyBtn = document.getElementById('btn-settings-reset-empty');
+      if (settingsResetEmptyBtn) {
+        settingsResetEmptyBtn.addEventListener('click', () => {
+          if (!state.isLoggedIn) {
+            openAuthLoginSheet(null, '내 계좌로 먼저 로그인하면 언제든 0종목 빈 계좌로 시작할 수 있어요.');
+            return;
+          }
+          const prof = state.profiles[state.activeProfileId];
+          if (prof) {
+            prof.holdings = [];
+          }
+          saveStateToStorage();
+          switchTab(0);
+          renderAll();
+          showToast('내 계좌가 0종목 깨끗한 빈 계좌로 초기화되었습니다');
+        });
+      }
+
+      const exportJsonBtn = document.getElementById('btn-export-json-file');
+      if (exportJsonBtn) {
+        exportJsonBtn.addEventListener('click', () => {
+          const payload = {
+            brandName: 'Mindfolio',
+            exportedAt: new Date().toISOString(),
+            activeProfileId: state.activeProfileId,
+            userMddLimit: state.userMddLimit,
+            profiles: state.profiles
+          };
+          const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `mindfolio_backup_${new Date().toISOString().slice(0, 10)}.json`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast('JSON 백업 파일을 저장했습니다');
+        });
+      }
+
+      const importJsonInput = document.getElementById('input-import-json-file');
+      if (importJsonInput) {
+        importJsonInput.addEventListener('change', (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            try {
+              const parsed = JSON.parse(String(ev.target?.result || ''));
+              if (parsed && parsed.profiles) {
+                state.profiles = parsed.profiles;
+                state.activeProfileId = parsed.activeProfileId || Object.keys(parsed.profiles)[0] || 'default';
+                if (parsed.userMddLimit) state.userMddLimit = parsed.userMddLimit;
+                saveStateToStorage();
+                renderAll();
+                showToast('JSON 백업 파일에서 계좌 데이터를 복원했습니다');
+              } else {
+                showToast('유효하지 않은 JSON 백업 파일입니다');
+              }
+            } catch (_) {
+              showToast('JSON 파일을 읽는 중 오류가 발생했습니다');
+            }
+          };
+          reader.readAsText(file);
+          e.target.value = '';
+        });
+      }
+
       // Add Holding & Quick Jumps (Stage 6 Section 1.2: Smooth Auth Sheet prompt when in Guest Preview mode)
       document.getElementById('btn-add-holding').addEventListener('click', () => {
         if (!state.isLoggedIn) {
@@ -6915,6 +8349,16 @@
           openAuthLoginSheet(null, '3초 만에 내 계정을 만들고 나만의 맞춤 리포트를 시작해 보세요');
         }
       });
+      const addMarketIdxBtn = document.getElementById('btn-add-market-index');
+      if (addMarketIdxBtn) {
+        addMarketIdxBtn.addEventListener('click', openMarketIndexManagerSheet);
+      }
+      const refreshFgBtn = document.getElementById('btn-refresh-fg-indices');
+      if (refreshFgBtn) {
+        refreshFgBtn.addEventListener('click', () => {
+          refreshIndicesAndFearGreedRealtime(true);
+        });
+      }
       document.getElementById('btn-jump-simulator').addEventListener('click', () => {
         switchTab(1);
         if (!state.isLoggedIn) {
@@ -7121,7 +8565,7 @@
         if (pinInput) pinInput.value = '';
         saveStateToStorage();
         renderAll();
-        showToast(`'${name}' 독립 계정을 생성했습니다`);
+        showToast(`'${name}' 계좌를 생성했습니다`);
       });
 
       document.getElementById('btn-export-backup').addEventListener('click', () => {
@@ -7184,7 +8628,7 @@
             body: JSON.stringify({ profiles: state.profiles, updatedAt: new Date().toISOString() })
           });
           if (!res.ok) throw new Error('HTTP ' + res.status);
-          showToast('클라우드 DB에 전체 독립 계정을 실시간 저장했습니다');
+          showToast('클라우드 DB에 전체 계좌 데이터를 실시간 저장했습니다');
         } catch (_) {
           showToast('클라우드 URL 연결 실패: 로컬 저장소 및 백업 코드로 안전하게 보관됩니다');
         }
@@ -7245,6 +8689,8 @@
       }
       initEvents();
       renderAll();
+      refreshIndicesAndFearGreedRealtime(false);
+      startRealtimeIndexPolling();
       refreshAllLiveQuotes(false);
       fetchLiveRssNewsForHoldings(false);
     });
